@@ -16,6 +16,7 @@ const fs = require("fs");
 const fileUtils = require("./file-utils");
 const request = require("request");
 const puppeteer = require("puppeteer");
+const chalk = require("chalk");
 
 // GitHub-served raw JSON file URLs from gh-pages branch
 const overallURL =
@@ -357,14 +358,16 @@ function processDetailed() {
               detailedObj[loc][sub]["sample"] != obj[loc][sub]["sample"] ||
               detailedObj[loc][sub]["count"] != obj[loc][sub]["count"]
             ) {
+              const scoreColor = obj[loc][sub]["score"] > detailedObj[loc][sub]["score"] ? chalk.red: chalk.green;
+              const sampleColor = obj[loc][sub]["sample"] > detailedObj[loc][sub]["sample"] ? chalk.red: chalk.green;
+              const countColor = obj[loc][sub]["count"] != detailedObj[loc][sub]["count"] ? chalk.red: chalk.white;
+
               console.log(
-                `${loc}, ${sub}\n  Score: ${obj[loc][sub]["score"]} -> ${
-                  detailedObj[loc][sub]["score"]
-                }\n  Sample Size: ${obj[loc][sub]["sample"]} -> ${
-                  detailedObj[loc][sub]["sample"]
-                }\n  Mouse Count: ${obj[loc][sub]["count"]} -> ${
-                  detailedObj[loc][sub]["count"]
-                }\n`
+                `${loc}, ${sub}` +
+                  `\n  Score: ${scoreColor(`${obj[loc][sub]["score"]} -> ${detailedObj[loc][sub]["score"]}`)}` +
+                  `\n  Sample Size: ${sampleColor(`${obj[loc][sub]["sample"]} -> ${detailedObj[loc][sub]["sample"]}`)}` +
+                  `\n  Mouse Count: ${countColor(`${obj[loc][sub]["count"]} -> ${detailedObj[loc][sub]["count"]}`)}` +
+                `\n`
               );
             }
           }
