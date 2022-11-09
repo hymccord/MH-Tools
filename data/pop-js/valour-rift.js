@@ -13,7 +13,14 @@ module.exports = {
         "Magical String",
         "Brie String",
         "Swiss String"
-      ])
+      ]),
+      config: [
+        {
+          opts: {
+            exclude: [ "Glitchpaw" ]
+          }
+        }
+      ]
     },
     {
       phase: utils.genVarField("stage", "Floors 1-7"),

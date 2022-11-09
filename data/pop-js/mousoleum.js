@@ -20,13 +20,11 @@ module.exports = {
       config: [
         {
           opts: {
-            exclude: [
-              "Bat",
-              "Vampire",
-              "Mummy",
-              "Ghost",
-              "Giant Snail",
-              "Monster"
+            include: [
+              "Coffin Zombie",
+              "Gluttonous Zombie",
+              "Ravenous Zombie",
+              "Zombie"
             ]
           }
         }
@@ -38,13 +36,13 @@ module.exports = {
       config: [
         {
           opts: {
-            exclude: [
-              "Bat",
-              "Vampire",
-              "Mummy",
-              "Ghost",
-              "Giant Snail",
-              "Monster"
+            include: [
+              "Coffin Zombie",
+              "Gluttonous Zombie",
+              "Grave Robber",
+              "Ravenous Zombie",
+              "Zombie",
+              "Zombot Unipire"
             ]
           }
         }
@@ -56,14 +54,9 @@ module.exports = {
       config: [
         {
           opts: {
-            exclude: [
-              "Bat",
-              "Vampire",
-              "Mummy",
-              "Ghost",
-              "Giant Snail",
-              "Monster",
-              "Mousevina von Vermin"
+            include: [
+              "Coffin Zombie",
+              "Gluttonous Zombie"
             ]
           }
         }
@@ -71,7 +64,21 @@ module.exports = {
     },
     {
       cheese: utils.genVarField("cheese", vampCheeses),
-      stage: utils.genVarField("stage", "Has Wall")
+      stage: utils.genVarField("stage", "Has Wall"),
+      config: [
+        {
+          opts: {
+            include: [
+              "Bat",
+              "Ghost",
+              "Lycan",
+              "Mousevina von Vermin",
+              "Mummy",
+              "Vampire"
+            ]
+          }
+        }
+      ]
     },
     {
       cheese: utils.genVarField("cheese", rbCheeses),
@@ -79,14 +86,35 @@ module.exports = {
       config: [
         {
           opts: {
-            exclude: ["Glitchpaw", "Zombie"]
+            include: [
+              "Bat",
+              "Black Widow",
+              "Ghost",
+              "Giant Snail",
+              "Monster",
+              "Mummy",
+              "Vampire"
+            ]
           }
         }
       ]
     },
     {
       cheese: utils.genVarField("cheese", emCheeses),
-      stage: utils.genVarField("stage", "Has Wall")
+      stage: utils.genVarField("stage", "Has Wall"),
+      config: [
+        {
+          opts: {
+            include: [
+              "Ghost",
+              "Grave Robber",
+              "Mummy",
+              "Vampire",
+              "Zombot Unipire"
+            ]
+          }
+        }
+      ]
     }
   ]
 };

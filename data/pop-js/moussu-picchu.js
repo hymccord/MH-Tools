@@ -26,7 +26,8 @@ module.exports = {
       config: [
         {
           opts: {
-            exclude: ["Glitchpaw"]
+            attraction: 0.01,
+            exclude: [ "Glitchpaw" ]
           }
         }
       ]

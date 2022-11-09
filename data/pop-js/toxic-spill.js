@@ -14,7 +14,14 @@ var stages = [
 
 module.exports = {
   default: {
-    location: utils.genVarField("location", "Toxic Spill")
+    location: utils.genVarField("location", "Toxic Spill"),
+    config: [
+      {
+        opts: {
+          exclude: ["Glitchpaw"]
+        }
+      }
+    ]
   },
   series: [
     {
@@ -27,13 +34,6 @@ module.exports = {
         }
       ],
       phases: utils.genVarField("stage", stages),
-      config: [
-        {
-          opts: {
-            exclude: ["Lab Technician", "Hazmat"]
-          }
-        }
-      ]
     },
     {
       cheese: utils.genVarField("cheese", cheeses),
@@ -41,18 +41,11 @@ module.exports = {
         {
           vars: { charm: { Rotten: true } },
           fields: {
-            charm: "Rotten"
+            charm: "Rotten",
           }
         }
       ],
       phases: utils.genVarField("stage", stages),
-      config: [
-        {
-          opts: {
-            exclude: ["Hazmat"]
-          }
-        }
-      ]
     },
     {
       cheese: utils.genVarField("cheese", cheeses),
