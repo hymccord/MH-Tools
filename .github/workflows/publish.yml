@@ -3,7 +3,7 @@ name: GitHub Pages
 on:
   push:
     branches:
-      - master
+      - main
   pull_request_target:
   workflow_dispatch:
   workflow_call:
@@ -13,7 +13,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  build-and-upload:
+  build:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -30,7 +30,7 @@ jobs:
       if: ${{ github.event_name != 'pull_request_target' }}
       uses: actions/checkout@v3
       with:
-        ref: master
+        ref: main
     
     - name: Setup Pages
       uses: actions/configure-pages@v1
