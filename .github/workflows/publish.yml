@@ -56,6 +56,10 @@ jobs:
         path: './out' 
    
   deploy:
+    # deploy-pages with preview is in alpha. Can only be used by internal github teams for now.
+    # if released, remove the job 'if' statement
+    # See: https://github.com/actions/deploy-pages/pull/61
+    if: ${{ github.event_name != 'pull_request_target' }}
     runs-on: ubuntu-latest
     needs: build
     environment:
@@ -71,4 +75,4 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v1
         with:
-          preview: ${{ github.event_name == 'pull_request_target' }}
+         preview: ${{ github.event_name == 'pull_request_target' }}
