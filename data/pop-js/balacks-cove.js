@@ -14,7 +14,7 @@ module.exports = {
       config: [
         {
           opts: {
-            include: [
+            exclude: [
               "Balack the Banished",
               "Brimstone",
               "Davy Jones",
@@ -34,7 +34,7 @@ module.exports = {
       config: [
         {
           opts: {
-            include: [
+            exclude: [
               "Balack the Banished",
               "Brimstone",
               "Davy Jones",
@@ -55,7 +55,7 @@ module.exports = {
       config: [
         {
           opts: {
-            include: ["Riptide"]
+            exclude: ["Riptide"]
           }
         }
       ]

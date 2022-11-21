@@ -24,11 +24,17 @@ module.exports = {
         {
           opts: {
             exclude: [
-              "Student of the Chi Belt",
-              "Student of the Chi Claw",
-              "Student of the Chi Fang",
-              "Dancing Assassin",
-              "Glitchpaw"
+              "Armored Archer",
+              "Brawny",
+              "Dumpling Delivery",
+              "Enlightened Labourer",
+              "Militant Samurai",
+              "Raw Diamond",
+              "Rift Guardian",
+              "Shaolin Kung Fu",
+              "Shinobi",
+              "Wandering Monk",
+              "Wealth",
             ]
           }
         }
@@ -68,7 +74,31 @@ module.exports = {
         "Rift Rumble",
         "Null Onyx Gorgonzola",
         "Ascended"
-      ])
+      ]),
+      opts: [
+        {
+          opts: {
+            exclude: [
+              "Dancing Assassin",
+              "Militant Samurai",
+              "Raw Diamond",
+              "Shaolin Kung Fu",
+              "Shinobi",
+              "Student of the Chi Belt",
+              "Student of the Chi Claw",
+              "Student of the Chi Fang",
+              "Wandering Monk",
+              "Wealth",
+              "Master of the Chi Belt",
+              "Master of the Chi Claw",
+              "Master of the Chi Fang",
+              "Grand Master of the Dojo",
+              "Supreme Sensei",
+              "Ascended Elder",
+            ]
+          }
+        }
+      ]
     }
   ]
 };

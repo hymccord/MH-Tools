@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 const jt = require("jacksmhtools-client");
+const _ = require("lodash");
 const utils = require("./_utils");
 
 if (process.argv.length < 3) {
@@ -21,13 +22,20 @@ Promise
   .resolve(setup)
   .then(function (setup) {
     if (!setup.process) {
+      // setup.process = async function (item) {
       setup.process = function (item) {
         console.error("requesting", JSON.stringify(item.vars));
+        // _.defaultsDeep(item, _.cloneDeep({ opts: { attraction: 0.0009 } }));
+
+        // var r1 = await jt.getPopulation(item.vars, item.opts);
+        // r1 = await r1.filter(item => item.sample > 100);
+        // r1 = await r1.map(utils.preparePopulation.bind(utils, item.fields));
+        // return r1;
         return jt
           .getSAEncounterRateData(item.vars, item.opts)
-          .filter(function (item) {
-            return item.sample > 100;
-          })
+          // .filter(function (item) {
+          //   return item.sample > 100;
+          // })
           .map(utils.preparePopulation.bind(utils, item.fields));
       }
     }

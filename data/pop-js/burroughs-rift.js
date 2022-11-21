@@ -25,7 +25,7 @@ module.exports = {
       config: [
         {
           opts: {
-            include: [
+            exclude: [
               "Amplified Brown",
               "Amplified Grey",
               "Amplified White",
@@ -47,7 +47,7 @@ module.exports = {
       config: [
         {
           opts: {
-            include: [
+            exclude: [
               "Count Vampire",
               "Phase Zombie",
               "Prototype",
@@ -64,7 +64,7 @@ module.exports = {
       config: [
         {
           opts: {
-            include: [
+            exclude: [
               "Clump",
               "Cyber Miner",
               "Itty Bitty Rifty Burroughs",
@@ -81,7 +81,7 @@ module.exports = {
       config: [
         {
           opts: {
-            include: [
+            exclude: [
               "Mecha Tail",
               "Radioactive Ooze",
               "Toxikinetic"
@@ -96,7 +96,7 @@ module.exports = {
       config: [
         {
           opts: {
-            include: [
+            exclude: [
               "Count Vampire",
               "Lycanoid",
               "Phase Zombie",
@@ -116,7 +116,7 @@ module.exports = {
       config: [
         {
           opts: {
-            include: [
+            exclude: [
               "Boulder Biter",
               "Clump",
               "Cyber Miner",
@@ -136,7 +136,7 @@ module.exports = {
       config: [
         {
           opts: {
-            include: [
+            exclude: [
               "Mecha Tail",
               "Radioactive Ooze",
               "Rancid Bog Beast",
@@ -154,7 +154,7 @@ module.exports = {
       config: [
         {
           opts: {
-            include: ["Monstrous Abomination"]
+            exclude: ["Monstrous Abomination"]
           }
         }
       ]
@@ -165,7 +165,7 @@ module.exports = {
       config: [
         {
           opts: {
-            include: ["Big Bad Behemoth Burroughs"]
+            exclude: ["Big Bad Behemoth Burroughs"]
           }
         }
       ]
@@ -176,7 +176,7 @@ module.exports = {
       config: [
         {
           opts: {
-            include: [
+            exclude: [
               "Assassin Beast",
               "Menace of the Rift",
               "Null Gauntle",
@@ -195,6 +195,17 @@ module.exports = {
       config: [
         {
           fields: { stage: "Undead String Emmental" },
+          opts: {
+            exclude: [
+              "Count Vampire",
+              "Lycanoid",
+              "Phase Zombie",
+              "Revenant",
+              "Tech Ravenous Zombie",
+              "Tomb Exhumer",
+              "Zombot Unipire the Third",
+            ]
+          }
         }
       ]
     }

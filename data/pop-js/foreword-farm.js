@@ -12,7 +12,7 @@ module.exports = {
       stage: utils.genVarField("stage", "No Plants"),
       config: [ {
         opts: {
-          include: [
+          exclude: [
             'Grit Grifter',
             'Land Loafer',
             'Root Rummager',
@@ -26,7 +26,7 @@ module.exports = {
       stage: utils.genVarField("stage", "One Plant"),
       config: [ {
         opts: {
-          include: [
+          exclude: [
             'Angry Aphid',
             'Grit Grifter',
             'Root Rummager',
@@ -40,7 +40,7 @@ module.exports = {
       stage: utils.genVarField("stage", "Two Plants"),
       config: [ {
         opts: {
-          include: [
+          exclude: [
             'Angry Aphid',
             'Grit Grifter',
             'Wily Weevil',
@@ -54,7 +54,7 @@ module.exports = {
       stage: utils.genVarField("stage", "Three Plants"),
       config: [ {
         opts: {
-          include: [
+          exclude: [
             'Angry Aphid',
             'Mighty Mite',
             'Wily Weevil',
@@ -68,7 +68,7 @@ module.exports = {
       stage: utils.genVarField("stage", "Three Papyrus"),
       config: [ {
         opts: {
-          include: [
+          exclude: [
             'Angry Aphid',
             'Mighty Mite',
             'Wily Weevil',
@@ -83,7 +83,7 @@ module.exports = {
       stage: utils.genVarField("stage", "Boss"),
       config: [ {
         opts: {
-          include: [
+          exclude: [
             'Monstrous Midge'
           ]
         }

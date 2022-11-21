@@ -11,7 +11,14 @@ const cheeses = [
 module.exports = {
   default: {
     location: utils.genVarField("location", "Forbidden Grove"),
-    cheese: utils.genVarField("cheese", cheeses)
+    cheese: utils.genVarField("cheese", cheeses),
+    config: [
+      {
+        opts: {
+          attraction: 0.0005
+        }
+      }
+    ]
   },
   series: [
     {

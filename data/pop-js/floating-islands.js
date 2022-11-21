@@ -38,7 +38,7 @@ Whenever a palace run gets 3x of a the same modifier it gets put into a specific
 
 Special stage cases
 Loot cache are handled slightly different, both for low, high, and palace runs but only with CC and ERCC equipped
-"<stage> - Loot x<mod_count>" (mod count up to 2x for low/high and up to 4x for palace)
+"<stage> - Loot x<mod_count>" (mod count 2x for low/high and up to 4x for palace)
 Pirates are the final special case. Equipping Sky Pirate Swiss will change the stage.
 "No Pirates"
 "<Island|Vault> Pirates x<mod_count>" Choose Island (even for high alt) or Vault, then up to 2x for low/high and up to 4x for palace
@@ -175,7 +175,7 @@ var config = {
       config: [
         {
           opts: {
-            include: launch_pad
+            exclude: launch_pad
           }
         }
       ]
@@ -194,8 +194,8 @@ var config = {
       config: [
         {
           opts: {
-            include: sky_pirates,
-            attraction: 0.005 // For a few pirates slipping out of their associated stage
+            exclude: sky_pirates,
+            //attraction: 0.005 // For a few pirates slipping out of their associated stage
           },
         },
       ],
@@ -206,62 +206,30 @@ var config = {
       config: [
         {
           opts: {
-            include: [ "Empyrean Empress" ]
+            exclude: [ "Empyrean Empress" ]
           }
         }
       ]
-    }
+    },
+    {
+      cheese: utils.genVarField("cheese", allCheese),
+      stage: utils.genVarField("stage", "Warden"),
+      config: [
+        {
+          opts: {
+            exclude: [
+              "Warden of Rain",
+              "Warden of Fog",
+              "Warden of Frost",
+              "Warden of Wind"
+            ]
+          }
+        }
+      ]
+    },
   ],
   postProcess: function(data) {
     const masterArr = data; // TODO: Temporary until generic processing implemented
-
-    // Add fixed populations (Wardens + Paragons)
-    const skyWardens = [
-      "Warden of Rain",
-      "Warden of Fog",
-      "Warden of Frost",
-      "Warden of Wind"
-    ];
-    skyWardens.forEach(mouse => {
-      masterArr.push({
-        stage: "Sky Wardens",
-        location: "Floating Islands",
-        cheese: "SB+",
-        mouse: mouse,
-        attraction: "25.00%",
-        sample: 4
-      });
-    });
-
-    const skyParagons = [
-      "Paragon of Strength",
-      "Paragon of Shadow",
-      "Paragon of Tactics",
-      "Paragon of Arcane",
-      "Paragon of Forgotten",
-      "Paragon of Water",
-      "Paragon of Dragons",
-      "Paragon of the Lawless"
-    ];
-    skyParagons.forEach(mouse => {
-      masterArr.push({
-        stage: "Sky Paragons",
-        location: "Floating Islands",
-        cheese: "SB+",
-        mouse: mouse,
-        attraction: "12.50%",
-        sample: 8
-      });
-    });
-
-    masterArr.push({
-      stage: "Empress",
-      location: "Floating Islands",
-      cheese: "SB+",
-      mouse: "Empyrean Empress",
-      attraction: "100.00%",
-      sample: 1
-    });
 
     return masterArr;
   }
@@ -289,17 +257,26 @@ function generatePalaceStages(stage) {
  */
 function generateLootCacheStages(islandStages) {
   var stages = []
-  for (stage of [islandStages.Low, islandStages.High]) {
-    for (let i = 1; i <= 2; i++) {
-      stages.push(`${stage} - Loot x${i}`)
-    }
+  for (let stage of [islandStages.Low, islandStages.High]) {
+    stages.push(`${stage} - Loot x2`)
   }
 
-  for (let i = 1; i <= 4; i++) {
+  for (let i = 2; i <= 4; i++) {
     stages.push(`${islandStages.Palace} - Loot x${i}`)
   }
   return stages;
 }
+
+const paras = {
+      Strength: "Paragon of Strength",
+      Shadow: "Paragon of Shadow",
+      Tactical: "Paragon of Tactics",
+      Arcane: "Paragon of Arcane",
+      Forgotten: "Paragon of Forgotten",
+      Hydro: "Paragon of Water",
+      Dragonic: "Paragon of Dragons",
+      Law: "Paragon of the Lawless"
+};
 
 function generateConfig() {
   
@@ -309,14 +286,14 @@ function generateConfig() {
     var stages = [value.Stages.Low, value.Stages.High, ...generatePalaceStages(value.Stages.Palace)];
     for (cheese of allCheese) {
       const seriesMiceInclude = cheese.match(/Cheesecake/) ? value.Cloud : [];
-      for (stage of stages) {
+      for (let stage of stages) {
         const series = {
           cheese: utils.genVarField("cheese", cheese),
           stage: utils.genVarField("stage", stage),
           config: [
             {
               opts: {
-                include: [
+                exclude: [
                   ...cloud_commoner,
                   ...value.Common,
                   ...seriesMiceInclude,
@@ -328,6 +305,20 @@ function generateConfig() {
         }
         config.series.push(series);
       }
+
+      config.series.push({
+        cheese: utils.genVarField("cheese", cheese),
+        stage: utils.genVarField("stage", `${value.Stages.High} Paragon`),
+        config: [
+          {
+            opts: {
+              exclude: [
+                `${paras[powerType]}`
+              ]
+            }
+          }
+        ]
+      })
     }
 
     // Loot Cache stages
@@ -338,13 +329,13 @@ function generateConfig() {
       config: [
         {
           opts: {
-            include: [
+            exclude: [
               ...cloud_commoner,
               ...value.Common,
               ...value.Cloud,
               ...the_richest
             ],
-            attraction: 0.05 // quick exclude for Fool in 2x zones
+            //attraction: 0.05 // quick exclude for Fool in 2x zones
           },
         },
       ],

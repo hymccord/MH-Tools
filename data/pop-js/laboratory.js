@@ -3,7 +3,17 @@ const utils = require("../_utils");
 module.exports = {
   default: {
     location: utils.genVarField("location", "Laboratory"),
-    after: utils.genVarField("after", 1539790440)
+    after: utils.genVarField("after", 1539790440),
+    config: [
+      {
+        opts: {
+          exclude: [
+            "Glitchpaw",
+            "Lucky"
+          ]
+        }
+      }
+    ]
   },
   series: [
     {

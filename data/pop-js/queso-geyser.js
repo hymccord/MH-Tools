@@ -14,7 +14,7 @@ module.exports = {
           },
           fields: { stage: "Cork Collecting", cheese: "Bland Queso" },
           opts: {
-            include: ["Fuzzy Drake"]
+            exclude: ["Fuzzy Drake"]
           }
         }
       ]
@@ -28,7 +28,7 @@ module.exports = {
           },
           fields: { stage: "Cork Collecting", cheese: "Mild Queso" },
           opts: {
-            include: ["Fuzzy Drake", "Cork Defender"]
+            exclude: ["Fuzzy Drake", "Cork Defender"]
           }
         }
       ]
@@ -42,7 +42,7 @@ module.exports = {
           },
           fields: { stage: "Cork Collecting", cheese: "Medium Queso" },
           opts: {
-            include: [
+            exclude: [
               "Fuzzy Drake",
               "Cork Defender",
               "Burly Bruiser",
@@ -61,7 +61,7 @@ module.exports = {
           },
           fields: { stage: "Cork Collecting", cheese: "Hot Queso" },
           opts: {
-            include: [
+            exclude: [
               "Fuzzy Drake",
               "Cork Defender",
               "Burly Bruiser",
@@ -81,7 +81,7 @@ module.exports = {
           },
           fields: { stage: "Cork Collecting", cheese: "Flamin' Queso" },
           opts: {
-            include: [
+            exclude: [
               "Cork Defender",
               "Burly Bruiser",
               "Corky, the Collector",
@@ -101,7 +101,7 @@ module.exports = {
           },
           fields: { stage: "Cork Collecting", cheese: "Wildfire Queso" },
           opts: {
-            include: ["Corkataur"]
+            exclude: ["Corkataur"]
           }
         }
       ]
@@ -115,7 +115,7 @@ module.exports = {
           },
           fields: { stage: "Pressure Building", cheese: "Mild Queso" },
           opts: {
-            include: ["Steam Sailor"]
+            exclude: ["Steam Sailor"]
           }
         }
       ]
@@ -129,7 +129,7 @@ module.exports = {
           },
           fields: { stage: "Pressure Building", cheese: "Medium Queso" },
           opts: {
-            include: ["Steam Sailor", "Warming Wyvern"]
+            exclude: ["Steam Sailor", "Warming Wyvern"]
           }
         }
       ]
@@ -143,7 +143,7 @@ module.exports = {
           },
           fields: { stage: "Pressure Building", cheese: "Hot Queso" },
           opts: {
-            include: ["Steam Sailor", "Warming Wyvern", "Vaporior"]
+            exclude: ["Steam Sailor", "Warming Wyvern", "Vaporior"]
           }
         }
       ]
@@ -157,7 +157,7 @@ module.exports = {
           },
           fields: { stage: "Pressure Building", cheese: "Flamin' Queso" },
           opts: {
-            include: ["Steam Sailor", "Warming Wyvern", "Vaporior", "Pyrehyde"]
+            exclude: ["Steam Sailor", "Warming Wyvern", "Vaporior", "Pyrehyde"]
           }
         }
       ]
@@ -171,7 +171,7 @@ module.exports = {
           },
           fields: { stage: "Pressure Building", cheese: "Wildfire Queso" },
           opts: {
-            include: ["Emberstone Scaled"]
+            exclude: ["Emberstone Scaled"]
           }
         }
       ]
@@ -185,7 +185,7 @@ module.exports = {
           },
           fields: { stage: "Tiny Eruption", cheese: "Mild Queso" },
           opts: {
-            include: ["Mild Spicekin"]
+            exclude: ["Mild Spicekin"]
           }
         }
       ]
@@ -199,7 +199,7 @@ module.exports = {
           },
           fields: { stage: "Tiny Eruption", cheese: "Medium Queso" },
           opts: {
-            include: ["Mild Spicekin", "Smoldersnap"]
+            exclude: ["Mild Spicekin", "Smoldersnap"]
           }
         }
       ]
@@ -213,7 +213,7 @@ module.exports = {
           },
           fields: { stage: "Tiny Eruption", cheese: "Hot Queso" },
           opts: {
-            include: ["Mild Spicekin", "Smoldersnap", "Ignatia"]
+            exclude: ["Mild Spicekin", "Smoldersnap", "Ignatia"]
           }
         }
       ]
@@ -227,7 +227,7 @@ module.exports = {
           },
           fields: { stage: "Tiny Eruption", cheese: "Flamin' Queso" },
           opts: {
-            include: [
+            exclude: [
               "Mild Spicekin",
               "Smoldersnap",
               "Ignatia",
@@ -246,7 +246,7 @@ module.exports = {
           },
           fields: { stage: "Small Eruption", cheese: "Mild Queso" },
           opts: {
-            include: ["Mild Spicekin", "Sizzle Pup"]
+            exclude: ["Mild Spicekin", "Sizzle Pup"]
           }
         }
       ]
@@ -260,7 +260,7 @@ module.exports = {
           },
           fields: { stage: "Small Eruption", cheese: "Medium Queso" },
           opts: {
-            include: ["Mild Spicekin", "Sizzle Pup", "Smoldersnap"]
+            exclude: ["Mild Spicekin", "Sizzle Pup", "Smoldersnap"]
           }
         }
       ]
@@ -274,7 +274,7 @@ module.exports = {
           },
           fields: { stage: "Small Eruption", cheese: "Hot Queso" },
           opts: {
-            include: ["Mild Spicekin", "Sizzle Pup", "Smoldersnap", "Ignatia"]
+            exclude: ["Mild Spicekin", "Sizzle Pup", "Smoldersnap", "Ignatia"]
           }
         }
       ]
@@ -288,7 +288,7 @@ module.exports = {
           },
           fields: { stage: "Small Eruption", cheese: "Flamin' Queso" },
           opts: {
-            include: [
+            exclude: [
               "Sizzle Pup",
               "Smoldersnap",
               "Ignatia",
@@ -307,7 +307,7 @@ module.exports = {
           },
           fields: { stage: "Medium Eruption", cheese: "Mild Queso" },
           opts: {
-            include: ["Mild Spicekin", "Bearded Elder"]
+            exclude: ["Mild Spicekin", "Bearded Elder"]
           }
         }
       ]
@@ -321,7 +321,7 @@ module.exports = {
           },
           fields: { stage: "Medium Eruption", cheese: "Medium Queso" },
           opts: {
-            include: ["Mild Spicekin", "Bearded Elder", "Smoldersnap"]
+            exclude: ["Mild Spicekin", "Bearded Elder", "Smoldersnap"]
           }
         }
       ]
@@ -335,7 +335,7 @@ module.exports = {
           },
           fields: { stage: "Medium Eruption", cheese: "Hot Queso" },
           opts: {
-            include: [
+            exclude: [
               "Mild Spicekin",
               "Bearded Elder",
               "Smoldersnap",
@@ -354,7 +354,7 @@ module.exports = {
           },
           fields: { stage: "Medium Eruption", cheese: "Flamin' Queso" },
           opts: {
-            include: [
+            exclude: [
               "Bearded Elder",
               "Smoldersnap",
               "Ignatia",
@@ -373,7 +373,7 @@ module.exports = {
           },
           fields: { stage: "Large Eruption", cheese: "Mild Queso" },
           opts: {
-            include: ["Mild Spicekin", "Cinderstorm"]
+            exclude: ["Mild Spicekin", "Cinderstorm"]
           }
         }
       ]
@@ -387,7 +387,7 @@ module.exports = {
           },
           fields: { stage: "Large Eruption", cheese: "Medium Queso" },
           opts: {
-            include: ["Mild Spicekin", "Cinderstorm", "Smoldersnap"]
+            exclude: ["Mild Spicekin", "Cinderstorm", "Smoldersnap"]
           }
         }
       ]
@@ -401,7 +401,7 @@ module.exports = {
           },
           fields: { stage: "Large Eruption", cheese: "Hot Queso" },
           opts: {
-            include: ["Mild Spicekin", "Cinderstorm", "Smoldersnap", "Ignatia"]
+            exclude: ["Mild Spicekin", "Cinderstorm", "Smoldersnap", "Ignatia"]
           }
         }
       ]
@@ -415,7 +415,7 @@ module.exports = {
           },
           fields: { stage: "Large Eruption", cheese: "Flamin' Queso" },
           opts: {
-            include: [
+            exclude: [
               "Cinderstorm",
               "Smoldersnap",
               "Ignatia",
@@ -434,7 +434,7 @@ module.exports = {
           },
           fields: { stage: "Epic Eruption", cheese: "Mild Queso" },
           opts: {
-            include: ["Mild Spicekin", "Stormsurge, the Vile Tempest"]
+            exclude: ["Mild Spicekin", "Stormsurge, the Vile Tempest"]
           }
         }
       ]
@@ -448,7 +448,7 @@ module.exports = {
           },
           fields: { stage: "Epic Eruption", cheese: "Medium Queso" },
           opts: {
-            include: [
+            exclude: [
               "Mild Spicekin",
               "Stormsurge, the Vile Tempest",
               "Smoldersnap"
@@ -466,7 +466,7 @@ module.exports = {
           },
           fields: { stage: "Epic Eruption", cheese: "Hot Queso" },
           opts: {
-            include: [
+            exclude: [
               "Mild Spicekin",
               "Stormsurge, the Vile Tempest",
               "Smoldersnap",
@@ -485,7 +485,7 @@ module.exports = {
           },
           fields: { stage: "Epic Eruption", cheese: "Flamin' Queso" },
           opts: {
-            include: [
+            exclude: [
               "Stormsurge, the Vile Tempest",
               "Smoldersnap",
               "Ignatia",
@@ -504,7 +504,7 @@ module.exports = {
           },
           fields: { stage: "Epic Eruption", cheese: "Wildfire Queso" },
           opts: {
-            include: ["Kalor'ignis of the Geyser"]
+            exclude: ["Kalor'ignis of the Geyser"]
           }
         }
       ]

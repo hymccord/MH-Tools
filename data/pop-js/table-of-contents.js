@@ -14,7 +14,7 @@ module.exports = {
       stage: utils.genVarField("stage", "Not Writing"),
       config: [ {
         opts: {
-          include: [
+          exclude: [
             'Grit Grifter',
             'Brothers Grimmaus',
             'Hans Cheesetian Squeakersen',
@@ -29,7 +29,7 @@ module.exports = {
       stage: utils.genVarField("stage", "Pre-Encyclopedia"),
       config: [ {
         opts: {
-          include: [
+          exclude: [
             'Humphrey Dumphrey',
             'Little Bo Squeak',
             'Little Miss Fluffet',
@@ -50,7 +50,7 @@ module.exports = {
       stage: utils.genVarField("stage", "Encyclopedia"),
       config: [ {
         opts: {
-          include: [
+          exclude: [
             'Bitter Grammarian',
             'Mythweaver'
           ]
