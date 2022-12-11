@@ -166,16 +166,16 @@ const subcategories = {
 };
 
 window.onload = function() {
-  loadBookmarkletFromJS(
-    BOOKMARKLET_URLS["loader"],
-    "bookmarkletLoader",
-    "#bookmarkletloader"
-  );
-  loadBookmarkletFromJS(
-    BOOKMARKLET_URLS["powers"],
-    "powersBookmarklet",
-    "#bookmarklet"
-  );
+//   loadBookmarkletFromJS(
+//     BOOKMARKLET_URLS["loader"],
+//     "bookmarkletLoader",
+//     "#bookmarkletloader"
+//   );
+//   loadBookmarkletFromJS(
+//     BOOKMARKLET_URLS["powers"],
+//     "powersBookmarklet",
+//     "#bookmarklet"
+//   );
 
   // Populate group dropdowns
   for (cat in subcategories) {

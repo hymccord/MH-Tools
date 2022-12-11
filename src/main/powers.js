@@ -22,11 +22,11 @@ const battery = {
 };
 
 window.onload = function() {
-  loadBookmarkletFromJS(
-    BOOKMARKLET_URLS["loader"],
-    "bookmarkletLoader",
-    "#bookmarkletloader"
-  );
+//   loadBookmarkletFromJS(
+//     BOOKMARKLET_URLS["loader"],
+//     "bookmarkletLoader",
+//     "#bookmarkletloader"
+//   );
 
   // Process best-setup-items
   const setupItems = localStorage.getItem("best-setup-items");

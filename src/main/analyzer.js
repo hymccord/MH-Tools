@@ -1,16 +1,16 @@
 "use strict";
 
 window.onload = function() {
-  loadBookmarkletFromJS(
-    BOOKMARKLET_URLS["loader"],
-    "bookmarkletLoader",
-    "#bookmarkletloader"
-  );
-  loadBookmarkletFromJS(
-    BOOKMARKLET_URLS["analyzer"],
-    "analyzerBookmarklet",
-    "#bookmarklet"
-  );
+//   loadBookmarkletFromJS(
+//     BOOKMARKLET_URLS["loader"],
+//     "bookmarkletLoader",
+//     "#bookmarkletloader"
+//   );
+//   loadBookmarkletFromJS(
+//     BOOKMARKLET_URLS["analyzer"],
+//     "analyzerBookmarklet",
+//     "#bookmarklet"
+//   );
 
   // Process window.name data
   if (window.name) {

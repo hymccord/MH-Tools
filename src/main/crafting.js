@@ -3,16 +3,16 @@ var ALL_RECIPES = {};
 var USER_INVENTORY = {};
 
 window.onload = function() {
-  loadBookmarkletFromJS(
-    BOOKMARKLET_URLS["loader"],
-    "bookmarkletLoader",
-    "#bookmarkletloader"
-  );
-  loadBookmarkletFromJS(
-    BOOKMARKLET_URLS["crafting"],
-    "craftingBookmarklet",
-    "#bookmarklet"
-  );
+//   loadBookmarkletFromJS(
+//     BOOKMARKLET_URLS["loader"],
+//     "bookmarkletLoader",
+//     "#bookmarkletloader"
+//   );
+//   loadBookmarkletFromJS(
+//     BOOKMARKLET_URLS["crafting"],
+//     "craftingBookmarklet",
+//     "#bookmarklet"
+//   );
 
   $.tablesorter.defaults.sortInitialOrder = "desc";
   $("#crafting-recipes").tablesorter({

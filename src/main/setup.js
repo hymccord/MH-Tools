@@ -3,21 +3,21 @@
 $(window).load(function() {
   user = SETUP_USER;
 
-  loadBookmarkletFromJS(
-    BOOKMARKLET_URLS["loader"],
-    "bookmarkletLoader",
-    "#bookmarkletloader"
-  );
-  loadBookmarkletFromJS(
-    BOOKMARKLET_URLS["setup_items"],
-    "setupBookmarklet",
-    "#setupBookmarklet"
-  );
-  loadBookmarkletFromJS(
-    BOOKMARKLET_URLS["setup_fields"],
-    "setupFieldsBookmarklet",
-    "#setupFieldsBookmarklet"
-  );
+//   loadBookmarkletFromJS(
+//     BOOKMARKLET_URLS["loader"],
+//     "bookmarkletLoader",
+//     "#bookmarkletloader"
+//   );
+//   loadBookmarkletFromJS(
+//     BOOKMARKLET_URLS["setup_items"],
+//     "setupBookmarklet",
+//     "#setupBookmarklet"
+//   );
+//   loadBookmarkletFromJS(
+//     BOOKMARKLET_URLS["setup_fields"],
+//     "setupFieldsBookmarklet",
+//     "#setupFieldsBookmarklet"
+//   );
 
   loadItemSelection(weaponKeys, "weapon");
   loadItemSelection(baseKeys, "base");

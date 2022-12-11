@@ -24,24 +24,24 @@ var autoCompleteSettings = {
 function initPageLoad(toolType) {
   startPopulationLoad(POPULATION_JSON_URL, toolType);
 
-  if (toolType === "map") {
-    loadBookmarkletFromJS(
-      BOOKMARKLET_URLS["map"],
-      "mapBookmarklet",
-      "#bookmarklet"
-    );
-  } else if (toolType === "crown") {
-    loadBookmarkletFromJS(
-      BOOKMARKLET_URLS["crown"],
-      "crownBookmarklet",
-      "#bookmarklet"
-    );
-  }
-  loadBookmarkletFromJS(
-    BOOKMARKLET_URLS["loader"],
-    "bookmarkletLoader",
-    "#bookmarkletloader"
-  );
+//   if (toolType === "map") {
+//     loadBookmarkletFromJS(
+//       BOOKMARKLET_URLS["map"],
+//       "mapBookmarklet",
+//       "#bookmarklet"
+//     );
+//   } else if (toolType === "crown") {
+//     loadBookmarkletFromJS(
+//       BOOKMARKLET_URLS["crown"],
+//       "crownBookmarklet",
+//       "#bookmarklet"
+//     );
+//   }
+//   loadBookmarkletFromJS(
+//     BOOKMARKLET_URLS["loader"],
+//     "bookmarkletLoader",
+//     "#bookmarkletloader"
+//   );
 
   initTablesorter(); // Initialize tablesorter, bind to table
   initCheeseFilter();
