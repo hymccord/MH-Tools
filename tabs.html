@@ -6,7 +6,7 @@
   <title>CRE Tabs</title>
   <meta property="og:site_name" content="MH Tools by tsitu">
   <meta property="og:type" content="article">
-  <meta property="og:url" content="https://tsitu.github.io/MH-Tools/tabs.html">
+  <meta property="og:url" content="https://mhtools.hankmccord.dev/tabs.html">
   <meta property="og:title" content="CRE Tabs">
   <meta property="og:description" content="Provides a convenient way to spin up multiple independent instances of the CRE tool">
   <meta property="og:image" content="https://cdn.jsdelivr.net/gh/tsitu/MH-Tools@30fb31004ae976aaf29652c435629dcca926d169/lib/img/cheese.jpg">
@@ -26,30 +26,30 @@
       height: 100vh;
     }
 
-    #tabs { 
-        position: relative; 
-        padding-bottom: 3em; 
-    } 
+    #tabs {
+        position: relative;
+        padding-bottom: 3em;
+    }
 
-    #tabs .ui-tabs-nav { 
-        position: absolute; 
-        left: 0.25em; 
-        right: 0.25em; 
-        bottom: 0.25em; 
-        padding: 0em 0.2em 0.2em; 
-    } 
+    #tabs .ui-tabs-nav {
+        position: absolute;
+        left: 0.25em;
+        right: 0.25em;
+        bottom: 0.25em;
+        padding: 0em 0.2em 0.2em;
+    }
 
-    #tabs .ui-tabs-nav li { 
-        border-top: none; 
-        border-bottom: 1px solid #ccc; 
-        -moz-border-radius: 0px 0px 4px 4px; 
-        -webkit-border-radius: 0px 0px 4px 4px; 
-        border-radius: 0px 0px 4px 4px; 
-    } 
+    #tabs .ui-tabs-nav li {
+        border-top: none;
+        border-bottom: 1px solid #ccc;
+        -moz-border-radius: 0px 0px 4px 4px;
+        -webkit-border-radius: 0px 0px 4px 4px;
+        border-radius: 0px 0px 4px 4px;
+    }
 
-    #tabs .ui-tabs-nav li.ui-tabs-selected, 
-    #tabs .ui-tabs-nav li.ui-state-active { 
-        top: -1px; 
+    #tabs .ui-tabs-nav li.ui-tabs-selected,
+    #tabs .ui-tabs-nav li.ui-state-active {
+        top: -1px;
     }
   </style>
 
@@ -66,7 +66,7 @@
       var tabs = $("#tabs").tabs();
       var ul = tabs.find("ul");
       $("<li><a href='#tabs-" + numTabs + "'>" + numTabs + "</a></li>").appendTo(ul)
-      $("<div id='tabs-" + numTabs + "' class='tab'><iframe src='https://tsitu.github.io/MH-Tools/cre.html' width='100%' height='100%'></iframe>").appendTo(tabs);
+      $("<div id='tabs-" + numTabs + "' class='tab'><iframe src='https://mhtools.hankmccord.dev/cre.html' width='100%' height='100%'></iframe>").appendTo(tabs);
       tabs.tabs("refresh");
     }
 
@@ -121,17 +121,17 @@
   <div id="tabs-add" class="tab"></div>
 
   <div id="tabs-1" class="tab">
-    <iframe src="https://tsitu.github.io/MH-Tools/cre.html" width="100%" height="100%"></iframe>
+    <iframe src="https://mhtools.hankmccord.dev/cre.html" width="100%" height="100%"></iframe>
   </div>
 
   <div id="tabs-2" class="tab">
-    <iframe src="https://tsitu.github.io/MH-Tools/cre.html" width="100%" height="100%"></iframe>
+    <iframe src="https://mhtools.hankmccord.dev/cre.html" width="100%" height="100%"></iframe>
   </div>
 
   <div id="tabs-3" class="tab">
-    <iframe src="https://tsitu.github.io/MH-Tools/cre.html" width="100%" height="100%"></iframe>
+    <iframe src="https://mhtools.hankmccord.dev/cre.html" width="100%" height="100%"></iframe>
   </div>
-</div> 
+</div>
 
 <div id="urlbutton">
   <button id="saveUrl" onclick="saveUrl()">Save Setup</button>
