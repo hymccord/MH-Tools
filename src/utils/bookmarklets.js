@@ -47,15 +47,15 @@ function loadBookmarkletFromJS(url, storageKey, linkSelector) {
       powersBookmarklet: "Powers Worksheet"
     };
 
-    if (bookmarkletString !== localStorage.getItem(storageKey)) {
-      var alertString =
-        "The " + keyMap[storageKey] + " bookmarklet has been updated.";
-      if (storageKey !== "bookmarkletLoader") {
-        alertString += "\nPlease edit accordingly, or try the Auto-Loader!";
-      }
-      alert(alertString);
-      localStorage.setItem(storageKey, bookmarkletString);
-    }
+    // if (bookmarkletString !== localStorage.getItem(storageKey)) {
+    //   var alertString =
+    //     "The " + keyMap[storageKey] + " bookmarklet has been updated.";
+    //   if (storageKey !== "bookmarkletLoader") {
+    //     alertString += "\nPlease edit accordingly, or try the Auto-Loader!";
+    //   }
+    //   alert(alertString);
+    //   localStorage.setItem(storageKey, bookmarkletString);
+    // }
 
     $(linkSelector).attr("href", bookmarkletString);
     $(linkSelector + "Copy").click(function() {
