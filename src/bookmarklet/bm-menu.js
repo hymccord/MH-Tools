@@ -1,7 +1,7 @@
 (function() {
   var jsonTimestamp = new Promise(function(resolve, reject) {
     var cdn =
-      "https://tsitu.github.io/MH-Tools/data/json/bookmarklet-timestamps.json";
+      "https://mhtools.hankmccord.dev/data/json/bookmarklet-timestamps.json";
     var xhr = new XMLHttpRequest();
     xhr.open("GET", cdn);
     xhr.onload = function() {
@@ -241,8 +241,8 @@
   function loadBookmarklet(type) {
     var el = document.createElement("script");
     var cdn =
-      "https://cdn.jsdelivr.net/gh/tsitu/MH-Tools@master/src/bookmarklet/bm-" +
-      type +
+      "https://mhtools.hankmccord.dev/src/bookmarklet/bm-"
+      + type +
       ".min.js";
     el.src = cdn;
     document.body.appendChild(el);

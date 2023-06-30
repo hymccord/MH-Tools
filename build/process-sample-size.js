@@ -17,13 +17,13 @@ const fileUtils = require("./file-utils");
 const request = require("request");
 const puppeteer = require("puppeteer");
 
-// GitHub-served JSON file URLs from pages site
+// GitHub-served raw JSON file URLs from gh-pages branch
 const overallURL =
-  "https://tsitu.github.io/MH-Tools/data/json/sample-summary-overall.json";
+  "https://mhtools.hankmccord.dev/data/json/sample-summary-overall.json";
 const conciseURL =
-  "https://tsitu.github.io/MH-Tools/data/json/sample-summary-concise.json";
+  "https://mhtools.hankmccord.dev/data/json/sample-summary-concise.json";
 const detailedURL =
-  "https://tsitu.github.io/MH-Tools/data/json/sample-summary-detailed.json";
+  "https://mhtools.hankmccord.dev/data/json/sample-summary-detailed.json";
 
 /**
  * Returns ideal sample size for 10% relative uncertainty at 95% level
