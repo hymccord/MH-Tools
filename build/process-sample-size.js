@@ -17,7 +17,7 @@ const fileUtils = require("./file-utils");
 const request = require("request");
 const puppeteer = require("puppeteer");
 
-// GitHub-served raw JSON file URLs from gh-pages branch
+// GitHub-served JSON file URLs from pages site
 const overallURL =
   "https://tsitu.github.io/MH-Tools/data/json/sample-summary-overall.json";
 const conciseURL =
