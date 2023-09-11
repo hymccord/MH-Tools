@@ -1,7 +1,7 @@
 (function() {
   var jsonTimestamp = new Promise(function(resolve, reject) {
     var cdn =
-      "https://mhtools.hankmccord.dev/data/json/bookmarklet-timestamps.json";
+      "http://localhost:8000/data/json/bookmarklet-timestamps.json";
     var xhr = new XMLHttpRequest();
     xhr.open("GET", cdn);
     xhr.onload = function() {
@@ -241,9 +241,9 @@
   function loadBookmarklet(type) {
     var el = document.createElement("script");
     var cdn =
-      "https://mhtools.hankmccord.dev/src/bookmarklet/bm-"
+      "http://localhost:8000/src/bookmarklet/bm-"
       + type +
-      ".min.js";
+      ".js";
     el.src = cdn;
     document.body.appendChild(el);
     el.onload = function() {

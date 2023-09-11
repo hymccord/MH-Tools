@@ -27,7 +27,7 @@ function makeBookmarkletString(content) {
  */
 function loadBookmarkletFromJS(url, storageKey, linkSelector) {
   $.get(
-    `https://mhtools.hankmccord.dev/${url}`,
+    `http://localhost:8000/${url}`,
     function(data) {
       checkBookmarklet(makeBookmarkletString(data), storageKey);
     },
