@@ -34,5 +34,5 @@
   var newWindow = window.open("");
   // 200 IQ method to transfer stringified data across origins
   newWindow.name = JSON.stringify(itemObj);
-  newWindow.location = "https://mhtools.hankmccord.dev/crafting.html";
+  newWindow.location = "http://localhost:8000/crafting.html";
 })();

@@ -100,7 +100,7 @@
       // }
       var newWindow = window.open("");
       newWindow.name = JSON.stringify(combinedObj);
-      newWindow.location = "https://mhtools.hankmccord.dev/setup.html";
+      newWindow.location = "http://localhost:8000/setup.html";
     }
   }).fail((jqXHR, textStatus, errorThrown) => {
     console.error(textStatus, errorThrown);

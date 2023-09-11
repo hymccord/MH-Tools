@@ -646,7 +646,7 @@
     }
 
     childWindow = parent.openNewTab({
-      url: "https://mhtools.hankmccord.dev/powers-worksheet.html"
+      url: "http://localhost:8000/powers-worksheet.html"
     });
   }
 

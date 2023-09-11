@@ -22,7 +22,7 @@
       onChildCommunication: childSays,
     });
     parent.openNewTab({
-      url: "https://mhtools.hankmccord.dev/powers.html"
+      url: "http://localhost:8000/powers.html"
     });
   }
 
