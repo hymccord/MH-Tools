@@ -1,6 +1,6 @@
 (function() {
   // name: type
-  var categories = {
+  const categories = {
     "Indigenous Mice": "common",
     "Dock Dwellers": "dock",
     "Mountain Mice": "mountain",
@@ -46,7 +46,7 @@
     "Event Mice": "event"
   };
 
-  var subcategories = {
+  const subcategories = {
     "Indigenous Mice": ["Misc.", "Great Gnawnian Games", "Rare Rodents"],
     "Dock Dwellers": ["Misc."],
     "Mountain Mice": ["Misc."],
@@ -170,10 +170,7 @@
       "Sky Paragons",
       "The Richest"
     ],
-    "Foreword Farmers": [
-      "Seed Stowers",
-      "Petulant Pests"
-    ],
+    "Foreword Farmers": ["Seed Stowers", "Petulant Pests"],
     "Prologue Pond Prowlers": [
       "Grub Gatherers",
       "Shallow Swimmers",
@@ -206,7 +203,7 @@
     ]
   };
 
-  var trapTypes = [
+  const trapTypes = [
     "Arcane",
     "Draconic",
     "Forgotten",
@@ -251,61 +248,60 @@
   buildUI();
 
   function main(targetGroup, targetSubgroup, riftMultiplier) {
-    var cacheObj =
+    const cacheObj =
       JSON.parse(localStorage.getItem("tsitu-powers-subgroups")) || {};
 
     try {
-      var subgroup = cacheObj[targetGroup][targetSubgroup];
-      var url = `https://www.mousehuntgame.com/managers/ajax/mice/getstat.php?sn=Hitgrab&hg_is_ajax=1&action=get_mice&uh=${user.unique_hash}`;
+      const subgroup = cacheObj[targetGroup][targetSubgroup];
+      let url = `https://www.mousehuntgame.com/managers/ajax/mice/getstat.php?sn=Hitgrab&hg_is_ajax=1&action=get_mice&uh=${user.unique_hash}`;
 
-      for (var i = 0; i < subgroup.miceArr.length; i++) {
-        url += "&mouse_types[]=" + subgroup.miceArr[i];
+      for (let i = 0; i < subgroup.miceArr.length; i++) {
+        url += `&mouse_types[]=${subgroup.miceArr[i]}`;
       }
 
-      $.post(url, {}, null, "json").done(function(data) {
+      $.post(url, {}, null, "json").done(data => {
         if (data) {
           // Use selector for trap power because server response is inconsistent
           // Going to another tab and back to Camp borks things up
-          var trapType = "";
-          var powerStr = $(".campPage-trap-trapStat.power > div:nth-child(2)")
+          let trapType = "";
+          const powerStr = $(".campPage-trap-trapStat.power > div:nth-child(2)")
             .map(function() {
               return $(this).context.textContent;
             })
             .toArray()[0];
-          var trapPower = parseInt(powerStr.replace(/,/g, ""));
+          const trapPower = parseInt(powerStr.replace(/,/g, ""));
 
-          for (var i = 0; i < trapTypes.length; i++) {
+          for (let i = 0; i < trapTypes.length; i++) {
             if (powerStr.indexOf(trapTypes[i]) > -1) {
               trapType = trapTypes[i];
             }
           }
 
-          var outputObj = {}; // to be passed as window.name
+          const outputObj = {}; // to be passed as window.name
           // phase out trap-data with computed power type / total power?
           outputObj["user-data"] = {};
-          outputObj["user-data"]["weapon"] = user.weapon_name;
-          outputObj["user-data"]["base"] = user.base_name;
-          outputObj["user-data"]["charm"] = user.trinket_name
+          outputObj["user-data"].weapon = user.weapon_name;
+          outputObj["user-data"].base = user.base_name;
+          outputObj["user-data"].charm = user.trinket_name
             ? user.trinket_name
             : "Baitkeep Charm"; // Default 0/0 placeholder
           outputObj["user-data"]["power-bonus"] = user.trap_power_bonus;
-          outputObj["user-data"]["battery"] = 0;
+          outputObj["user-data"].battery = 0;
           outputObj["user-data"]["zt-amp"] = 100;
           outputObj["user-data"]["tg-pour"] = false;
           outputObj["user-data"]["rift-multiplier"] = riftMultiplier;
 
-          outputObj["user-data"]["empowered"] = false;
+          outputObj["user-data"].empowered = false;
           if (user.bait_name && user.bait_name.indexOf("Empowered") > -1) {
-            outputObj["user-data"]["empowered"] = true;
+            outputObj["user-data"].empowered = true;
           }
 
-          var userLocation = user.environment_name;
-          var userQuests = user.quests;
+          const userLocation = user.environment_name;
+          const userQuests = user.quests;
           if (userLocation === "Furoma Rift") {
-            var chargeLevel =
-              userQuests["QuestRiftFuroma"]["droid"]["charge_level"];
+            const chargeLevel = userQuests.QuestRiftFuroma.droid.charge_level;
             if (chargeLevel !== "") {
-              var levels = {
+              const levels = {
                 charge_level_one: 1,
                 charge_level_two: 2,
                 charge_level_three: 3,
@@ -317,100 +313,86 @@
                 charge_level_nine: 9,
                 charge_level_ten: 10
               };
-              outputObj["user-data"]["battery"] = levels[chargeLevel];
+              outputObj["user-data"].battery = levels[chargeLevel];
             }
           } else if (userLocation === "Zugzwang's Tower") {
-            outputObj["user-data"]["zt-amp"] =
-              user["viewing_atts"]["zzt_amplifier"];
+            outputObj["user-data"]["zt-amp"] = user.viewing_atts.zzt_amplifier;
           } else if (userLocation === "Twisted Garden") {
             if (
-              userQuests["QuestLivingGarden"]["minigame"]["vials_state"] ===
-              "dumped"
+              userQuests.QuestLivingGarden.minigame.vials_state === "dumped"
             ) {
               outputObj["user-data"]["tg-pour"] = true;
             }
           }
 
-          var currentTime = Date.now();
-          outputObj["user-data"]["timestamp"] = currentTime;
+          const currentTime = Date.now();
+          outputObj["user-data"].timestamp = currentTime;
           outputObj["user-data"]["dom-trap-type"] = trapType;
           outputObj["user-data"]["dom-trap-power"] = trapPower;
           console.group(
-            "Displayed Power: " +
-              trapPower +
-              " (" +
-              trapType +
-              ")" +
-              " [" +
-              new Date(currentTime) +
-              "]"
+            `Displayed Power: ${trapPower} (${trapType})` +
+              ` [${new Date(currentTime)}]`
           );
 
-          var groupName = targetGroup + " (" + targetSubgroup + ")";
+          const groupName = `${targetGroup} (${targetSubgroup})`;
           outputObj["mouse-data"] = {};
           outputObj["mouse-data"][groupName] = {};
 
-          console.group("Group: " + groupName);
-          for (var j = 0; j < data.mice.length; j++) {
-            var mouse = data.mice[j];
-            var mouseName = mouse.abbreviated_name.trim();
-            console.log(mouseName + " (" + mouse.difficulty + ")");
-            var mouseObj = {};
-            mouseObj["id"] =
+          console.group(`Group: ${groupName}`);
+          for (let j = 0; j < data.mice.length; j++) {
+            const mouse = data.mice[j];
+            const mouseName = mouse.abbreviated_name.trim();
+            console.log(`${mouseName} (${mouse.difficulty})`);
+            const mouseObj = {};
+            mouseObj.id =
               typeof mouse.id === "number"
                 ? mouse.id
                 : parseInt(mouse.id.replace(/,/g, ""));
-            mouseObj["gold"] =
+            mouseObj.gold =
               typeof mouse.gold === "number"
                 ? mouse.gold
                 : parseInt(mouse.gold.replace(/,/g, ""));
-            mouseObj["points"] =
+            mouseObj.points =
               typeof mouse.points === "number"
                 ? mouse.points
                 : parseInt(mouse.points.replace(/,/g, ""));
-            mouseObj["difficulty"] = mouse.difficulty;
-            var effObj = {};
-            effObj["Arcane"] = 0;
-            effObj["Draconic"] = 0;
-            effObj["Forgotten"] = 0;
-            effObj["Hydro"] = 0;
-            effObj["Parental"] = 0;
-            effObj["Physical"] = 0;
-            effObj["Shadow"] = 0;
-            effObj["Tactical"] = 0;
-            effObj["Law"] = 0;
-            effObj["Rift"] = 0;
+            mouseObj.difficulty = mouse.difficulty;
+            const effObj = {};
+            effObj.Arcane = 0;
+            effObj.Draconic = 0;
+            effObj.Forgotten = 0;
+            effObj.Hydro = 0;
+            effObj.Parental = 0;
+            effObj.Physical = 0;
+            effObj.Shadow = 0;
+            effObj.Tactical = 0;
+            effObj.Law = 0;
+            effObj.Rift = 0;
 
-            var notEffArr = trapTypes;
-            var effs = mouse.weaknesses;
+            let notEffArr = trapTypes;
+            const effs = mouse.weaknesses;
 
             // Rough existence checks
             if (Object.keys(effs).length > 0) {
-              if (isIterable(effs["effective"])) {
-                for (var k = 0; k < effs["effective"].length; k++) {
-                  var e = effs["effective"][k];
+              if (isIterable(effs.effective)) {
+                for (var k = 0; k < effs.effective.length; k++) {
+                  var e = effs.effective[k];
                   effObj[e.name] = 100;
-                  notEffArr = notEffArr.filter(function(el) {
-                    return el !== e.name;
-                  });
+                  notEffArr = notEffArr.filter(el => el !== e.name);
                 }
               }
-              if (isIterable(effs["veryEffective"])) {
-                for (var k = 0; k < effs["veryEffective"].length; k++) {
-                  var e = effs["veryEffective"][k];
+              if (isIterable(effs.veryEffective)) {
+                for (var k = 0; k < effs.veryEffective.length; k++) {
+                  var e = effs.veryEffective[k];
                   effObj[e.name] = ">100";
-                  notEffArr = notEffArr.filter(function(el) {
-                    return el !== e.name;
-                  });
+                  notEffArr = notEffArr.filter(el => el !== e.name);
                 }
               }
-              if (isIterable(effs["lessEffective"])) {
-                for (var k = 0; k < effs["lessEffective"].length; k++) {
-                  var e = effs["lessEffective"][k];
+              if (isIterable(effs.lessEffective)) {
+                for (var k = 0; k < effs.lessEffective.length; k++) {
+                  var e = effs.lessEffective[k];
                   effObj[e.name] = "<100";
-                  notEffArr = notEffArr.filter(function(el) {
-                    return el !== e.name;
-                  });
+                  notEffArr = notEffArr.filter(el => el !== e.name);
                 }
               }
               if (isIterable(notEffArr)) {
@@ -421,17 +403,17 @@
             }
 
             // Populate effs array
-            mouseObj["effs"] = [];
-            mouseObj["effs"].push(effObj["Arcane"]);
-            mouseObj["effs"].push(effObj["Draconic"]);
-            mouseObj["effs"].push(effObj["Forgotten"]);
-            mouseObj["effs"].push(effObj["Hydro"]);
-            mouseObj["effs"].push(effObj["Parental"]);
-            mouseObj["effs"].push(effObj["Physical"]);
-            mouseObj["effs"].push(effObj["Shadow"]);
-            mouseObj["effs"].push(effObj["Tactical"]);
-            mouseObj["effs"].push(effObj["Law"]);
-            mouseObj["effs"].push(effObj["Rift"]);
+            mouseObj.effs = [];
+            mouseObj.effs.push(effObj.Arcane);
+            mouseObj.effs.push(effObj.Draconic);
+            mouseObj.effs.push(effObj.Forgotten);
+            mouseObj.effs.push(effObj.Hydro);
+            mouseObj.effs.push(effObj.Parental);
+            mouseObj.effs.push(effObj.Physical);
+            mouseObj.effs.push(effObj.Shadow);
+            mouseObj.effs.push(effObj.Tactical);
+            mouseObj.effs.push(effObj.Law);
+            mouseObj.effs.push(effObj.Rift);
 
             outputObj["mouse-data"][groupName][mouseName] = mouseObj;
           }
@@ -439,7 +421,7 @@
           console.groupEnd();
 
           // console.log(outputObj);
-          var newWindow = window.open("");
+          const newWindow = window.open("");
           // 200 IQ method to transfer stringified data across origins
           newWindow.name = JSON.stringify(outputObj);
           newWindow.location =
@@ -449,8 +431,7 @@
       });
     } catch (error) {
       alert(
-        "Please click 'Update Subgroup Data' to perform initial fetch for:\n\n" +
-          targetGroup
+        `Please click 'Update Subgroup Data' to perform initial fetch for:\n\n${targetGroup}`
       );
     }
   }
@@ -490,55 +471,54 @@
       return;
     }
 
-    var existing = document.getElementById("mht-mouse-powers-tool");
+    const existing = document.getElementById("mht-mouse-powers-tool");
     if (existing) existing.remove();
 
-    var mainDiv = document.createElement("div");
+    const mainDiv = document.createElement("div");
     mainDiv.id = "mht-mouse-powers-tool";
 
-    var closeButton = document.createElement("button");
+    const closeButton = document.createElement("button");
     closeButton.textContent = "x";
     closeButton.onclick = function() {
       document.body.removeChild(mainDiv);
     };
 
-    var titleSpan = document.createElement("span");
+    const titleSpan = document.createElement("span");
     titleSpan.style.fontSize = "15px";
     titleSpan.style.fontWeight = "bold";
     titleSpan.appendChild(document.createTextNode("Mouse Powers Bookmarklet"));
 
-    var descriptionSpan = document.createElement("span");
+    const descriptionSpan = document.createElement("span");
     descriptionSpan.innerHTML = "Pick a mouse group and hit Go";
 
-    var timestampSpan = document.createElement("span");
+    const timestampSpan = document.createElement("span");
     timestampSpan.innerHTML = "This group requires a fetch";
 
-    var subgroupSelect = document.createElement("select");
+    const subgroupSelect = document.createElement("select");
     subgroupSelect.setAttribute("id", "mouse-subgroup-select");
 
-    var groupSelect = document.createElement("select");
+    const groupSelect = document.createElement("select");
     groupSelect.setAttribute("id", "mouse-group-select");
     groupSelect.onchange = function() {
-      var selectedGroup = $("#mouse-group-select :selected").text();
-      var subgroupz = subcategories[selectedGroup];
-      var subgroupSelect = document.getElementById("mouse-subgroup-select");
+      const selectedGroup = $("#mouse-group-select :selected").text();
+      const subgroupz = subcategories[selectedGroup];
+      const subgroupSelect = document.getElementById("mouse-subgroup-select");
       if (subgroupSelect) {
         subgroupSelect.innerHTML = "";
-        for (var i = 0; i < subgroupz.length; i++) {
-          var group = subgroupz[i];
+        for (let i = 0; i < subgroupz.length; i++) {
+          const group = subgroupz[i];
           subgroupSelect.appendChild(new Option(group, group));
         }
 
         // Update timestamp span
-        var cacheObjRaw = localStorage.getItem("tsitu-powers-subgroups");
+        const cacheObjRaw = localStorage.getItem("tsitu-powers-subgroups");
         if (cacheObjRaw) {
-          var cacheObj = JSON.parse(cacheObjRaw);
+          const cacheObj = JSON.parse(cacheObjRaw);
           if (cacheObj[selectedGroup]) {
-            var timeStr = new Date(
+            const timeStr = new Date(
               cacheObj[selectedGroup].timestamp
             ).toLocaleString();
-            timestampSpan.innerText =
-              "This group was last updated on:\n" + timeStr;
+            timestampSpan.innerText = `This group was last updated on:\n${timeStr}`;
           } else {
             timestampSpan.innerHTML = "This group requires a fetch";
           }
@@ -546,66 +526,66 @@
       }
     };
 
-    for (var i = 0; i < Object.keys(categories).length; i++) {
-      var group = Object.keys(categories)[i];
+    for (let i = 0; i < Object.keys(categories).length; i++) {
+      const group = Object.keys(categories)[i];
       groupSelect.appendChild(new Option(group, group));
     }
 
-    var riftDescription = document.createElement("span");
+    const riftDescription = document.createElement("span");
     riftDescription.innerHTML = "Rift Bonus<br>None / Walker / Stalker";
-    var noRiftBonus = document.createElement("input");
+    const noRiftBonus = document.createElement("input");
     noRiftBonus.setAttribute("type", "radio");
     noRiftBonus.setAttribute("name", "rift-bonus");
     noRiftBonus.setAttribute("value", 0);
-    var walkerRiftBonus = document.createElement("input");
+    const walkerRiftBonus = document.createElement("input");
     walkerRiftBonus.setAttribute("type", "radio");
     walkerRiftBonus.setAttribute("name", "rift-bonus");
     walkerRiftBonus.setAttribute("value", 1);
-    var stalkerRiftBonus = document.createElement("input");
+    const stalkerRiftBonus = document.createElement("input");
     stalkerRiftBonus.setAttribute("type", "radio");
     stalkerRiftBonus.setAttribute("name", "rift-bonus");
     stalkerRiftBonus.setAttribute("value", 2);
     stalkerRiftBonus.setAttribute("checked", "checked");
 
-    var fetchButton = document.createElement("button");
+    const fetchButton = document.createElement("button");
     fetchButton.textContent = "Update Subgroup Data";
     fetchButton.onclick = function() {
-      var selectedGroup = $("#mouse-group-select :selected").text();
-      var selectedSub = $("#mouse-subgroup-select :selected").text();
+      const selectedGroup = $("#mouse-group-select :selected").text();
+      const selectedSub = $("#mouse-subgroup-select :selected").text();
 
       // Cache group/subgroup
-      var cacheArr = [selectedGroup, selectedSub];
+      const cacheArr = [selectedGroup, selectedSub];
       localStorage.setItem("tsitu-powers-selected", JSON.stringify(cacheArr));
 
-      var payload = genPayload(selectedGroup);
+      const payload = genPayload(selectedGroup);
       $.post(
         "https://www.mousehuntgame.com/managers/ajax/mice/mouse_list.php",
         payload,
         null,
         "json"
-      ).done(function(data) {
+      ).done(data => {
         if (data) {
-          var cacheObj =
+          const cacheObj =
             JSON.parse(localStorage.getItem("tsitu-powers-subgroups")) || {};
-          var groupName = data.mouse_list_category.name;
+          const groupName = data.mouse_list_category.name;
           cacheObj[groupName] = {};
 
-          var subgroups = data.mouse_list_category.subgroups;
-          for (var i = 0; i < subgroups.length; i++) {
-            var el = subgroups[i];
-            var miceArr = [];
-            var miceObj = {};
+          const { subgroups } = data.mouse_list_category;
+          for (let i = 0; i < subgroups.length; i++) {
+            const el = subgroups[i];
+            const miceArr = [];
+            const miceObj = {};
 
-            for (var j = 0; j < el.mice.length; j++) {
-              var mouseEl = el.mice[j];
+            for (let j = 0; j < el.mice.length; j++) {
+              const mouseEl = el.mice[j];
               miceArr.push(mouseEl.type);
               miceObj[mouseEl.name] = mouseEl.type;
             }
 
             cacheObj[groupName][el.name] = {
               type: el.type,
-              miceArr: miceArr,
-              miceObj: miceObj
+              miceArr,
+              miceObj
             };
           }
 
@@ -619,14 +599,14 @@
       });
     };
 
-    var goButton = document.createElement("button");
+    const goButton = document.createElement("button");
     goButton.textContent = "Go";
     goButton.onclick = function() {
-      var selectedGroup = $("#mouse-group-select :selected").text();
-      var selectedSub = $("#mouse-subgroup-select :selected").text();
+      const selectedGroup = $("#mouse-group-select :selected").text();
+      const selectedSub = $("#mouse-subgroup-select :selected").text();
 
       // Cache group/subgroup
-      var cacheArr = [selectedGroup, selectedSub];
+      const cacheArr = [selectedGroup, selectedSub];
       localStorage.setItem("tsitu-powers-selected", JSON.stringify(cacheArr));
 
       main(
@@ -675,7 +655,7 @@
     document.body.appendChild(mainDiv);
 
     // Initial dropdown population based on cache or default
-    var cacheSelect =
+    const cacheSelect =
       JSON.parse(localStorage.getItem("tsitu-powers-selected")) || [];
 
     if (cacheSelect.length === 2) {

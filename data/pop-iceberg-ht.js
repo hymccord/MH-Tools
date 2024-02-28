@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-var jt = require("jacksmhtools-client");
-var utils = require("./_utils");
+const jt = require("jacksmhtools-client");
+const utils = require("./_utils");
 
-var cheese = [
+const cheese = [
   { fields: { cheese: "SB+" } },
   { fields: { cheese: "Gouda" } },
   { fields: { cheese: "Brie" } }
@@ -30,7 +30,7 @@ function bases(stageName) {
     // utils.genVarItem('base', 'Remote Detonator', { fields: { stage: stageName+' (Remote Detonator)' } }),
     // utils.genVarItem('base', 'Spiked', { fields: { stage: stageName+' (Spiked)' } }),
     utils.genVarItem("base", "Ultimate Iceberg", {
-      fields: { stage: stageName + " (Ultimate Iceberg)" }
+      fields: { stage: `${stageName} (Ultimate Iceberg)` }
     })
   ];
 }
@@ -39,7 +39,7 @@ utils
   .process({
     default: {
       location: utils.genVarField("location", "Iceberg"),
-      cheese: cheese
+      cheese
     },
     series: [
       {
@@ -64,13 +64,11 @@ utils
         base: bases("The Mad Depths")
       }
     ],
-    process: function(item) {
+    process(item) {
       console.error("requesting", JSON.stringify(item.vars));
       return jt
         .getSAEncounterRateData(item.vars, item.opts)
-        .filter(function(item) {
-          return item.sample > 100;
-        })
+        .filter(item => item.sample > 100)
         .map(utils.preparePopulation.bind(utils, item.fields));
     }
   })

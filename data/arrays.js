@@ -1,9 +1,7 @@
-"use strict";
-
 // Utility function for determining size of multi-level array
 Object.size = function(obj) {
-  var size = 0;
-  for (var key in obj) {
+  let size = 0;
+  for (const key in obj) {
     if (obj.hasOwnProperty(key)) {
       size++;
     }
@@ -12,7 +10,7 @@ Object.size = function(obj) {
 };
 
 // Hunter's title wisdom requirements
-var rankupDiff = {
+const rankupDiff = {
   novice: 2000, // 2000 - 0
   recruit: 3000, // 5000 - 2000
   apprentice: 7500, // 12500 - 5000
@@ -34,7 +32,7 @@ var rankupDiff = {
   sage: 2125896058 // 3897476106 - 1771580048
 };
 
-var standardCheeseCost = {
+const standardCheeseCost = {
   "Cheddar": 10,
   "Marble": 50,
   "Swiss": 100,
@@ -45,7 +43,7 @@ var standardCheeseCost = {
   "Brie String": 1600
 };
 
-var riftWeapons = [
+const riftWeapons = [
   "Biomolecular Re-atomizer Trap",
   "Celestial Dissonance Trap",
   "Chrome Celestial Dissonance Trap",
@@ -60,7 +58,7 @@ var riftWeapons = [
   "Wacky Inflatable Party People Trap"
 ];
 
-var riftBases = [
+const riftBases = [
   "Attuned Enerchi Induction Base",
   "Clockwork Base",
   "Elixir Exchanger Base",
@@ -74,7 +72,7 @@ var riftBases = [
 ];
 
 // Rift charms with names that do not contain the word "Rift"
-var riftCharms = [
+const riftCharms = [
   "Cherry Charm",
   "Gnarled Charm",
   "Stagnant Charm",
@@ -84,7 +82,7 @@ var riftCharms = [
   "Eggstra Charge Charm"
 ];
 
-var labyrinthMiceClues = {
+const labyrinthMiceClues = {
   "Ash Golem": 1,
   "Automated Stone Sentry": 2,
   "Corridor Bruiser": 0,
@@ -113,7 +111,7 @@ var labyrinthMiceClues = {
   "Treasure Brawler": 2
 };
 
-var dragons = [
+const dragons = [
   "Dragon",
   "Dragoon",
   "Ful'Mina, The Mountain Queen",
@@ -150,14 +148,14 @@ var dragons = [
   "Empyrean Javelineer"
 ];
 
-var tauntings = [
+const tauntings = [
   "Centaur Ranger",
   "Cyclops Barbarian",
   "Monstrous Black Widow",
   "Tri-dra"
 ];
 
-var rage_increase_table = {
+const rage_increase_table = {
   // CC Low
   "Bloomed Sylvan": { Crazed: 1, Gnarled: 0, Deep: 0 },
   "Cranky Caterpillar": { Crazed: 1, Gnarled: 0, Deep: 0 },
@@ -211,9 +209,9 @@ var rage_increase_table = {
   "Monstrous Black Widow": { Crazed: 0, Gnarled: 0, Deep: 0 }
 };
 
-var brutes = ["Snow Bowler", "Yeti", "Mammoth"];
-var bombSquad = ["Saboteur", "Stickybomber", "Heavy Blaster"];
-var berglings = [
+const brutes = ["Snow Bowler", "Yeti", "Mammoth"];
+const bombSquad = ["Saboteur", "Stickybomber", "Heavy Blaster"];
+const berglings = [
   "Incompetent Ice Climber",
   "Polar Bear",
   "Snow Slinger",
@@ -223,7 +221,7 @@ var berglings = [
   "Snowblind"
 ];
 
-var catchDepth = {
+const catchDepth = {
   "Chipper": 16,
   "Frostlance Guard": 15,
   "Frostwing Commander": 10,
@@ -250,7 +248,7 @@ var catchDepth = {
   "Yeti": -4
 };
 
-var ftcDepth = {
+const ftcDepth = {
   "Chipper": 0,
   "Frostlance Guard": 0,
   "Frostwing Commander": 0,
@@ -277,7 +275,7 @@ var ftcDepth = {
   "Yeti": -16
 };
 
-var deltaAmp = {
+const deltaAmp = {
   "Bruticle": 4,
   "Frostbite": 4,
   "Icicle": 3,
@@ -307,7 +305,7 @@ var deltaAmp = {
   "Whirleygig": 1
 };
 
-var pressureMice = {
+const pressureMice = {
   "Steam Sailor": 5,
   "Warming Wyvern": 15,
   "Vaporior": 40,
@@ -315,7 +313,7 @@ var pressureMice = {
   "Emberstone Scaled": 1500
 };
 
-var pirateSealMice = {
+const pirateSealMice = {
   "Suave Pirate": 1,
   "Cutthroat Pirate": 1,
   "Cutthroat Cannoneer": 1,
@@ -326,7 +324,7 @@ var pirateSealMice = {
 };
 
 // 12/11/20 FBF @ timestamp 10:11
-var scoundrelPirateMice = [
+const scoundrelPirateMice = [
   // Sky Pirates
   "Suave Pirate",
   "Cutthroat Pirate",
@@ -352,7 +350,7 @@ var scoundrelPirateMice = [
   "Admiral Arrrgh"
 ];
 
-var freshness2stale = {
+const freshness2stale = {
   "-6": 1,
   "-5": 0.9,
   "-4": 0.8,
@@ -368,7 +366,7 @@ var freshness2stale = {
   "6": 0
 };
 
-var reverseParseFreshness = {
+const reverseParseFreshness = {
   "-6": "Über Stale (100% stale rate)",
   "-5": "Ultimately Stale (90% stale rate)",
   "-4": "Insanely Stale (80% stale rate)",
@@ -384,7 +382,7 @@ var reverseParseFreshness = {
   "6": "Über Fresh (0% stale rate)"
 };
 
-var parseFreshness = {
+const parseFreshness = {
   "Uber Stale": -6,
   "Ultimately Stale": -5,
   "Insanely Stale": -4,
@@ -401,7 +399,7 @@ var parseFreshness = {
 };
 
 // Trap type to integer map for lookup in the powers array
-var typeEff = {
+const typeEff = {
   Arcane: 1,
   Draconic: 2,
   Forgotten: 3,
@@ -415,7 +413,7 @@ var typeEff = {
 };
 
 // Power, power bonus (%), attraction bonus (%), luck, cheese effect
-var basesArray = {
+const basesArray = {
   "10 Layer Birthday Cake Base": [300, 10, 10, 10, "No Effect"],
   "2017 New Year's Base": [200, 7, 0, 10, "Fresh"],
   "2018 New Year's Base": [200, 7, 0, 10, "Fresh"],
@@ -498,8 +496,8 @@ var basesArray = {
   "Molten Shrapnel Base": [350, 12, 5, 8, "Extremely Stale"],
   "Monkey Jade Base": [350, 12, 10, 10, "Stale"],
   "Monolith Base": [500, 12, 0, 0, "No Effect"],
-  "Naughty List Printing Press Base (Paperless)": [500,15,0,10,"Fresh"],
-  "Naughty List Printing Press Base": [4500,35,35,57,"Fresh"],
+  "Naughty List Printing Press Base (Paperless)": [500, 15, 0, 10, "Fresh"],
+  "Naughty List Printing Press Base": [4500, 35, 35, 57, "Fresh"],
   "Overgrown Ember Stone Base": [450, 10, 18, 12, "Ultimately Stale"],
   "Ox Jade Base": [375, 12, 10, 10, "Stale"],
   "Papyrus Base": [400, 8, 0, 10, "Fresh"],
@@ -546,12 +544,12 @@ var basesArray = {
   "Wooden Base": [35, 0, 0, 0, "Very Fresh"],
   "Wooden Base with Target": [75, 0, 20, 0, "No Effect"]
 };
-var baseKeys = Object.keys(basesArray);
+const baseKeys = Object.keys(basesArray);
 baseKeys.sort();
 
 // Power type, power, power bonus (%), attraction bonus (%), luck, cheese effect
 // prettier-ignore
-var weaponsArray = {
+const weaponsArray = {
   "2010 Blastoff Trap": ["Tactical", 2600, 15, 0, 25, "Very Stale"],
   "2012 Big Boom Trap": ["Tactical", 2500, 15, 20, 25, "Extremely Stale"],
   "500 Pound Spiked Crusher": ["Physical", 250, 10, 0, 1, "No Effect"],
@@ -776,11 +774,11 @@ var weaponsArray = {
   "Zugzwang's Ultimate Move": ["Tactical", 4500, 20, 10, 20, "Very Fresh"],
   "Zurreal's Folly": ["Tactical", 2930, 20, 15, 12, "Ultimately Stale"]
 };
-var weaponKeys = Object.keys(weaponsArray);
+const weaponKeys = Object.keys(weaponsArray);
 weaponKeys.sort();
 
 // Power, power bonus (%), attraction bonus (%), luck, cheese effect
-var charmsArray = {
+const charmsArray = {
   "2014 Charm": [2014, 0, 0, 0, "No Effect"],
   "2015 Charm": [2015, 0, 0, 0, "No Effect"],
   "2016 Charm": [2016, 0, 0, 0, "No Effect"],
@@ -1036,11 +1034,11 @@ var charmsArray = {
   "Yellow Double Sponge Charm": [0, 0, 0, 0, "No Effect"],
   "Yellow Sponge Charm": [0, 0, 0, 0, "No Effect"]
 };
-var charmKeys = Object.keys(charmsArray);
+const charmKeys = Object.keys(charmsArray);
 charmKeys.sort();
 
 // Weapons that interact with Snowball Charms to give 20% power bonus
-var festiveTraps = [
+const festiveTraps = [
   "Christmas Cactus Trap",
   "Christmas Cracker Trap",
   "Christmas Crystalabra Trap",
@@ -1071,7 +1069,7 @@ var festiveTraps = [
 ];
 
 // Weapons that interact with Spooky Charms to give 20% power bonus
-var halloweenTraps = [
+const halloweenTraps = [
   "Admiral's Galleon Trap",
   "Boiling Cauldron Trap",
   "Brain Extractor",
@@ -1089,7 +1087,7 @@ var halloweenTraps = [
 ];
 
 // Weapons that interact with Party Charms to give 20% power bonus
-var birthdayTraps = [
+const birthdayTraps = [
   "Anniversary Ambush",
   "Anniversary Ancient Box Trap",
   "Anniversary Arcane Capturing Rod Of Never Yielding Mystery",
@@ -1108,7 +1106,7 @@ var birthdayTraps = [
   "Wacky Inflatable Party People Trap"
 ];
 
-var wereMice = [
+const wereMice = [
   "Alpha Weremouse",
   "Mischievous Wereminer",
   "Night Shift Materials Manager",
@@ -1118,7 +1116,7 @@ var wereMice = [
   "Wereminer"
 ];
 
-var cosmicCritters = [
+const cosmicCritters = [
   "Arcane Summoner",
   "Cursed Taskmaster",
   "Hypnotized Gunslinger",
@@ -1131,7 +1129,7 @@ var cosmicCritters = [
  * Maps Furoma Rift battery level to bonus power and luck
  * Level : [Power, Luck]
  */
-var batteryEffects = {
+const batteryEffects = {
   0: [0, 0],
   1: [90, 0],
   2: [500, 1],

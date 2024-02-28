@@ -1,44 +1,42 @@
-"use strict";
+let popLoaded = 0;
+let wisdomLoaded = 0;
+let sampleLoaded = 0;
+let gpLoaded = 0;
+let peLoaded = 0;
 
-var popLoaded = 0,
-  wisdomLoaded = 0,
-  sampleLoaded = 0,
-  gpLoaded = 0,
-  peLoaded = 0;
-
-var WISDOM_URL = "data/json/mouse-wisdom.json";
-var SAMPLE_URL = "data/json/sample-summary-detailed.json";
-var GP_URL = "data/json/mouse-gold-points.json";
-var PE_URL = "data/json/mouse-power-effs.json";
+const WISDOM_URL = "data/json/mouse-wisdom.json";
+const SAMPLE_URL = "data/json/sample-summary-detailed.json";
+const GP_URL = "data/json/mouse-gold-points.json";
+const PE_URL = "data/json/mouse-power-effs.json";
 
 /**
  * Population data parsed from CSV
  * Object with location - phase - cheese - charm - mouse - pop %
  */
-var popArray = {};
+let popArray = {};
 
 /**
  * Mouse wisdom parsed from JSON
  * @type {{mouse: string, wisdom: number}}
  */
-var mouseWisdom = {};
+let mouseWisdom = {};
 
 /**
  * Detailed sample size summary data fetched from GitHub
  * @type {{location: string, phaseCheeseCharm: string, score: number, sample: number, count: number}}
  */
-var sampleSummary = {};
+let sampleSummary = {};
 
 /**
  * Mouse gold and points parsed from JSON
  * @type {{mouse: string, gold: number, points: number}}
  */
-var miceArray = {};
+let miceArray = {};
 
 /**
  * Mouse power and trap type effs parsed from JSON
  */
-var powersArray = {};
+let powersArray = {};
 
 /**
  * Start population loading
@@ -65,20 +63,15 @@ function startPopulationLoad(populationJsonUrl, type) {
    */
   function getJSONWrapper(url, callback, descriptor) {
     $.getJSON(url)
-      .done(function(data, textStatus, jqxhr) {
+      .done((data, textStatus, jqxhr) => {
         if (textStatus === "success" && jqxhr.status === 200) {
           callback(data);
         } else {
           alert("Generic error while processing JSON data files");
         }
       })
-      .fail(function(jqxhr) {
-        var alertStr =
-          "An HTTP " +
-          jqxhr.status +
-          " error occured while fetching the JSON file for:\n\n- " +
-          descriptor +
-          "\n\nThis is likely an error involving the GitHub hosting service. If the tool is not working properly, please wait some time and try again.\n\nMore info: https://www.githubstatus.com";
+      .fail(jqxhr => {
+        const alertStr = `An HTTP ${jqxhr.status} error occured while fetching the JSON file for:\n\n- ${descriptor}\n\nThis is likely an error involving the GitHub hosting service. If the tool is not working properly, please wait some time and try again.\n\nMore info: https://www.githubstatus.com`;
         alert(alertStr);
       });
   }
@@ -124,33 +117,29 @@ function csvToArray(strData, strDelimiter) {
   strDelimiter = strDelimiter || ",";
 
   // Create a regular expression to parse the CSV values.
-  var objPattern = new RegExp(
+  const objPattern = new RegExp(
     // Delimiters.
-    "(\\" +
-      strDelimiter +
-      "|\\r?\\n|\\r|^)" +
+    `(\\${strDelimiter}|\\r?\\n|\\r|^)` +
       // Quoted fields.
-      '(?:"([^"]*(?:""[^"]*)*)"|' +
+      `(?:"([^"]*(?:""[^"]*)*)"|` +
       // Standard fields.
-      '([^"\\' +
-      strDelimiter +
-      "\\r\\n]*))",
+      `([^"\\${strDelimiter}\\r\\n]*))`,
     "gi"
   );
 
   // Create an array to hold our data. Give the array
   // a default empty first row.
-  var arrData = [[]];
+  const arrData = [[]];
 
   // Create an array to hold our individual pattern
   // matching groups.
-  var arrMatches = null;
+  let arrMatches = null;
 
   // Keep looping over the regular expression matches
   // until we can no longer find a match.
   while ((arrMatches = objPattern.exec(strData))) {
     // Get the delimiter that was found.
-    var strMatchedDelimiter = arrMatches[1];
+    const strMatchedDelimiter = arrMatches[1];
 
     // Check to see if the given delimiter has a length
     // (is not the start of string) and if it matches

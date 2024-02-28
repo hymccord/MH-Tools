@@ -1,76 +1,74 @@
-"use strict";
-
 /**
  * Shared functions and variables for both CRE and Best Setup
  */
-var user;
-var CRE_USER = "cre";
-var SETUP_USER = "setup";
-var DEFAULT_STATS = [0, 0, 0, 0, "No Effect"];
-var EMPTY_SELECTION = "-";
-var NULL_URL_PARAM = null;
-var riftStalkerCodex;
+let user;
+const CRE_USER = "cre";
+const SETUP_USER = "setup";
+const DEFAULT_STATS = [0, 0, 0, 0, "No Effect"];
+const EMPTY_SELECTION = "-";
+const NULL_URL_PARAM = null;
+let riftStalkerCodex;
 
 // Weapon stats
-var weaponPower = 0,
-  weaponBonus = 0,
-  weaponLuck = 0,
-  weaponAtt = 0,
-  weaponEff = 0;
+let weaponPower = 0;
+let weaponBonus = 0;
+let weaponLuck = 0;
+let weaponAtt = 0;
+let weaponEff = 0;
 
 // Base stats
-var basePower = 0,
-  baseBonus = 0,
-  baseLuck = 0,
-  baseAtt = 0,
-  baseEff = 0;
+let basePower = 0;
+let baseBonus = 0;
+let baseLuck = 0;
+let baseAtt = 0;
+let baseEff = 0;
 
 // Charm stats
-var charmPower = 0,
-  charmBonus = 0,
-  charmAtt = 0,
-  charmLuck = 0,
-  charmEff = 0;
+let charmPower = 0;
+let charmBonus = 0;
+let charmAtt = 0;
+let charmLuck = 0;
+let charmEff = 0;
 
 // Misc bonuses
-var gsLuck = 7,
-  ztAmp = 100,
-  bonusPower = 0,
-  bonusLuck = 0,
-  pourBonus = 0,
-  pourLuck = 0,
-  batteryPower = 0,
-  cheeseBonus = 0,
-  cheeseCost = 0,
-  subtotalPowerBonus = 0,
-  tauntBonus = 0,
-  saltLevel = 0,
-  umbraFloor = 0,
-  acolyteCatches = 0;
+let gsLuck = 7;
+let ztAmp = 100;
+let bonusPower = 0;
+let bonusLuck = 0;
+let pourBonus = 0;
+let pourLuck = 0;
+let batteryPower = 0;
+let cheeseBonus = 0;
+const cheeseCost = 0;
+let subtotalPowerBonus = 0;
+let tauntBonus = 0;
+let saltLevel = 0;
+let umbraFloor = 0;
+let acolyteCatches = 0;
 
 // Total trap stats
-var trapPower = 0,
-  trapLuck = 0,
-  trapAtt = 0,
-  trapEff = 0,
-  trapType = "";
+let trapPower = 0;
+let trapLuck = 0;
+let trapAtt = 0;
+let trapEff = 0;
+let trapType = "";
 
 // Various strings
-var baseName = "",
-  charmName = "",
-  locationName = "",
-  cheeseName = "",
-  tournamentName = "",
-  weaponName = "",
-  phaseName = "",
-  isEmpowered = "",
-  lanternStatus = "",
-  rank = "",
-  recentCharm = "",
-  recentCheese = "";
+let baseName = "";
+let charmName = "";
+let locationName = "";
+const cheeseName = "";
+const tournamentName = "";
+let weaponName = "";
+let phaseName = "";
+let isEmpowered = "";
+const lanternStatus = "";
+let rank = "";
+const recentCharm = "";
+const recentCheese = "";
 
 // Initialize Fort Rox Ballista and Cannon levels
-var fortRox = {
+const fortRox = {
   ballistaLevel: 0,
   cannonLevel: 0
 };
@@ -158,16 +156,13 @@ function calcSpecialCharms(charmName) {
  * @return {string|null}
  */
 function getURLParameter(name) {
-  var regexExec = new RegExp("[?&]" + name + "=(.+?)(&|$)").exec(
-    location.search
-  );
-  var value = (regexExec || [, null])[1];
+  const regexExec = new RegExp(`[?&]${name}=(.+?)(&|$)`).exec(location.search);
+  const value = (regexExec || [, null])[1];
 
   if (value === null) {
     return null;
-  } else {
-    return decodeURIComponent(value);
   }
+  return decodeURIComponent(value);
 }
 
 /**
@@ -179,11 +174,11 @@ function getURLParameter(name) {
  * @return {string}
  */
 function buildURL(location, urlParams) {
-  var url = location + "?";
-  for (var key in urlParams) {
-    var urlParam = urlParams[key];
+  let url = `${location}?`;
+  for (const key in urlParams) {
+    const urlParam = urlParams[key];
     if (urlParam && urlParam !== EMPTY_SELECTION) {
-      url += key + "=" + encodeURIComponent(urlParam) + "&";
+      url += `${key}=${encodeURIComponent(urlParam)}&`;
     }
   }
   return url;
@@ -208,7 +203,7 @@ function isRiftCharm(charmName) {
  * @return {number}
  */
 function getRiftCount(weapon, base, charm) {
-  var riftCount = 0;
+  let riftCount = 0;
   if (contains(riftWeapons, weapon)) riftCount++;
   if (contains(riftBases, base)) riftCount++;
   if (isRiftCharm(charm)) riftCount++;
@@ -220,15 +215,15 @@ function getRiftCount(weapon, base, charm) {
  * @param {boolean} skipDisp
  */
 function calculateTrapSetup(skipDisp) {
-  var specialPower = 0, // bonus flat power
-    specialLuck = 0, // bonus flat luck
-    shownPowerBonus = 0, // able to be parsed from user.trap_power_bonus
-    hiddenPowerBonus = 0; // implicit, unable to be parsed
+  let specialPower = 0; // bonus flat power
+  let specialLuck = 0; // bonus flat luck
+  let shownPowerBonus = 0; // able to be parsed from user.trap_power_bonus
+  let hiddenPowerBonus = 0; // implicit, unable to be parsed
 
   if (locationName && phaseName && cheeseName && weaponName && baseName) {
     // Golem Guardian logic
     if (weaponName.indexOf("Golem Guardian") >= 0) {
-      var golemCharge = 0;
+      let golemCharge = 0;
       switch (weaponName.split(" ")[2]) {
         case "Arcane":
           golemCharge =
@@ -291,9 +286,7 @@ function calculateTrapSetup(skipDisp) {
       charmName === "Dark Chocolate Charm"
     ) {
       shownPowerBonus += 20;
-    } else if (
-      weaponName === "Father Winter's Timepiece Trap"
-    ) {
+    } else if (weaponName === "Father Winter's Timepiece Trap") {
       specialPower += acolyteCatches * 2000;
     }
 
@@ -302,7 +295,7 @@ function calculateTrapSetup(skipDisp) {
     trapType = getPowerType(charmName, weaponName);
     trapPower = getTotalTrapPower();
 
-    var totalLuck =
+    const totalLuck =
       weaponLuck +
       baseLuck +
       gsLuck +
@@ -474,7 +467,8 @@ function calculateTrapSetup(skipDisp) {
       }
     } else if (
       locationName === "Floating Islands" ||
-      locationName === "Sky Palace") {
+      locationName === "Sky Palace"
+    ) {
       if (cheeseName === "Extra Rich Cloud Cheesecake") {
         shownPowerBonus += 20;
         specialLuck += 5;
@@ -482,12 +476,13 @@ function calculateTrapSetup(skipDisp) {
     } else if (
       locationName === "Event" &&
       phaseName === "Halloween" &&
-      weaponName === "Boiling Cauldron Trap"){
-        basePower += 1000;
-        weaponBonus += 10;
-        trapLuck += 5;
-        trapAtt += 15;
-       }
+      weaponName === "Boiling Cauldron Trap"
+    ) {
+      basePower += 1000;
+      weaponBonus += 10;
+      trapLuck += 5;
+      trapAtt += 15;
+    }
 
     if (
       cheeseName.indexOf("Fusion Fondue") >= 0 &&
@@ -498,9 +493,9 @@ function calculateTrapSetup(skipDisp) {
   }
 
   function getTotalTrapPower() {
-    var totalPower = weaponPower + basePower + charmPower + specialPower;
-    var setupPowerBonus = weaponBonus + baseBonus + charmBonus;
-    var totalBonus =
+    const totalPower = weaponPower + basePower + charmPower + specialPower;
+    const setupPowerBonus = weaponBonus + baseBonus + charmBonus;
+    const totalBonus =
       1 +
       (setupPowerBonus +
         shownPowerBonus +
@@ -508,7 +503,7 @@ function calculateTrapSetup(skipDisp) {
         cheeseBonus +
         bonusPower) /
         100;
-    var totalPourBonus = 1 + (pourBonus / 100) * (1 + setupPowerBonus / 100);
+    const totalPourBonus = 1 + (pourBonus / 100) * (1 + setupPowerBonus / 100);
     subtotalPowerBonus = setupPowerBonus + shownPowerBonus + cheeseBonus; // Bonus Power %
 
     return Math.ceil(totalPower * totalBonus * totalPourBonus * getAmpBonus());
@@ -519,8 +514,8 @@ function calculateTrapSetup(skipDisp) {
   }
 
   function determineRiftBonus(codex) {
-    var riftCount = getRiftCount(weaponName, baseName, charmName);
-    var multiplier = codex ? 2 : 1;
+    let riftCount = getRiftCount(weaponName, baseName, charmName);
+    const multiplier = codex ? 2 : 1;
 
     // Taunting Charm active on boss mice
     if (tauntBonus === 1) riftCount += 1;
@@ -537,13 +532,13 @@ function calculateTrapSetup(skipDisp) {
     if (locationName !== "Furoma Rift") {
       batteryPower = 0;
     }
-    var batteryExtras = batteryEffects[batteryPower] || [0, 0];
+    const batteryExtras = batteryEffects[batteryPower] || [0, 0];
     specialPower += batteryExtras[0];
     specialLuck += batteryExtras[1];
   }
 
   function getPowerType(charm, weapon) {
-    var charmPowerTypes = {
+    const charmPowerTypes = {
       "Forgotten Charm": "Forgotten",
       "Nanny Charm": "Parental",
       "Hydro Charm": "Hydro",
@@ -588,9 +583,9 @@ function calcCR(effectiveness, trapPower, trapLuck, mousePower) {
    * Catch rate computation using exponent of 1.975 to smooth out close-to-ML rates
    */
 
-  var catchRate =
+  const catchRate =
     (effectiveness * trapPower +
-      2 * Math.pow(Math.floor(Math.min(effectiveness, 1.4) * trapLuck), 2)) /
+      2 * Math.floor(Math.min(effectiveness, 1.4) * trapLuck) ** 2) /
     (effectiveness * trapPower + mousePower);
 
   return Math.min(catchRate, 1);
@@ -610,23 +605,23 @@ function minLuck(effectiveness, mousePower) {
   //   mousePower / (3 - finalEffectiveness) / Math.pow(finalEffectiveness, 2);
   // return Math.ceil(Math.sqrt(minLuckSquared));
 
-  var candidateMinluck = Math.ceil(
+  const candidateMinluck = Math.ceil(
     Math.ceil(Math.sqrt(mousePower / 2)) / Math.min(effectiveness, 1.4)
   );
 
   // If, due to floating-point errors, the candidate minluck is not
   // actually enough, add one. (This is described further in the README.)
   if (calcCR(effectiveness, 0, candidateMinluck, mousePower) < 1) {
-    return candidateMinluck + 1
+    return candidateMinluck + 1;
   }
-  return candidateMinluck
+  return candidateMinluck;
 }
 
 /**
  * Furoma Rift battery change handler
  */
 function batteryChanged() {
-  var batteryLevel = document.getElementById("battery").value;
+  const batteryLevel = document.getElementById("battery").value;
   batteryPower = parseInt(batteryLevel) || 0;
 
   if (batteryPower < 0) {
@@ -645,10 +640,9 @@ function batteryChanged() {
 function findEff(mouseName) {
   if (trapType === "") {
     return 0;
-  } else {
-    var typeIndex = typeEff[trapType];
-    return powersArray[mouseName][typeIndex] / 100;
   }
+  const typeIndex = typeEff[trapType];
+  return powersArray[mouseName][typeIndex] / 100;
 }
 
 /**
@@ -664,7 +658,7 @@ function findBaselineAttraction(cheese) {
  * Calculates final attraction rate
  */
 function getCheeseAttraction() {
-  var baselineAtt = findBaselineAttraction(cheeseName);
+  const baselineAtt = findBaselineAttraction(cheeseName);
   return baselineAtt + trapAtt / 100 - (trapAtt / 100) * baselineAtt;
 }
 
@@ -672,34 +666,35 @@ function getCheeseAttraction() {
  * Golden Shield change handler
  */
 function gsParamCheck() {
-  var gsParameter = getURLParameter("gs");
-  document.getElementById("gs").checked = ('No' === gsParameter ) ? false : true;
+  const gsParameter = getURLParameter("gs");
+  document.getElementById("gs").checked = gsParameter !== "No";
   gsChanged();
 }
 
 function getRiftstalkerKey() {
-  return "riftstalker-" + user;
+  return `riftstalker-${user}`;
 }
 
 function riftstalkerParamCheck() {
-  var key = getRiftstalkerKey();
-  var riftstalkerParam = getURLParameter("riftstalker") !== NULL_URL_PARAM;
-  var riftStalkerChecked =
+  const key = getRiftstalkerKey();
+  const riftstalkerParam = getURLParameter("riftstalker") !== NULL_URL_PARAM;
+  const riftStalkerChecked =
     riftstalkerParam || localStorage.getItem(key) === "true";
   $("#riftstalker").prop("checked", riftStalkerChecked);
   riftstalkerChange();
 }
 
 function riftstalkerChange() {
-  var key = getRiftstalkerKey();
+  const key = getRiftstalkerKey();
   riftStalkerCodex = $("#riftstalker").prop("checked");
   localStorage.setItem(key, riftStalkerCodex);
   genericOnChange();
 }
 
 function dentureFilterParamCheck() {
-  var dentureFilterParam = getURLParameter("dentureFilter") !== NULL_URL_PARAM;
-  var dentureFilterChecked =
+  const dentureFilterParam =
+    getURLParameter("dentureFilter") !== NULL_URL_PARAM;
+  const dentureFilterChecked =
     dentureFilterParam ||
     localStorage.getItem("best-setup-denture-filter") === "true";
   $("#dentureFilter").prop("checked", dentureFilterChecked);
@@ -730,34 +725,34 @@ function valourRiftParamCheck() {
   $("#umbraFloor").val(umbraFloor);
 
   // Floor Type check (for populations)
-  var floorType = getURLParameter("vrFloorType");
+  const floorType = getURLParameter("vrFloorType");
   if (floorType !== NULL_URL_PARAM) {
     document.querySelector("#vrFloorType").selectedIndex = floorType;
   }
 }
 
 function getRankKey() {
-  return "rank-" + user;
+  return `rank-${user}`;
 }
 
 function rankParamCheck() {
-  var key = getRankKey();
+  const key = getRankKey();
   rank = getURLParameter("rank") || localStorage.getItem(key) || "";
   document.getElementById("rank").value = rank;
   genericOnChange();
 }
 
 function rankChange() {
-  var key = getRankKey();
+  const key = getRankKey();
   rank = document.getElementById("rank").value;
   localStorage.setItem(key, rank);
   genericOnChange();
 }
 
 function golemParamCheck() {
-  var golemParam = getURLParameter("golem_charge");
+  const golemParam = getURLParameter("golem_charge");
   if (golemParam) {
-    var golemArr = JSON.parse(golemParam);
+    const golemArr = JSON.parse(golemParam);
     if (typeof golemArr === "object" && golemArr.length === 5) {
       golemChargeChange("arcane", golemArr[0]);
       golemChargeChange("forgotten", golemArr[1]);
@@ -810,7 +805,7 @@ function golemChargeChange(type, value) {
   }
 
   function isValid(num) {
-    var retBool = false;
+    let retBool = false;
 
     // Validate number between 0-100 and divisible by 0.2
     if (num >= 0 && num <= 100) {
@@ -833,7 +828,7 @@ function checkEmpoweredWidget(custom) {
 }
 
 function updateEmpoweredValue() {
-  var select = document.getElementById("empowered");
+  const select = document.getElementById("empowered");
   isEmpowered = select.value;
 
   if (
@@ -866,7 +861,7 @@ function charmChangeCommon(newCharmName) {
  * @param {string} selectedCharm Name of charm
  */
 function populateCharmData(selectedCharm) {
-  var charmsArrayN = charmsArray[selectedCharm] || DEFAULT_STATS;
+  const charmsArrayN = charmsArray[selectedCharm] || DEFAULT_STATS;
   charmPower = parseInt(charmsArrayN[0]);
   charmBonus = parseInt(charmsArrayN[1]);
   charmAtt = parseInt(charmsArrayN[2]);
@@ -879,7 +874,7 @@ function populateCharmData(selectedCharm) {
  * @param {string} armedWeapon the name of the weapon
  */
 function populateWeaponData(armedWeapon) {
-  var weaponsArrayN = weaponsArray[armedWeapon] || DEFAULT_STATS;
+  const weaponsArrayN = weaponsArray[armedWeapon] || DEFAULT_STATS;
   trapType = weaponsArrayN[0];
   weaponPower = weaponsArrayN[1];
   weaponBonus = weaponsArrayN[2];
@@ -893,7 +888,7 @@ function populateWeaponData(armedWeapon) {
  * @param {string} armedBase the name of the base
  */
 function populateBaseData(armedBase) {
-  var basesArrayN = basesArray[armedBase] || DEFAULT_STATS;
+  const basesArrayN = basesArray[armedBase] || DEFAULT_STATS;
   baseName = armedBase;
   basePower = parseInt(basesArrayN[0]);
   baseBonus = parseInt(basesArrayN[1]);
@@ -910,11 +905,11 @@ function populateBaseData(armedBase) {
  * @param {string} [initialHtml] Optional. Initial html content in the select
  */
 function loadDropdown(category, array, callback, initialHtml) {
-  var inputElement = document.getElementById(category);
-  var dropdownHtml = initialHtml || "";
+  const inputElement = document.getElementById(category);
+  let dropdownHtml = initialHtml || "";
 
-  for (var key in array) {
-    dropdownHtml += "<option>" + array[key] + "</option>\n";
+  for (const key in array) {
+    dropdownHtml += `<option>${array[key]}</option>\n`;
   }
 
   inputElement.innerHTML = dropdownHtml;
@@ -922,7 +917,7 @@ function loadDropdown(category, array, callback, initialHtml) {
   if (category === "charm" && recentCharm) {
     inputElement.value = recentCharm;
   } else {
-    var paramVal = getURLParameter(category);
+    const paramVal = getURLParameter(category);
     inputElement.value = paramVal;
   }
 
@@ -936,7 +931,7 @@ function loadDropdown(category, array, callback, initialHtml) {
  * Load the location drop down list from the population data and select correct location from URL apramters
  */
 function loadLocationDropdown() {
-  var array = Object.keys(popArray || []);
+  const array = Object.keys(popArray || []);
   array.sort();
 
   loadDropdown("location", array, locationChanged, "<option></option>");
@@ -944,19 +939,13 @@ function loadLocationDropdown() {
 
 function showTrapSetup() {
   document.getElementById("trapSetup").innerHTML =
-    "<tr><td>Type:</td><td>" +
-    trapType +
-    "<tr><td>Power:</td><td>" +
-    commafy(trapPower) +
-    "</td></tr>" +
-    "<tr><td>Luck:</td><td>" +
-    trapLuck +
-    "</td></tr><tr><td>Attraction Bonus:</td><td>" +
-    parseFloat(trapAtt.toFixed(2)) +
-    "%</td></tr>" +
-    "<tr><td>Cheese Effect:</td><td>" +
-    reverseParseFreshness[trapEff] +
-    "</td></tr>";
+    `<tr><td>Type:</td><td>${trapType}<tr><td>Power:</td><td>${commafy(
+      trapPower
+    )}</td></tr>` +
+    `<tr><td>Luck:</td><td>${trapLuck}</td></tr><tr><td>Attraction Bonus:</td><td>${parseFloat(
+      trapAtt.toFixed(2)
+    )}%</td></tr>` +
+    `<tr><td>Cheese Effect:</td><td>${reverseParseFreshness[trapEff]}</td></tr>`;
 }
 
 function gsChanged() {
@@ -982,7 +971,7 @@ function acolytesChanged() {
 }
 
 function getIcebergBase() {
-  var autoBase = "";
+  let autoBase = "";
   if (contains(phaseName, "Magnet")) {
     autoBase = "Magnet Base";
   } else if (contains(phaseName, "Hearthstone")) {
@@ -1002,7 +991,7 @@ function getIcebergBase() {
   }
 
   if (autoBase !== "") {
-    var selectBase = document.getElementById("base");
+    const selectBase = document.getElementById("base");
     selectBase.value = autoBase;
     baseChanged();
   }
@@ -1010,7 +999,7 @@ function getIcebergBase() {
 
 function phaseChanged() {
   (function setPhase() {
-    var select = document.getElementById("phase");
+    const select = document.getElementById("phase");
     phaseName = select.value;
 
     if (phaseName === "") {
@@ -1019,8 +1008,8 @@ function phaseChanged() {
   })();
 
   if (!popArray[locationName][phaseName]) {
-    var phases = Object.keys(popArray[locationName]);
-    loadDropdown("phase", phases, function() {
+    const phases = Object.keys(popArray[locationName]);
+    loadDropdown("phase", phases, () => {
       document.getElementById("#phase").selectedIndex = 0;
       setPhase();
     });
@@ -1044,7 +1033,7 @@ function phaseChanged() {
 }
 
 function bonusPowerChanged() {
-  var powerInput = parseInt(document.getElementById("bonusPower").value);
+  const powerInput = parseInt(document.getElementById("bonusPower").value);
 
   if (powerInput >= 0) {
     bonusPower = powerInput;
@@ -1058,7 +1047,7 @@ function bonusPowerChanged() {
 }
 
 function bonusLuckChanged() {
-  var luckInput = parseInt(document.getElementById("bonusLuck").value);
+  const luckInput = parseInt(document.getElementById("bonusLuck").value);
 
   if (luckInput >= 0) {
     bonusLuck = luckInput;
@@ -1072,9 +1061,9 @@ function bonusLuckChanged() {
 }
 
 function empoweredParamCheck() {
-  var empoweredParameter = getURLParameter("empowered");
+  const empoweredParameter = getURLParameter("empowered");
   if (empoweredParameter !== NULL_URL_PARAM) {
-    var select = document.getElementById("empowered");
+    const select = document.getElementById("empowered");
     select.value = empoweredParameter;
     empoweredChanged();
   }
@@ -1088,12 +1077,10 @@ function empoweredParamCheck() {
  * @param {boolean} custom
  */
 function showHideWidgets(custom) {
-  var locationNameClass =
-    ".display-" +
-    locationName
-      .replace(/ /g, "-")
-      .replace(/'/g, "")
-      .toLowerCase();
+  const locationNameClass = `.display-${locationName
+    .replace(/ /g, "-")
+    .replace(/'/g, "")
+    .toLowerCase()}`;
 
   $("#empoweredRow").hide();
   $("#empowered").val("No");
@@ -1105,7 +1092,7 @@ function showHideWidgets(custom) {
 }
 
 function clearResults() {
-  var results = document.getElementById("results");
+  const results = document.getElementById("results");
   results.innerHTML = "";
   document.getElementById("sampleScore").innerHTML = "N/A";
 }
@@ -1121,7 +1108,7 @@ function locationChanged() {
   clearResults();
   locationName = document.getElementById("location").value;
 
-  var checked =
+  const checked =
     user === CRE_USER && document.getElementById("toggleCustom").checked;
   showHideWidgets(checked);
 
@@ -1137,8 +1124,8 @@ function locationChanged() {
   }
 
   function populateSublocationDropdown(locationName) {
-    var category = "phase";
-    var array = Object.keys(popArray[locationName]) || [EMPTY_SELECTION];
+    const category = "phase";
+    const array = Object.keys(popArray[locationName]) || [EMPTY_SELECTION];
     loadDropdown(category, array, phaseChanged, "");
     if (array.length > 1) {
       $("#phaseRow").show();
@@ -1163,8 +1150,8 @@ function genericOnChange() {
  * @param {function} callback Callback function - usually ends in Change()
  */
 function updateInputFromParameter(category, callback) {
-  var parameter = getURLParameter(category);
-  var input = document.getElementById(category);
+  const parameter = getURLParameter(category);
+  const input = document.getElementById(category);
   if (parameter && parameter !== NULL_URL_PARAM) {
     input.value = parameter;
     callback();
@@ -1172,10 +1159,10 @@ function updateInputFromParameter(category, callback) {
 }
 
 function getSliderValue() {
-  var amplifierParameter = parseInt(getURLParameter("amplifier"));
+  const amplifierParameter = parseInt(getURLParameter("amplifier"));
   if (amplifierParameter >= 0 && amplifierParameter <= 175) {
     $("#ampSlider").slider("option", "value", amplifierParameter);
-    var myColor = getColor(amplifierParameter);
+    const myColor = getColor(amplifierParameter);
     $("#ampSlider .ui-slider-range").css("background-color", myColor);
     $("#ampSlider .ui-state-default, .ui-widget-content .ui-state-default").css(
       "background-color",
@@ -1188,20 +1175,20 @@ function getSliderValue() {
 }
 
 function highlightSpecialCharms(charmList) {
-  var select = document.getElementById("charm");
-  var charmsDropdownHTML = "";
+  const select = document.getElementById("charm");
+  let charmsDropdownHTML = "";
 
-  var charmNames = Object.keys(charmsArray || []);
-  var nCharms = charmNames.length;
-  for (var c = 0; c < nCharms; c++) {
-    charmsDropdownHTML += "<option>" + charmNames[c] + "</option>\n";
+  const charmNames = Object.keys(charmsArray || []);
+  const nCharms = charmNames.length;
+  for (let c = 0; c < nCharms; c++) {
+    charmsDropdownHTML += `<option>${charmNames[c]}</option>\n`;
   }
-  select.innerHTML = "<option>No Charm</option>" + charmsDropdownHTML;
+  select.innerHTML = `<option>No Charm</option>${charmsDropdownHTML}`;
 
-  for (var i = 0; i < charmList.length; i++) {
-    for (var j = 0; j < select.children.length; j++) {
-      var child = select.children[j];
-      var charm = charmList[i] + " Charm";
+  for (let i = 0; i < charmList.length; i++) {
+    for (let j = 0; j < select.children.length; j++) {
+      const child = select.children[j];
+      const charm = `${charmList[i]} Charm`;
       if (child.value === charm) {
         child.innerHTML += "*";
         child.value = charm;
@@ -1209,12 +1196,9 @@ function highlightSpecialCharms(charmList) {
           charmName = child.value;
           showPop(2);
         }
-        select.innerHTML =
-          select.innerHTML.slice(0, 25) +
-          "<option>" +
-          child.innerHTML +
-          "</option>" +
-          select.innerHTML.slice(25);
+        select.innerHTML = `${select.innerHTML.slice(0, 25)}<option>${
+          child.innerHTML
+        }</option>${select.innerHTML.slice(25)}`;
         break;
       }
     }
@@ -1223,13 +1207,13 @@ function highlightSpecialCharms(charmList) {
 }
 
 function selectCharm() {
-  var charmParameter = recentCharm || getURLParameter("charm");
-  var specialCharmParameter = charmParameter + "*";
+  const charmParameter = recentCharm || getURLParameter("charm");
+  const specialCharmParameter = `${charmParameter}*`;
   if (charmParameter !== NULL_URL_PARAM) {
-    var select = document.getElementById("charm");
+    const select = document.getElementById("charm");
     // TODO: Improve
-    for (var i = 0; i < select.children.length; i++) {
-      var child = select.children[i];
+    for (let i = 0; i < select.children.length; i++) {
+      const child = select.children[i];
       if (
         child.innerHTML === charmParameter ||
         child.innerHTML === specialCharmParameter
@@ -1251,11 +1235,11 @@ function selectCharm() {
 function checkSpecialCharms() {
   if (locationName) {
     checkPhase();
-    var popArrayLPC = popArray[locationName][phaseName][cheeseName];
+    const popArrayLPC = popArray[locationName][phaseName][cheeseName];
 
     // Highlight special charms
-    var specialCharmsList;
-    var specialCharms = Object.keys(popArrayLPC || []);
+    let specialCharmsList;
+    const specialCharms = Object.keys(popArrayLPC || []);
     if (specialCharms.length > 1) {
       highlightSpecialCharms(specialCharms);
     } else if (popArrayLPC !== null && specialCharms[0] !== EMPTY_SELECTION) {
@@ -1284,10 +1268,10 @@ function checkPhase() {
  * @return {number}
  */
 function calcCREffects(catchRate, mouseName, eff, mousePower) {
-  var weaponPowerDelta = 0;
-  var weaponBonusDelta = 0;
-  var charmBonusDelta = 0;
-  var tauntBonusDelta = 0;
+  let weaponPowerDelta = 0;
+  let weaponBonusDelta = 0;
+  let charmBonusDelta = 0;
+  let tauntBonusDelta = 0;
   if (locationName === "Zugzwang's Tower") {
     if (mouseName === "Technic Pawn") {
       if (weaponName === "Mystic Pawn Pincher") {
@@ -1304,67 +1288,91 @@ function calcCREffects(catchRate, mouseName, eff, mousePower) {
         weaponBonusDelta -= 5;
       }
     } else if (contains(mouseName, "Mystic")) {
-        if (weaponName === "Obvious Ambush Trap") {
+      if (weaponName === "Obvious Ambush Trap") {
         weaponPowerDelta -= 2400;
       } else if (weaponName === "Blackstone Pass Trap") {
         weaponPowerDelta += 1800;
       }
     } else if (contains(mouseName, "Technic")) {
-        if (weaponName === "Obvious Ambush Trap") {
+      if (weaponName === "Obvious Ambush Trap") {
         weaponPowerDelta += 1800;
       } else if (weaponName === "Blackstone Pass Trap") {
         weaponPowerDelta -= 2400;
       }
-    } if (contains(mouseName, "Rook") && charmName === "Rook Crumble Charm") {
+    }
+    if (contains(mouseName, "Rook") && charmName === "Rook Crumble Charm") {
       charmBonusDelta += 300;
     }
-  } if (charmName === "Dragonbane Charm" && contains(dragons, mouseName)) {
+  }
+  if (charmName === "Dragonbane Charm" && contains(dragons, mouseName)) {
     charmBonusDelta += 300;
-  } if (
-    charmName === "Super Dragonbane Charm" && contains(dragons, mouseName)) {
+  }
+  if (charmName === "Super Dragonbane Charm" && contains(dragons, mouseName)) {
     charmBonusDelta += 600;
-  } if (
-    charmName === "Extreme Dragonbane Charm" && contains(dragons, mouseName)) {
+  }
+  if (
+    charmName === "Extreme Dragonbane Charm" &&
+    contains(dragons, mouseName)
+  ) {
     charmBonusDelta += 900;
-  } if (
-    charmName === "Ultimate Dragonbane Charm" && contains(dragons, mouseName)) {
+  }
+  if (
+    charmName === "Ultimate Dragonbane Charm" &&
+    contains(dragons, mouseName)
+  ) {
     charmBonusDelta += 1200;
-  } if (charmName === "Taunting Charm" && contains(tauntings, mouseName)) {
-    var riftCount = getRiftCount(weaponName, baseName, charmName);
+  }
+  if (charmName === "Taunting Charm" && contains(tauntings, mouseName)) {
+    const riftCount = getRiftCount(weaponName, baseName, charmName);
     if (riftCount >= 1) tauntBonusDelta += 1;
-  } if (locationName === "Fiery Warpath") {
+  }
+  if (locationName === "Fiery Warpath") {
     if (charmName.indexOf("Super Warpath Archer Charm") >= 0) {
-      var warpathArcher = ["Desert Archer", "Flame Archer", "Crimson Ranger"];
+      const warpathArcher = ["Desert Archer", "Flame Archer", "Crimson Ranger"];
       if (contains(warpathArcher, mouseName)) {
         charmBonusDelta += 50;
       }
-    } if (charmName.indexOf("Super Warpath Warrior Charm") >= 0) {
-      var warpathWarrior = ["Desert Soldier", "Flame Warrior", "Crimson Titan"];
+    }
+    if (charmName.indexOf("Super Warpath Warrior Charm") >= 0) {
+      const warpathWarrior = [
+        "Desert Soldier",
+        "Flame Warrior",
+        "Crimson Titan"
+      ];
       if (contains(warpathWarrior, mouseName)) {
         charmBonusDelta += 50;
       }
-    } if (charmName.indexOf("Super Warpath Scout Charm") >= 0) {
-      var warpathScout = ["Vanguard", "Sentinel", "Crimson Watch"];
+    }
+    if (charmName.indexOf("Super Warpath Scout Charm") >= 0) {
+      const warpathScout = ["Vanguard", "Sentinel", "Crimson Watch"];
       if (contains(warpathScout, mouseName)) {
         charmBonusDelta += 50;
       }
-    } if (charmName.indexOf("Super Warpath Cavalry Charm") >= 0) {
-      var warpathCavalry = ["Sand Cavalry", "Sandwing Cavalry"];
+    }
+    if (charmName.indexOf("Super Warpath Cavalry Charm") >= 0) {
+      const warpathCavalry = ["Sand Cavalry", "Sandwing Cavalry"];
       if (contains(warpathCavalry, mouseName)) {
         charmBonusDelta += 50;
       }
-    } if (charmName.indexOf("Super Warpath Mage Charm") >= 0) {
-      var warpathMage = ["Inferno Mage", "Magmarage"];
+    }
+    if (charmName.indexOf("Super Warpath Mage Charm") >= 0) {
+      const warpathMage = ["Inferno Mage", "Magmarage"];
       if (contains(warpathMage, mouseName)) {
         charmBonusDelta += 50;
       }
-    } if (charmName.indexOf("Super Warpath Commander's Charm") >= 0) {
+    }
+    if (charmName.indexOf("Super Warpath Commander's Charm") >= 0) {
       if (mouseName === "Crimson Commander") {
         charmBonusDelta += 50;
       }
     }
   }
-  if (weaponPowerDelta !== 0 || weaponBonusDelta !== 0 || charmBonusDelta !== 0 || tauntBonusDelta !== 0) {
+  if (
+    weaponPowerDelta !== 0 ||
+    weaponBonusDelta !== 0 ||
+    charmBonusDelta !== 0 ||
+    tauntBonusDelta !== 0
+  ) {
     weaponPower += weaponPowerDelta;
     weaponBonus += weaponBonusDelta;
     charmBonus += charmBonusDelta;
@@ -1378,8 +1386,8 @@ function calcCREffects(catchRate, mouseName, eff, mousePower) {
     calculateTrapSetup(true);
   } else if (locationName === "Sand Crypts") {
     if (mouseName === "King Grub" || mouseName === "King Scarab") {
-      var type = mouseName.split("King ")[1];
-      var saltedMousePower = calcSaltedPower(type, mousePower);
+      const type = mouseName.split("King ")[1];
+      const saltedMousePower = calcSaltedPower(type, mousePower);
       catchRate = calcCR(eff, trapPower, trapLuck, saltedMousePower);
     }
   }
@@ -1469,12 +1477,12 @@ function calcCRMods(catchRate, mouseName) {
 }
 
 function checkLoadState(type) {
-  var loadPercentage = (
+  const loadPercentage = (
     ((popLoaded + wisdomLoaded + sampleLoaded + gpLoaded + peLoaded) / 5) *
     100
   ).toFixed(0);
-  var status = document.getElementById("status");
-  status.innerHTML = "<td>Loaded " + loadPercentage + "%...</td>";
+  const status = document.getElementById("status");
+  status.innerHTML = `<td>Loaded ${loadPercentage}%...</td>`;
 
   if (loadPercentage == 100) {
     loadLocationDropdown();
@@ -1509,7 +1517,7 @@ function checkLoadState(type) {
     calculateBonusLuck();
 
     status.innerHTML = "<td>All set!</td>";
-    setTimeout(function() {
+    setTimeout(() => {
       status.style.display = "none";
     }, 1776);
   }
@@ -1518,16 +1526,16 @@ function checkLoadState(type) {
     // Called by initial checkLoadState only
     // Skip if location/weapon/base fails b/c invalid trapPower
 
-    var powerBonus = getURLParameter("power_bonus");
+    const powerBonus = getURLParameter("power_bonus");
     if (powerBonus) calculateTrapSetup();
 
-    var bonusPowerParameter = 0;
-    var indexCheck = false;
-    var locationIndex = document.getElementById("location").selectedIndex;
+    let bonusPowerParameter = 0;
+    let indexCheck = false;
+    const locationIndex = document.getElementById("location").selectedIndex;
 
     if (type === CRE_USER) {
-      var weaponIndex = document.getElementById("weapon").selectedIndex;
-      var baseIndex = document.getElementById("base").selectedIndex;
+      const weaponIndex = document.getElementById("weapon").selectedIndex;
+      const baseIndex = document.getElementById("base").selectedIndex;
       indexCheck = locationIndex && weaponIndex && baseIndex;
     }
 
@@ -1550,16 +1558,16 @@ function checkLoadState(type) {
     // Called by initial checkLoadState only
     // Skip if location/weapon/base fails b/c invalid trapLuck
 
-    var totalLuck = getURLParameter("total_luck");
+    const totalLuck = getURLParameter("total_luck");
     if (totalLuck) calculateTrapSetup();
 
-    var bonusLuckParameter = 0;
-    var indexCheck = false;
-    var locationIndex = document.getElementById("location").selectedIndex;
+    let bonusLuckParameter = 0;
+    let indexCheck = false;
+    const locationIndex = document.getElementById("location").selectedIndex;
 
     if (type === CRE_USER) {
-      var weaponIndex = document.getElementById("weapon").selectedIndex;
-      var baseIndex = document.getElementById("base").selectedIndex;
+      const weaponIndex = document.getElementById("weapon").selectedIndex;
+      const baseIndex = document.getElementById("base").selectedIndex;
       indexCheck = locationIndex && weaponIndex && baseIndex;
     }
 
@@ -1583,17 +1591,17 @@ function checkLoadState(type) {
  * Retrieves and displays sample scores
  */
 function formatSampleScore() {
-  var str = "";
-  var colored = "";
-  var scoreDescriptor = "";
+  let str = "";
+  let colored = "";
+  let scoreDescriptor = "";
 
-  var sampleScoreParam = null;
-  var sampleSize = null;
-  var sampleCount = null;
-  var isSpecial = false;
+  let sampleScoreParam = null;
+  let sampleSize = null;
+  let sampleCount = null;
+  let isSpecial = false;
 
-  var phaseCheeseCharm = phaseName;
-  phaseCheeseCharm += ", " + cheeseName;
+  let phaseCheeseCharm = phaseName;
+  phaseCheeseCharm += `, ${cheeseName}`;
   if (
     $("#charm option:selected")
       .text()
@@ -1601,12 +1609,12 @@ function formatSampleScore() {
   ) {
     phaseCheeseCharm += ", " + "-";
   } else {
-    phaseCheeseCharm += ", " + charmName.slice(0, -6);
+    phaseCheeseCharm += `, ${charmName.slice(0, -6)}`;
     isSpecial = true;
   }
 
   if (locationName && sampleSummary[locationName]) {
-    var sampleScore = sampleSummary[locationName][phaseCheeseCharm];
+    const sampleScore = sampleSummary[locationName][phaseCheeseCharm];
     if (sampleScore) {
       sampleScoreParam = sampleScore.score;
       sampleSize = sampleScore.sample;
@@ -1644,13 +1652,12 @@ function formatSampleScore() {
   }
 
   if (sampleScoreParam !== null) {
-    scoreDescriptor = sampleScoreParam + "/100 (" + colored + ")";
-    scoreDescriptor +=
-      " [Sample Size: " + sampleSize + ", Mouse Count: " + sampleCount + ", ";
+    scoreDescriptor = `${sampleScoreParam}/100 (${colored})`;
+    scoreDescriptor += ` [Sample Size: ${sampleSize}, Mouse Count: ${sampleCount}, `;
     scoreDescriptor += isSpecial ? "Special Charm]" : "Common Charm]";
   }
 
-  var ss = document.getElementById("sampleScore");
+  const ss = document.getElementById("sampleScore");
   if (ss) {
     ss.innerHTML = scoreDescriptor;
   }
@@ -1675,19 +1682,33 @@ function calcGolemStats(charge) {
  * @return {number} Salted/decreased mouse power value
  */
 function calcSaltedPower(type, mousePower) {
-  var saltVal = parseInt(saltLevel, 10) || 0;
+  const saltVal = parseInt(saltLevel, 10) || 0;
 
   if (saltVal === 0) {
-    return mousePower
+    return mousePower;
   }
 
-  var saltedPower = mousePower;
+  let saltedPower = mousePower;
   let saltThresholds;
   let saltCoefficients;
   if (type === "Grub") {
     // Many different thresholds for KG, see Scarab for easier understanding
     saltThresholds = [0, 6, 7, 10, 14, 18, 23, 24, 27, 34, 44, 48, 50];
-    saltCoefficients = [50000, 40000, 20000, 10000, 5000, 2500, 1000, 1500, 1000, 500, 1000, 2000, 0];
+    saltCoefficients = [
+      50000,
+      40000,
+      20000,
+      10000,
+      5000,
+      2500,
+      1000,
+      1500,
+      1000,
+      500,
+      1000,
+      2000,
+      0
+    ];
   } else if (type === "Scarab") {
     // 25k MP decrements for up to 30 salt, -12500 from 31 to 40 salt, -6500 to 50 salt
     saltThresholds = [0, 30, 40, 50];
@@ -1723,10 +1744,10 @@ function calcPrestigeStats() {
  * @param {string} mouseName
  */
 function dynamicMouseRename(mouseName) {
-  var returnName = mouseName;
+  let returnName = mouseName;
 
   if (locationName === "Valour Rift") {
-    var floorNormal = [
+    const floorNormal = [
       "Puppetto",
       "Cutpurse",
       "Martial",
@@ -1736,7 +1757,7 @@ function dynamicMouseRename(mouseName) {
       "Withered Remains"
     ];
 
-    var floorChamp = [
+    const floorChamp = [
       "Puppet Champion",
       "Champion Thief",
       "Praetorian Champion",
@@ -1746,7 +1767,7 @@ function dynamicMouseRename(mouseName) {
       "Arch Champion Necromancer"
     ];
 
-    var floorTypeIndex =
+    const floorTypeIndex =
       document.querySelector("#vrFloorType").selectedIndex || 0;
 
     if (mouseName === "Floor Basic") returnName = floorNormal[floorTypeIndex];

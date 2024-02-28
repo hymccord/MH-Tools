@@ -3,12 +3,12 @@
  */
 
 (function() {
-  $(window).load(function() {
+  $(window).load(() => {
     initTableSorter();
     setupGA();
   });
 
-  var tablesorterOptions = {
+  const tablesorterOptions = {
     // sortForce: [[noMice,1]],
     sortReset: true,
     widthFixed: true,
@@ -51,7 +51,7 @@
 
   function setupGA() {
     (function(i, s, o, g, r, a, m) {
-      i["GoogleAnalyticsObject"] = r;
+      i.GoogleAnalyticsObject = r;
       (i[r] =
         i[r] ||
         function() {

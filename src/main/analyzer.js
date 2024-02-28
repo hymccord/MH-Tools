@@ -1,6 +1,3 @@
-"use strict";
-
-
 /**
  * @typedef {Object} Listing
  * @property {string} name
@@ -14,12 +11,12 @@
 
 window.onload = function() {
   loadBookmarkletFromJS(
-    BOOKMARKLET_URLS["loader"],
+    BOOKMARKLET_URLS.loader,
     "bookmarkletLoader",
     "#bookmarkletloader"
   );
   loadBookmarkletFromJS(
-    BOOKMARKLET_URLS["analyzer"],
+    BOOKMARKLET_URLS.analyzer,
     "analyzerBookmarklet",
     "#bookmarklet"
   );
@@ -30,8 +27,8 @@ window.onload = function() {
       const inputObj = JSON.parse(window.name);
       if (validateJsonData(inputObj)) {
         const classicObj = {};
-        classicObj["listings"] = inputObj;
-        classicObj["DATA_VERSION"] = "3.0";
+        classicObj.listings = inputObj;
+        classicObj.DATA_VERSION = "3.0";
 
         localStorage.setItem("marketplaceData", JSON.stringify(classicObj));
         window.name = ""; // Reset name after capturing data
@@ -92,14 +89,14 @@ window.onload = function() {
         pager_fixedHeight: false,
         pager_removeRows: false, // removing rows in larger tables speeds up the sort
         pager_ajaxUrl: null,
-        pager_customAjaxUrl: function(table, url) {
+        pager_customAjaxUrl(table, url) {
           return url;
         },
         pager_ajaxError: null,
         pager_ajaxObject: {
           dataType: "json"
         },
-        pager_ajaxProcessing: function(ajax) {
+        pager_ajaxProcessing(ajax) {
           return [0, [], null];
         },
         // css class names that are added
@@ -121,21 +118,13 @@ window.onload = function() {
         }
       }
     })
-    .bind("pagerChange pagerComplete pagerInitialized pageMoved", function(
-      e,
-      c
-    ) {
-      let p = c.pager, // NEW with the widget... it returns config, instead of config.pager
-        msg =
-          '"</span> event triggered, ' +
-          (e.type === "pagerChange" ? "going to" : "now on") +
-          ' page <span class="typ">' +
-          (p.page + 1) +
-          "/" +
-          p.totalPages +
-          "</span>";
+    .bind("pagerChange pagerComplete pagerInitialized pageMoved", (e, c) => {
+      const p = c.pager; // NEW with the widget... it returns config, instead of config.pager
+      const msg = `"</span> event triggered, ${
+        e.type === "pagerChange" ? "going to" : "now on"
+      } page <span class="typ">${p.page + 1}/${p.totalPages}</span>`;
       $("#display")
-        .append('<li><span class="str">"' + e.type + msg + "</li>")
+        .append(`<li><span class="str">"${e.type}${msg}</li>`)
         .find("li:first")
         .remove();
     });
@@ -187,14 +176,14 @@ window.onload = function() {
         pager_fixedHeight: false,
         pager_removeRows: false, // removing rows in larger tables speeds up the sort
         pager_ajaxUrl: null,
-        pager_customAjaxUrl: function(table, url) {
+        pager_customAjaxUrl(table, url) {
           return url;
         },
         pager_ajaxError: null,
         pager_ajaxObject: {
           dataType: "json"
         },
-        pager_ajaxProcessing: function(ajax) {
+        pager_ajaxProcessing(ajax) {
           return [0, [], null];
         },
         // css class names that are added
@@ -216,21 +205,13 @@ window.onload = function() {
         }
       }
     })
-    .bind("pagerChange pagerComplete pagerInitialized pageMoved", function(
-      e,
-      c
-    ) {
-      let p = c.pager, // NEW with the widget... it returns config, instead of config.pager
-        msg =
-          '"</span> event triggered, ' +
-          (e.type === "pagerChange" ? "going to" : "now on") +
-          ' page <span class="typ">' +
-          (p.page + 1) +
-          "/" +
-          p.totalPages +
-          "</span>";
+    .bind("pagerChange pagerComplete pagerInitialized pageMoved", (e, c) => {
+      const p = c.pager; // NEW with the widget... it returns config, instead of config.pager
+      const msg = `"</span> event triggered, ${
+        e.type === "pagerChange" ? "going to" : "now on"
+      } page <span class="typ">${p.page + 1}/${p.totalPages}</span>`;
       $("#display")
-        .append('<li><span class="str">"' + e.type + msg + "</li>")
+        .append(`<li><span class="str">"${e.type}${msg}</li>`)
         .find("li:first")
         .remove();
     });
@@ -241,7 +222,7 @@ window.onload = function() {
     ignoreCase: false
   });
 
-  $("#resetButton").click(function() {
+  $("#resetButton").click(() => {
     const reset = confirm(
       "Are you sure you want to reset the data in this tool?"
     );
@@ -267,11 +248,14 @@ window.onload = function() {
   const storedData = localStorage.getItem("marketplaceData");
   if (storedData) {
     const parsedData = JSON.parse(storedData);
-    if (!parsedData.hasOwnProperty("DATA_VERSION") || Number.parseFloat(parsedData["DATA_VERSION"]) < 3.0 ) {
+    if (
+      !parsedData.hasOwnProperty("DATA_VERSION") ||
+      Number.parseFloat(parsedData.DATA_VERSION) < 3.0
+    ) {
       alert(
         "Old data format detected!\nPlease upgrade to the new bookmarklet and re-import your data.\nSorry for the inconvenience."
       );
-    } else if (parsedData["DATA_VERSION"] === "3.0") {
+    } else if (parsedData.DATA_VERSION === "3.0") {
       showTable(parsedData);
       showItemSummary(parsedData);
       showOverallSummary(parsedData);
@@ -295,28 +279,29 @@ function showTable(dataObject) {
 
   dataObject.listings.forEach(listing => {
     const tariff = listing.action === "buy" ? listing.tariff : 0;
-    const action = listing.action.charAt(0).toUpperCase() + listing.action.slice(1);
+    const action =
+      listing.action.charAt(0).toUpperCase() + listing.action.slice(1);
 
-    tableHTML += `<tr><td>${listing.date}</td><td>${listing.name}</td><td>${action}</td><td>${commafy(
-      listing.quantity
-    )}</td><td>${commafy(listing.unit)}</td><td>${commafy(
-      tariff
-    )}</td><td>${commafy(listing.total)}</td></tr>`;
+    tableHTML += `<tr><td>${listing.date}</td><td>${
+      listing.name
+    }</td><td>${action}</td><td>${commafy(listing.quantity)}</td><td>${commafy(
+      listing.unit
+    )}</td><td>${commafy(tariff)}</td><td>${commafy(listing.total)}</td></tr>`;
   });
 
   tableHTML += "</tbody>";
   table.innerHTML = tableHTML;
 
-  const resort = true,
-    callback = function() {
-      const header = $("#dateClosed");
-      if (header.hasClass("tablesorter-headerAsc")) {
-        header.click();
-        header.click();
-      } else if (header.hasClass("tablesorter-headerUnSorted")) {
-        header.click();
-      }
-    };
+  const resort = true;
+  const callback = function() {
+    const header = $("#dateClosed");
+    if (header.hasClass("tablesorter-headerAsc")) {
+      header.click();
+      header.click();
+    } else if (header.hasClass("tablesorter-headerUnSorted")) {
+      header.click();
+    }
+  };
   $("#table").trigger("updateAll", [resort, callback]);
 }
 
@@ -338,24 +323,23 @@ function showItemSummary(dataObject) {
     acc[listing.name].push(listing);
 
     return acc;
-  }, {})
+  }, {});
 
-  for (let listings of Object.values(listingsGroupedByName)) {
-    const name = listings[0].name;
-    let totalSellQuantity = 0,
-      totalBuyQuantity = 0;
-    let sellCounter = 0,
-      buyCounter = 0;
-    let totalSellUnitPrice = 0,
-      totalBuyUnitPrice = 0;
-    let totalSellAmt = 0,
-      totalBuyAmt = 0;
-    let lowSellUnitPrice = 0,
-      lowBuyUnitPrice = 0;
-    let highSellUnitPrice = 0,
-      highBuyUnitPrice = 0;
+  for (const listings of Object.values(listingsGroupedByName)) {
+    const { name } = listings[0];
+    let totalSellQuantity = 0;
+    let totalBuyQuantity = 0;
+    let sellCounter = 0;
+    let buyCounter = 0;
+    let totalSellUnitPrice = 0;
+    let totalBuyUnitPrice = 0;
+    let totalSellAmt = 0;
+    let totalBuyAmt = 0;
+    let lowSellUnitPrice = 0;
+    let lowBuyUnitPrice = 0;
+    let highSellUnitPrice = 0;
+    let highBuyUnitPrice = 0;
     let totalTariffs = 0;
-
 
     listings.forEach(listing => {
       switch (listing.action) {
@@ -420,16 +404,16 @@ function showItemSummary(dataObject) {
   tableHTML += "</tbody>";
   table.innerHTML = tableHTML;
 
-  const resort = true,
-    callback = function() {
-      const header = $("#itemSummaryAction");
-      if (header.hasClass("tablesorter-headerAsc")) {
-        header.click();
-        header.click();
-      } else if (header.hasClass("tablesorter-headerUnSorted")) {
-        header.click();
-      }
-    };
+  const resort = true;
+  const callback = function() {
+    const header = $("#itemSummaryAction");
+    if (header.hasClass("tablesorter-headerAsc")) {
+      header.click();
+      header.click();
+    } else if (header.hasClass("tablesorter-headerUnSorted")) {
+      header.click();
+    }
+  };
   $("#itemSummaryTable").trigger("updateAll", [resort, callback]);
 }
 
@@ -440,14 +424,14 @@ function showItemSummary(dataObject) {
  */
 function showOverallSummary(dataObject) {
   $("#overallSummaryContainer").show(500);
-  let totalSellQuantity = 0,
-    totalBuyQuantity = 0;
-  let sellCounter = 0,
-    buyCounter = 0;
-  let totalSellUnitPrice = 0,
-    totalBuyUnitPrice = 0;
-  let totalSellAmt = 0,
-    totalBuyAmt = 0;
+  let totalSellQuantity = 0;
+  let totalBuyQuantity = 0;
+  let sellCounter = 0;
+  let buyCounter = 0;
+  let totalSellUnitPrice = 0;
+  let totalBuyUnitPrice = 0;
+  let totalSellAmt = 0;
+  let totalBuyAmt = 0;
   let totalTariffs = 0;
 
   const table = document.getElementById("overallSummaryTable");
@@ -468,7 +452,7 @@ function showOverallSummary(dataObject) {
         totalBuyQuantity += listing.quantity;
         totalBuyUnitPrice += listing.unit;
         totalBuyAmt += listing.total;
-        totalTariffs += listing.tariff
+        totalTariffs += listing.tariff;
         break;
     }
   });
@@ -513,16 +497,16 @@ function showOverallSummary(dataObject) {
 
   table.innerHTML = tableHTML;
 
-  const resort = true,
-    callback = function() {
-      const header = $("#overallSummaryAction");
-      if (header.hasClass("tablesorter-headerAsc")) {
-        header.click();
-        header.click();
-      } else if (header.hasClass("tablesorter-headerUnSorted")) {
-        header.click();
-      }
-    };
+  const resort = true;
+  const callback = function() {
+    const header = $("#overallSummaryAction");
+    if (header.hasClass("tablesorter-headerAsc")) {
+      header.click();
+      header.click();
+    } else if (header.hasClass("tablesorter-headerUnSorted")) {
+      header.click();
+    }
+  };
   $("#overallSummaryTable").trigger("updateAll", [resort, callback]);
 }
 
@@ -531,19 +515,21 @@ function showOverallSummary(dataObject) {
  */
 function validateJsonData(inputObj) {
   if (!Array.isArray(inputObj) || inputObj.length === 0) {
-    return false
+    return false;
   }
 
   const item = inputObj[0];
-  if (!(
-    item.hasOwnProperty('name') &&
-    item.hasOwnProperty('action') &&
-    item.hasOwnProperty('quantity') &&
-    item.hasOwnProperty('total') &&
-    item.hasOwnProperty('unit') &&
-    item.hasOwnProperty('tariff') &&
-    item.hasOwnProperty('date')
-  )) {
+  if (
+    !(
+      item.hasOwnProperty("name") &&
+      item.hasOwnProperty("action") &&
+      item.hasOwnProperty("quantity") &&
+      item.hasOwnProperty("total") &&
+      item.hasOwnProperty("unit") &&
+      item.hasOwnProperty("tariff") &&
+      item.hasOwnProperty("date")
+    )
+  ) {
     return false;
   }
 
@@ -555,14 +541,13 @@ function getDataFromURL(parameters) {
     parameters = decodeURI(parameters[1]);
 
     return parameters.split("/").join("\n");
-  } else {
-    return [];
   }
+  return [];
 }
 
 Object.size = function(obj) {
   let size = 0;
-  for (let key in obj) {
+  for (const key in obj) {
     if (obj.hasOwnProperty(key)) size++;
   }
   return size;
@@ -570,7 +555,7 @@ Object.size = function(obj) {
 
 function commafy(num) {
   // $1 is a non-standard static prop of RegExp for substring match
-  let str = num.toString().split(".");
+  const str = num.toString().split(".");
   if (str[0].length >= 4) {
     str[0] = str[0].replace(/(\d)(?=(\d{3})+$)/g, "$1,");
   }

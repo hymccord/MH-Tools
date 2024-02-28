@@ -13,18 +13,9 @@ const allCheeses = [
 ];
 
 const mice = {
-  Cheddar: [
-    "Brown",
-    "Cowardly",
-    "Dwarf",
-    "Grey",
-    "White",
-  ],
-  "White Cheddar": [
-    "Cowardly",
-    "Dwarf",
-  ],
-  Marble: [
+  "Cheddar": ["Brown", "Cowardly", "Dwarf", "Grey", "White"],
+  "White Cheddar": ["Cowardly", "Dwarf"],
+  "Marble": [
     "Brown",
     "Cowardly",
     "Diamond",
@@ -34,9 +25,9 @@ const mice = {
     "Grey",
     "Longtail",
     "Pugilist",
-    "White",
+    "White"
   ],
-  Swiss: [
+  "Swiss": [
     "Bionic",
     "Brown",
     "Diamond",
@@ -47,7 +38,7 @@ const mice = {
     "Longtail",
     "Pugilist",
     "Steel",
-    "White",
+    "White"
   ],
   "Mozzarella": [
     "Bionic",
@@ -60,9 +51,9 @@ const mice = {
     "Longtail",
     "Pugilist",
     "Steel",
-    "White",
+    "White"
   ],
-  Brie: [
+  "Brie": [
     "Bionic",
     "Diamond",
     "Flying",
@@ -73,7 +64,7 @@ const mice = {
     "Steel",
     "Zombie"
   ],
-  Gouda: [
+  "Gouda": [
     "Bionic",
     "Brown",
     "Diamond",
@@ -83,7 +74,7 @@ const mice = {
     "Grey",
     "Longtail",
     "Steel",
-    "White",
+    "White"
   ],
   "SB+": [
     "Diamond",
@@ -96,7 +87,7 @@ const mice = {
     "Speedy",
     "Zombie"
   ],
-  Gilded: [
+  "Gilded": [
     "Bionic",
     "Brown",
     "Cowardly",
@@ -110,23 +101,21 @@ const mice = {
     "Pugilist",
     "Steel",
     "White",
-    "Zombie",
+    "Zombie"
   ]
-}
+};
 
 function genSeries() {
-  return allCheeses.map(c => {
-    return {
-      cheese: utils.genVarField("cheese", c),
-      config: [
-        {
-          opts: {
-            include: mice[c]
-          }
+  return allCheeses.map(c => ({
+    cheese: utils.genVarField("cheese", c),
+    config: [
+      {
+        opts: {
+          include: mice[c]
         }
-      ]
-    }
-  })
+      }
+    ]
+  }));
 }
 
 module.exports = {

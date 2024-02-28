@@ -31,12 +31,12 @@
     items: {},
     listings: {},
     pause: false,
-    done: false,
+    done: false
   };
 
   function getHistory(page) {
     return new Promise((resolve, reject) => {
-      hg.utils.Marketplace.getMyHistory(page, resolve, reject)
+      hg.utils.Marketplace.getMyHistory(page, resolve, reject);
     });
   }
 
@@ -55,22 +55,22 @@
     // Create dictonary of item names by id
     // to decode item_id returned by history API
     hg.utils.Marketplace.getMarketplaceData(
-      function (data) {
+      data => {
         if (data.marketplace_items) {
           data.marketplace_items.forEach(item => {
-            PARAMS["items"][item.item_id] = item.name
-          })
+            PARAMS.items[item.item_id] = item.name;
+          });
         }
       },
-      function () {
+      () => {
         alert("Error fetching marketplace data!");
       }
     );
   }
 
   function persistData() {
-    const data = JSON.stringify(PARAMS["listings"]);
-    localStorage.setItem("tsitu-analyzer-data", data)
+    const data = JSON.stringify(PARAMS.listings);
+    localStorage.setItem("tsitu-analyzer-data", data);
   }
 
   function decodePersistedData() {
@@ -85,7 +85,7 @@
       } catch {}
     }
 
-    PARAMS["listings"] = storageObj;
+    PARAMS.listings = storageObj;
   }
 
   /**
@@ -97,23 +97,28 @@
     let alreadyStoredListing = false;
     newData.marketplace_history.forEach(val => {
       // we can tell fetching function to stop as we've fetched already stored entries
-      alreadyStoredListing ||= val.listing_id in PARAMS["listings"];
+      alreadyStoredListing ||= val.listing_id in PARAMS.listings;
 
-      PARAMS["listings"][val.listing_id] = {
-        name: PARAMS["items"][val.item_id],
+      PARAMS.listings[val.listing_id] = {
+        name: PARAMS.items[val.item_id],
         action: val.listing_type,
         quantity: val.initial_quantity - val.remaining_quantity,
         total: val.total_price_without_tariff,
         unit: val.unit_price_without_tariff,
         tariff: val.total_price - val.total_price_without_tariff,
         date: val.date_closed
-      }
-    })
+      };
+    });
 
-    localStorage.setItem("tsitu-analyzer-data-length", Object.keys(PARAMS["listings"]).length);
+    localStorage.setItem(
+      "tsitu-analyzer-data-length",
+      Object.keys(PARAMS.listings).length
+    );
     refreshUI();
 
-    const shouldContinue = !(alreadyStoredListing || newData.marketplace_history.length == 0);
+    const shouldContinue = !(
+      alreadyStoredListing || newData.marketplace_history.length == 0
+    );
     return shouldContinue;
   }
 
@@ -125,14 +130,14 @@
     let pageOffset = 0;
     let shouldContinue = false;
     do {
-      const data = await getHistory(pageOffset)
+      const data = await getHistory(pageOffset);
       shouldContinue = processData(data);
       await sleep(500);
       pageOffset += 1;
-    } while (shouldContinue && !PARAMS['pause']);
+    } while (shouldContinue && !PARAMS.pause);
 
-    PARAMS['done'] = true;
-    PARAMS["pause"] = false;
+    PARAMS.done = true;
+    PARAMS.pause = false;
 
     document.getElementById("mht-marketplace-analyzer-fetch").disabled = false;
     document.getElementById("mht-marketplace-analyzer-pause").disabled = true;
@@ -172,7 +177,7 @@
     fetchButton.id = "mht-marketplace-analyzer-fetch";
     fetchButton.textContent = "Fetch";
     fetchButton.onclick = () => {
-      if (PARAMS['done']) {
+      if (PARAMS.done) {
         alert(
           "All available data has been downloaded.\nPlease click 'Send To Tool', or 'Reset Data' if something has broken."
         );
@@ -189,21 +194,21 @@
     pauseButton.textContent = "Pause";
     pauseButton.disabled = true;
     pauseButton.onclick = () => {
-      PARAMS["pause"] = true;
+      PARAMS.pause = true;
     };
 
     const sendButton = document.createElement("button");
-    sendButton.id = "mht-marketplace-analyzer-send"
+    sendButton.id = "mht-marketplace-analyzer-send";
     sendButton.textContent = "Send To Tool";
     sendButton.disabled = true;
     sendButton.onclick = () => {
       persistData();
-      if (Object.keys(PARAMS["listings"]).length > 0) {
+      if (Object.keys(PARAMS.listings).length > 0) {
         const newWindow = window.open("");
         newWindow.location = "https://tsitu.github.io/MH-Tools/analyzer.html";
         // newWindow.location = "http://localhost:8000/analyzer.html"; // Debug
         // 200 IQ method to transfer stringified data across origins
-        newWindow.name = JSON.stringify(Object.values(PARAMS["listings"]));
+        newWindow.name = JSON.stringify(Object.values(PARAMS.listings));
       } else {
         alert("There is no data to send! Please click 'Fetch'");
       }
@@ -214,10 +219,10 @@
     resetButton.onclick = () => {
       const reset = confirm("Are you sure you want to reset the data on MHG?");
       if (reset) {
-        PARAMS["listings"] = {};
+        PARAMS.listings = {};
         const storedData = localStorage.getItem("tsitu-analyzer-data");
         if (storedData) {
-          PARAMS["done"] = false;
+          PARAMS.done = false;
           localStorage.removeItem("tsitu-analyzer-data");
           localStorage.removeItem("tsitu-analyzer-data-length");
           refreshUI();
@@ -259,7 +264,8 @@
   }
 
   function refreshUI() {
-    let storedEntries = localStorage.getItem("tsitu-analyzer-data-length") ?? 0;
+    const storedEntries =
+      localStorage.getItem("tsitu-analyzer-data-length") ?? 0;
     const d = document.getElementById("mht-marketplace-analyzer-description");
     d.innerHTML = `Stored Entries: ${storedEntries}`;
   }

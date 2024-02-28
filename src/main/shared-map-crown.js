@@ -1,22 +1,20 @@
-"use strict";
-
 /**
  * Shared functions and variables for both Map and Crown Solvers
  */
-var columnLimit = 0,
-  rowLimit = 0,
-  attractionBonus = 0,
-  numLineBreaks = 0,
-  timeDelay,
-  remainingMice = 0;
+let columnLimit = 0;
+let rowLimit = 0;
+let attractionBonus = 0;
+let numLineBreaks = 0;
+let timeDelay;
+let remainingMice = 0;
 
-var user = "map";
-var EMPTY_SELECTION = "-";
-var NULL_URL_PARAM = null;
-var POPULATION_JSON_URL = "data/json/populations-map.json";
-var NAME_MAP = {};
+const user = "map";
+const EMPTY_SELECTION = "-";
+const NULL_URL_PARAM = null;
+const POPULATION_JSON_URL = "data/json/populations-map.json";
+const NAME_MAP = {};
 
-var autoCompleteSettings = {
+const autoCompleteSettings = {
   delimiters: "\n",
   endingSymbols: "\n"
 };
@@ -26,19 +24,19 @@ function initPageLoad(toolType) {
 
   if (toolType === "map") {
     loadBookmarkletFromJS(
-      BOOKMARKLET_URLS["map"],
+      BOOKMARKLET_URLS.map,
       "mapBookmarklet",
       "#bookmarklet"
     );
   } else if (toolType === "crown") {
     loadBookmarkletFromJS(
-      BOOKMARKLET_URLS["crown"],
+      BOOKMARKLET_URLS.crown,
       "crownBookmarklet",
       "#bookmarklet"
     );
   }
   loadBookmarkletFromJS(
-    BOOKMARKLET_URLS["loader"],
+    BOOKMARKLET_URLS.loader,
     "bookmarkletLoader",
     "#bookmarkletloader"
   );
@@ -48,7 +46,7 @@ function initPageLoad(toolType) {
   loadCookies();
 
   // Handle autocomplete preference
-  $("#toggleAutocomplete").change(function() {
+  $("#toggleAutocomplete").change(() => {
     if ($("#toggleAutocomplete").is(":checked")) {
       localStorage.setItem("textarea-autocomplete", "off");
     } else {
@@ -56,21 +54,21 @@ function initPageLoad(toolType) {
     }
   });
 
-  $("#map").keyup(function(event) {
+  $("#map").keyup(event => {
     // Checking for enter/return, backspace, and delete
     // Then finding newlines and only processing when that differs from previous value
     // TODO: Check for paste too?
     if (event.keyCode == 13 || event.keyCode == 8 || event.keyCode == 46) {
       clearTimeout(timeDelay);
       var mapText = document.getElementById("map").value;
-      var b = (mapText.match(/\n/g) || []).length;
+      const b = (mapText.match(/\n/g) || []).length;
       if (b !== numLineBreaks) {
         numLineBreaks = b;
         processMap(mapText, toolType);
       } else {
         clearTimeout(timeDelay);
         var mapText = document.getElementById("map").value;
-        timeDelay = setTimeout(function() {
+        timeDelay = setTimeout(() => {
           processMap(mapText, toolType);
         }, 1000);
       }
@@ -79,7 +77,7 @@ function initPageLoad(toolType) {
       // Implicitly handles pasting
       clearTimeout(timeDelay);
       var mapText = document.getElementById("map").value;
-      timeDelay = setTimeout(function() {
+      timeDelay = setTimeout(() => {
         processMap(mapText, toolType);
       }, 1000);
     }
@@ -90,7 +88,7 @@ function initPageLoad(toolType) {
     Cookies.set("savedCols", columnLimit, {
       expires: 30
     });
-    var mapText = document.getElementById("map").value;
+    const mapText = document.getElementById("map").value;
     processMap(mapText, toolType);
   });
 
@@ -99,7 +97,7 @@ function initPageLoad(toolType) {
     Cookies.set("savedRows", rowLimit, {
       expires: 30
     });
-    var mapText = document.getElementById("map").value;
+    const mapText = document.getElementById("map").value;
     processMap(mapText, toolType);
   });
 
@@ -114,11 +112,11 @@ function initPageLoad(toolType) {
   // Check Crown Solver's window.name for bookmarklet data
   if (toolType === "crown" && window.name) {
     try {
-      var nameCatchesObj = JSON.parse(window.name);
-      var ncoKeys = Object.keys(nameCatchesObj);
-      var textareaInput = "";
-      for (var i = 0; i < ncoKeys.length; i++) {
-        textareaInput += ncoKeys[i] + "\n" + nameCatchesObj[ncoKeys[i]] + "\n";
+      const nameCatchesObj = JSON.parse(window.name);
+      const ncoKeys = Object.keys(nameCatchesObj);
+      let textareaInput = "";
+      for (let i = 0; i < ncoKeys.length; i++) {
+        textareaInput += `${ncoKeys[i]}\n${nameCatchesObj[ncoKeys[i]]}\n`;
       }
       document.getElementById("map").value = textareaInput;
       processMap(textareaInput, toolType);
@@ -135,8 +133,8 @@ function contains(collection, searchElement) {
 
 function findLoadedMice(param, toolType) {
   $("#map").val(param);
-  var mapText = document.getElementById("map").value;
-  timeDelay = setTimeout(function() {
+  const mapText = document.getElementById("map").value;
+  timeDelay = setTimeout(() => {
     processMap(mapText, toolType);
   }, 100);
   $("#weightAR").click();
@@ -145,14 +143,14 @@ function findLoadedMice(param, toolType) {
 function loadCookies() {
   if (Cookies.get("savedRows")) {
     var x = parseInt(Cookies.get("savedRows"));
-    var s = "#row" + x;
+    var s = `#row${x}`;
     $(s).prop("checked", true);
     rowLimit = x;
   }
 
   if (Cookies.get("savedCols")) {
     var x = parseInt(Cookies.get("savedCols"));
-    var s = "#col" + x;
+    var s = `#col${x}`;
     $(s).prop("checked", true);
     columnLimit = x;
   }
@@ -251,7 +249,7 @@ function initTablesorter() {
 }
 
 function processCheeseFilter() {
-  var filterList = {
+  const filterList = {
     common: [
       "Brie",
       "Brie String",
@@ -298,10 +296,10 @@ function processCheeseFilter() {
   };
 
   // Build master array of filtered terms
-  var filteredCheeses = [];
-  document.querySelectorAll(".cheese-filter").forEach(function(el) {
+  const filteredCheeses = [];
+  document.querySelectorAll(".cheese-filter").forEach(el => {
     if (el.checked) {
-      filterList[el.name].forEach(function(cheese) {
+      filterList[el.name].forEach(cheese => {
         if (!filteredCheeses.includes(cheese)) {
           filteredCheeses.push(cheese);
         }
@@ -310,36 +308,36 @@ function processCheeseFilter() {
   });
 
   // Output terms to readonly <textarea>
-  var displayString = "";
-  filteredCheeses.forEach(function(cheese) {
-    displayString += cheese + ", ";
+  let displayString = "";
+  filteredCheeses.forEach(cheese => {
+    displayString += `${cheese}, `;
   });
   displayString = displayString.slice(0, -2);
   $("#combinedFilter").text(displayString);
 
   // Apply filter to tablesorter
-  var filterString = "";
-  filteredCheeses.forEach(function(cheese) {
+  let filterString = "";
+  filteredCheeses.forEach(cheese => {
     if (cheese === "SB+") {
       // negative lookahead <3
       filterString += "/^(?!.*sb\\+).*$/i && ";
     } else {
-      filterString += "!" + cheese + " && ";
+      filterString += `!${cheese} && `;
     }
   });
   if (filterString.length > 0) {
     // Trim the last &&
     filterString = filterString.slice(0, -4);
   }
-  var filters = [filterString];
+  const filters = [filterString];
   $.tablesorter.setFilters($("#bestLocation"), filters, true);
   $("#bestLocation").trigger("search", true);
 }
 
 function initCheeseFilter() {
-  $(".cheese-filter").change(function() {
+  $(".cheese-filter").change(() => {
     // Cache checked state
-    var checkedArr = [];
+    const checkedArr = [];
     $(".cheese-filter").each(function() {
       if (this.checked) {
         checkedArr.push(this.name);
@@ -349,7 +347,7 @@ function initCheeseFilter() {
     processCheeseFilter();
   });
 
-  $("#clearFilter").click(function() {
+  $("#clearFilter").click(() => {
     $(".cheese-filter:checked").each(function() {
       $(this).prop("checked", false);
     });
@@ -359,10 +357,10 @@ function initCheeseFilter() {
   });
 
   // Load in cheese filter checked state
-  var cfCacheRaw = localStorage.getItem("cheese-filter-cache");
+  const cfCacheRaw = localStorage.getItem("cheese-filter-cache");
   if (cfCacheRaw) {
-    var cfCache = JSON.parse(cfCacheRaw);
-    document.querySelectorAll(".cheese-filter").forEach(function(el) {
+    const cfCache = JSON.parse(cfCacheRaw);
+    document.querySelectorAll(".cheese-filter").forEach(el => {
       if (cfCache.indexOf(el.name) >= 0) {
         el.checked = true;
       }
@@ -373,7 +371,7 @@ function initCheeseFilter() {
 function checkLoadState(toolType) {
   if (popLoaded && peLoaded) {
     generateNameMap();
-    var acToggle = localStorage.getItem("textarea-autocomplete");
+    const acToggle = localStorage.getItem("textarea-autocomplete");
     if (!acToggle || acToggle === "on") {
       loadMouseDropdown();
     }
@@ -385,15 +383,15 @@ function checkLoadState(toolType) {
  * Generate mapping of lower-cased mouse names to properly cased ones
  */
 function generateNameMap() {
-  var nameKeys = Object.keys(powersArray);
-  for (var i = 0; i < nameKeys.length; i++) {
+  const nameKeys = Object.keys(powersArray);
+  for (let i = 0; i < nameKeys.length; i++) {
     NAME_MAP[nameKeys[i].toLowerCase()] = nameKeys[i];
   }
 }
 
 function loadMiceFromUrlOrCookie(toolType) {
-  var mouseList;
-  var numCatchList; // Crown
+  let mouseList;
+  let numCatchList; // Crown
   if (toolType === "map") {
     mouseList = getStringListFromURL(
       window.location.search.match(/mice=([^&]*)/)
@@ -408,39 +406,37 @@ function loadMiceFromUrlOrCookie(toolType) {
   }
 
   if (mouseList.length === 0) {
-    var cookieName;
+    let cookieName;
     if (toolType === "map") {
       cookieName = "savedMice";
     } else if (toolType === "crown") {
       cookieName = "crownSavedMice";
     }
-    var cookie = Cookies.get(cookieName);
+    const cookie = Cookies.get(cookieName);
     if (cookie) {
       findLoadedMice(cookie, toolType);
     }
-  } else {
-    if (toolType === "map") {
-      findLoadedMice(mouseList, toolType);
-    } else if (toolType === "crown") {
-      var mapText = "";
-      var mouseArray = mouseList.split("\n");
-      var numCatchArray = numCatchList.split("\n");
+  } else if (toolType === "map") {
+    findLoadedMice(mouseList, toolType);
+  } else if (toolType === "crown") {
+    let mapText = "";
+    const mouseArray = mouseList.split("\n");
+    const numCatchArray = numCatchList.split("\n");
 
-      for (var i = 0; i < mouseArray.length; i++) {
-        mapText += mouseArray[i] + "\n";
-        mapText += numCatchArray[i] + "\n";
-      }
-
-      findLoadedMice(mapText, toolType);
+    for (let i = 0; i < mouseArray.length; i++) {
+      mapText += `${mouseArray[i]}\n`;
+      mapText += `${numCatchArray[i]}\n`;
     }
+
+    findLoadedMice(mapText, toolType);
   }
 }
 
 function loadMouseDropdown() {
-  var popArrayLength = Object.size(popArray);
-  var suggests = [];
+  const popArrayLength = Object.size(popArray);
+  const suggests = [];
 
-  for (var i = 0; i < popArrayLength; i++) {
+  for (let i = 0; i < popArrayLength; i++) {
     suggests.push(Object.keys(popArray)[i]);
     suggests.push(Object.keys(popArray)[i].toLowerCase());
   }
@@ -448,23 +444,24 @@ function loadMouseDropdown() {
   $("#map").asuggest(suggests, autoCompleteSettings);
 }
 
-var buildMouselist = function(mouseListText, sortedMLCLength, sortedMLC) {
-  for (var l = 0; l < sortedMLCLength; l++) {
-    var sliceMLC = sortedMLC[l][0].slice(0, sortedMLC[l][0].indexOf("<a href"));
+const buildMouselist = function(mouseListText, sortedMLCLength, sortedMLC) {
+  for (let l = 0; l < sortedMLCLength; l++) {
+    const sliceMLC = sortedMLC[l][0].slice(
+      0,
+      sortedMLC[l][0].indexOf("<a href")
+    );
     mouseListText +=
-      "<td style='font-size: 11px; padding: 10px'>" +
-      "<p style='font-size: 16px'>" +
-      sortedMLC[l][1].toFixed(2) +
-      "%</p><br>" +
-      sliceMLC +
-      "</td>";
+      `<td style='font-size: 11px; padding: 10px'>` +
+      `<p style='font-size: 16px'>${sortedMLC[l][1].toFixed(
+        2
+      )}%</p><br>${sliceMLC}</td>`;
   }
   return mouseListText;
 };
 
 function processMap(mapText, toolType) {
   // Save a cookie
-  var cookieName = "";
+  let cookieName = "";
   if (toolType === "map") {
     cookieName = "savedMice";
   } else if (toolType === "crown") {
@@ -474,12 +471,12 @@ function processMap(mapText, toolType) {
     expires: 14
   });
 
-  var mouseArray;
-  var numCatchesArray; // Crown
+  let mouseArray;
+  let numCatchesArray; // Crown
   if (toolType === "map") {
     mouseArray = mapText.split("\n");
-    var url = "https://tsitu.github.io/MH-Tools/map.html";
-    url += "?mice=" + encodeURIComponent(mouseArray.join("/"));
+    let url = "https://tsitu.github.io/MH-Tools/map.html";
+    url += `?mice=${encodeURIComponent(mouseArray.join("/"))}`;
     $("#mapLink").attr("href", url);
   } else if (toolType === "crown") {
     mouseArray = mapText.match(/^[A-Za-z].*/gm);
@@ -489,11 +486,11 @@ function processMap(mapText, toolType) {
     }
   }
 
-  var interpretedAs = document.getElementById("interpretedAs");
-  var mouseList = document.getElementById("mouseList");
+  const interpretedAs = document.getElementById("interpretedAs");
+  const mouseList = document.getElementById("mouseList");
 
-  var interpretedAsText = "<b>Invalid:<br></b><span class='invalid'>";
-  var mouseListText;
+  let interpretedAsText = "<b>Invalid:<br></b><span class='invalid'>";
+  let mouseListText;
   if (toolType === "map") {
     mouseListText =
       "<thead><tr><th align='center'>Mouse</th><th align='center' id='locationAR'>Location (Raw AR)</th></tr></thead><tbody>";
@@ -502,17 +499,17 @@ function processMap(mapText, toolType) {
       "<thead><tr><th align='center'>Mouse</th><th align='center' id='locationAR'>Location (Raw CP)</th></tr></thead><tbody>";
   }
 
-  var bestLocationArray = [];
-  var weightedBLA = [];
-  var mouseLocationArray = [];
-  var seenMice = [];
-  var notRecognized = false;
+  const bestLocationArray = [];
+  const weightedBLA = [];
+  const mouseLocationArray = [];
+  const seenMice = [];
+  let notRecognized = false;
   remainingMice = 0;
 
-  for (var i = 0; i < Object.size(mouseArray); i++) {
-    var catchesFromCrown = Infinity;
+  for (let i = 0; i < Object.size(mouseArray); i++) {
+    let catchesFromCrown = Infinity;
     if (toolType === "crown") {
-      var num = +numCatchesArray[i];
+      const num = +numCatchesArray[i];
       if (num > 0 && num < 10) {
         catchesFromCrown = 10 - num;
       } else if (num < 100) {
@@ -526,16 +523,16 @@ function processMap(mapText, toolType) {
       }
     }
 
-    var mouseName = mouseArray[i];
+    let mouseName = mouseArray[i];
     if (mouseName.length === 0) continue;
     mouseName = mouseName.trim();
     mouseName = mouseName.replace(/’/g, "'"); // iOS right apostrophe
-    var indexOfMouse = mouseName.indexOf(" Mouse"); // Make this more robust?
+    const indexOfMouse = mouseName.indexOf(" Mouse"); // Make this more robust?
     if (indexOfMouse >= 0) {
       mouseName = mouseName.slice(0, indexOfMouse);
     }
 
-    var origName = mouseName;
+    const origName = mouseName;
     mouseName = NAME_MAP[mouseName.toLowerCase()];
     if (!mouseName) {
       // Mouse name edge cases
@@ -548,7 +545,7 @@ function processMap(mapText, toolType) {
 
     if (!popArray[mouseName]) {
       // Mouse name not recognised
-      interpretedAsText += mouseName + "<br>";
+      interpretedAsText += `${mouseName}<br>`;
       notRecognized = true;
     } else {
       if (contains(seenMice, mouseName)) {
@@ -557,67 +554,62 @@ function processMap(mapText, toolType) {
         seenMice.push(mouseName);
       }
 
-      var mouseLocationCheese = new Array();
+      const mouseLocationCheese = new Array();
 
       // Generating tag for min luck data
-      var titleText =
-        "Min Luck: " + mouseName.replace(/'/g, "&#39;") + "&#10;&#10;";
-      var mlArr = getMinLuckArray(mouseName);
+      let titleText = `Min Luck: ${mouseName.replace(/'/g, "&#39;")}&#10;&#10;`;
+      const mlArr = getMinLuckArray(mouseName);
       for (var k = 0; k < 10; k++) {
         if (mlArr[k][1] === Infinity) {
           break;
         }
-        titleText += mlArr[k][0] + ": " + mlArr[k][1] + "&#10;";
+        titleText += `${mlArr[k][0]}: ${mlArr[k][1]}&#10;`;
       }
 
       mouseListText +=
-        "<tr><td style='font-size: 12px; padding: 10px'>" +
-        "<span title='" +
-        titleText +
-        "' class='ml-tip'>" +
-        "<b>" +
-        mouseName +
-        "</b></span></td>";
+        `<tr><td style='font-size: 12px; padding: 10px'>` +
+        `<span title='${titleText}' class='ml-tip'>` +
+        `<b>${mouseName}</b></span></td>`;
       remainingMice++;
 
-      var mouseLocation = Object.keys(popArray[mouseName]);
-      var numLocations = Object.size(popArray[mouseName]);
+      const mouseLocation = Object.keys(popArray[mouseName]);
+      const numLocations = Object.size(popArray[mouseName]);
 
-      for (var j = 0; j < numLocations; j++) {
-        var locationName = mouseLocation[j];
+      for (let j = 0; j < numLocations; j++) {
+        const locationName = mouseLocation[j];
 
-        var mousePhase = Object.keys(popArray[mouseName][locationName]);
-        var numPhases = Object.size(popArray[mouseName][locationName]);
+        const mousePhase = Object.keys(popArray[mouseName][locationName]);
+        const numPhases = Object.size(popArray[mouseName][locationName]);
 
         for (var k = 0; k < numPhases; k++) {
-          var phaseName = mousePhase[k];
-          var mouseCheese = Object.keys(
+          const phaseName = mousePhase[k];
+          const mouseCheese = Object.keys(
             popArray[mouseName][locationName][phaseName]
           );
-          var numCheeses = Object.size(
+          const numCheeses = Object.size(
             popArray[mouseName][locationName][phaseName]
           );
 
-          for (var l = 0; l < numCheeses; l++) {
-            var cheeseName = mouseCheese[l];
-            var mouseCharm = Object.keys(
+          for (let l = 0; l < numCheeses; l++) {
+            const cheeseName = mouseCheese[l];
+            const mouseCharm = Object.keys(
               popArray[mouseName][locationName][phaseName][cheeseName]
             );
-            var numCharms = Object.size(
+            const numCharms = Object.size(
               popArray[mouseName][locationName][phaseName][cheeseName]
             );
 
-            for (var m = 0; m < numCharms; m++) {
-              var charmName = mouseCharm[m];
-              var locationPhaseCheeseCharm = "<b>" + locationName + "</b><br>";
+            for (let m = 0; m < numCharms; m++) {
+              const charmName = mouseCharm[m];
+              let locationPhaseCheeseCharm = `<b>${locationName}</b><br>`;
 
-              var URLString = "setup.html?";
+              let URLString = "setup.html?";
               // Replace apostrophes with %27
-              URLString += "location=" + locationName;
+              URLString += `location=${locationName}`;
 
               if (phaseName != EMPTY_SELECTION) {
-                locationPhaseCheeseCharm += "(" + phaseName + ")" + "<br>";
-                URLString += "&phase=" + phaseName;
+                locationPhaseCheeseCharm += `(${phaseName})` + `<br>`;
+                URLString += `&phase=${phaseName}`;
               }
 
               if (cheeseName.indexOf("/") > 0) {
@@ -625,29 +617,25 @@ function processMap(mapText, toolType) {
                   0,
                   cheeseName.indexOf("/")
                 );
-                URLString += "&cheese=" + trimmedCheese;
-                var restCheese = cheeseName.slice(
+                URLString += `&cheese=${trimmedCheese}`;
+                const restCheese = cheeseName.slice(
                   cheeseName.indexOf("/"),
                   cheeseName.length + 1
                 );
-                locationPhaseCheeseCharm +=
-                  "<ins>" + trimmedCheese + "</ins>" + restCheese + "<br>";
+                locationPhaseCheeseCharm += `<ins>${trimmedCheese}</ins>${restCheese}<br>`;
               } else {
-                URLString += "&cheese=" + cheeseName;
-                locationPhaseCheeseCharm += cheeseName + "<br>";
+                URLString += `&cheese=${cheeseName}`;
+                locationPhaseCheeseCharm += `${cheeseName}<br>`;
               }
 
               if (charmName != EMPTY_SELECTION) {
-                locationPhaseCheeseCharm += "[" + charmName + "]" + "<br>";
-                URLString += "&charm=" + charmName + " Charm";
+                locationPhaseCheeseCharm += `[${charmName}]` + `<br>`;
+                URLString += `&charm=${charmName} Charm`;
               }
 
               if (locationName !== "Event") {
-                var modURLString = URLString.replace(/ /g, "%20");
-                locationPhaseCheeseCharm +=
-                  "<a href=" +
-                  modURLString +
-                  ' target="_blank" rel="noopener">Link to Best Setup</a>';
+                const modURLString = URLString.replace(/ /g, "%20");
+                locationPhaseCheeseCharm += `<a href=${modURLString} target="_blank" rel="noopener">Link to Best Setup</a>`;
               } else {
                 locationPhaseCheeseCharm += "<i>{ 0% Placeholder AR }</i>";
               }
@@ -728,8 +716,8 @@ function processMap(mapText, toolType) {
         }
       }
 
-      var sortedMLC = sortBestLocation(mouseLocationCheese);
-      var sortedMLCLength = Object.size(sortedMLC);
+      const sortedMLC = sortBestLocation(mouseLocationCheese);
+      let sortedMLCLength = Object.size(sortedMLC);
 
       // Mouse list column constraints
       if (columnLimit != 0) {
@@ -743,16 +731,16 @@ function processMap(mapText, toolType) {
 
   mouseListText += "</tbody>";
   mouseList.innerHTML = mouseListText;
-  var resort = true,
-    callback = function() {
-      var header = $("#locationAR");
-      if (header.hasClass("tablesorter-headerAsc")) {
-        header.click();
-        header.click();
-      } else if (header.hasClass("tablesorter-headerUnSorted")) {
-        header.click();
-      }
-    };
+  const resort = true;
+  const callback = function() {
+    const header = $("#locationAR");
+    if (header.hasClass("tablesorter-headerAsc")) {
+      header.click();
+      header.click();
+    } else if (header.hasClass("tablesorter-headerUnSorted")) {
+      header.click();
+    }
+  };
   $("#mouseList").trigger("updateAll", [resort, callback]);
 
   interpretedAsText += "</span>";
@@ -766,35 +754,31 @@ function processMap(mapText, toolType) {
   $("#remainValue").text(remainingMice);
 
   // Sort mouseLocationArray
-  for (var lpcc in mouseLocationArray) {
+  for (const lpcc in mouseLocationArray) {
     if (mouseLocationArray.hasOwnProperty(lpcc)) {
-      mouseLocationArray[lpcc].sort(function(a, b) {
-        return b[1] - a[1];
-      });
+      mouseLocationArray[lpcc].sort((a, b) => b[1] - a[1]);
     }
   }
 
-  var sortedLocation = sortBestLocation(bestLocationArray, weightedBLA);
+  const sortedLocation = sortBestLocation(bestLocationArray, weightedBLA);
   printBestLocation(sortedLocation, mouseLocationArray, toolType);
 }
 
 function sortBestLocation(bestLocationArray, weightedBLA) {
-  var sortedLocation = new Array();
+  const sortedLocation = new Array();
 
-  var bLALength = Object.size(bestLocationArray);
-  var bLAKeys = Object.keys(bestLocationArray);
+  const bLALength = Object.size(bestLocationArray);
+  const bLAKeys = Object.keys(bestLocationArray);
 
   if (typeof weightedBLA === "undefined") {
-    for (var i = 0; i < bLALength; i++) {
+    for (let i = 0; i < bLALength; i++) {
       var locationCheese = bLAKeys[i];
       sortedLocation.push([locationCheese, bestLocationArray[locationCheese]]);
     }
 
-    sortedLocation.sort(function(a, b) {
-      return b[1] - a[1];
-    });
+    sortedLocation.sort((a, b) => b[1] - a[1]);
   } else {
-    for (var i = 0; i < bLALength; i++) {
+    for (let i = 0; i < bLALength; i++) {
       var locationCheese = bLAKeys[i];
       sortedLocation.push([
         locationCheese,
@@ -803,17 +787,15 @@ function sortBestLocation(bestLocationArray, weightedBLA) {
       ]);
     }
 
-    sortedLocation.sort(function(a, b) {
-      return b[2] - a[2];
-    });
+    sortedLocation.sort((a, b) => b[2] - a[2]);
   }
 
   return sortedLocation;
 }
 
 function printBestLocation(sortedLocation, mouseLocationArray, toolType) {
-  var bestLocation = document.getElementById("bestLocation");
-  var bestLocationHTML = "";
+  const bestLocation = document.getElementById("bestLocation");
+  let bestLocationHTML = "";
   if (toolType === "map") {
     bestLocationHTML =
       "<thead><tr><th align='center'>Location Info</th><th align='center'>Mice (Raw AR)</th><th align='center' data-filter='false'>Total AR</th><th align='center' id='weightAR' data-filter='false'>Weighted AR</th></tr></thead><tbody>";
@@ -822,7 +804,7 @@ function printBestLocation(sortedLocation, mouseLocationArray, toolType) {
       "<thead><tr><th align='center'>Location Info</th><th align='center'>Mice (Raw CP)</th><th align='center' data-filter='false'>Total CP</th><th align='center' id='weightAR' data-filter='false'>Weighted CP</th></tr></thead><tbody>";
   }
 
-  var sortedLocationLength = Object.size(sortedLocation);
+  let sortedLocationLength = Object.size(sortedLocation);
 
   // Best location row constraints
   if (rowLimit != 0) {
@@ -831,83 +813,71 @@ function printBestLocation(sortedLocation, mouseLocationArray, toolType) {
     }
   }
 
-  for (var i = 0; i < sortedLocationLength; i++) {
+  for (let i = 0; i < sortedLocationLength; i++) {
     // Checking mouse location
-    var mouseLocationHTML = "";
-    var lpcc = sortedLocation[i][0];
-    var mlCache = {};
+    let mouseLocationHTML = "";
+    const lpcc = sortedLocation[i][0];
+    const mlCache = {};
     if (mouseLocationArray[lpcc]) {
-      for (var j = 0; j < Object.size(mouseLocationArray[lpcc]); j++) {
-        var mouseName = mouseLocationArray[lpcc][j][0];
+      for (let j = 0; j < Object.size(mouseLocationArray[lpcc]); j++) {
+        const mouseName = mouseLocationArray[lpcc][j][0];
 
         if (!mlCache[mouseName]) {
           mlCache[mouseName] = getMinLuckArray(mouseName); // Initialize
         }
 
         // Generating tag for min luck data
-        var titleText =
-          "Min Luck: " + mouseName.replace(/'/g, "&#39;") + "&#10;&#10;";
-        for (var k = 0; k < 10; k++) {
+        let titleText = `Min Luck: ${mouseName.replace(
+          /'/g,
+          "&#39;"
+        )}&#10;&#10;`;
+        for (let k = 0; k < 10; k++) {
           if (mlCache[mouseName][k][1] === Infinity) {
             break;
           }
-          titleText +=
-            mlCache[mouseName][k][0] +
-            ": " +
-            mlCache[mouseName][k][1] +
-            "&#10;";
+          titleText += `${mlCache[mouseName][k][0]}: ${mlCache[mouseName][k][1]}&#10;`;
         }
 
-        mouseLocationHTML +=
-          "<span title='" +
-          titleText +
-          "' class='ml-tip'>" +
-          mouseName +
-          " (" +
-          mouseLocationArray[lpcc][j][1] + // Raw AR
-          "%)</span><br>";
+        mouseLocationHTML += `<span title='${titleText}' class='ml-tip'>${mouseName} (${
+          mouseLocationArray[lpcc][j][1] // Raw AR
+        }%)</span><br>`;
       }
     } else {
       mouseLocationHTML = "N/A";
     }
 
-    bestLocationHTML +=
-      "<tr><td align='center'>" +
-      sortedLocation[i][0] +
-      "</td><td align='center' style='font-size: 11px; white-space: nowrap'>" +
-      mouseLocationHTML +
-      "</td><td align='center'>" +
-      sortedLocation[i][1].toFixed(2) +
-      "%</td><td align='center'>" +
-      sortedLocation[i][2].toFixed(2) +
-      "%</td></tr>";
+    bestLocationHTML += `<tr><td align='center'>${
+      sortedLocation[i][0]
+    }</td><td align='center' style='font-size: 11px; white-space: nowrap'>${mouseLocationHTML}</td><td align='center'>${sortedLocation[
+      i
+    ][1].toFixed(2)}%</td><td align='center'>${sortedLocation[i][2].toFixed(
+      2
+    )}%</td></tr>`;
   }
 
   bestLocationHTML += "</tbody>";
   bestLocation.innerHTML = bestLocationHTML;
 
-  var resort = true,
-    callback = function() {
-      var header = $("#weightAR");
-      if (header.hasClass("tablesorter-headerAsc")) {
-        header.click();
-        header.click();
-      } else if (header.hasClass("tablesorter-headerUnSorted")) {
-        header.click();
-      }
-    };
+  const resort = true;
+  const callback = function() {
+    const header = $("#weightAR");
+    if (header.hasClass("tablesorter-headerAsc")) {
+      header.click();
+      header.click();
+    } else if (header.hasClass("tablesorter-headerUnSorted")) {
+      header.click();
+    }
+  };
   $("#bestLocation").trigger("updateAll", [resort, callback]);
   processCheeseFilter();
 
   $(".ml-tip").click(function() {
-    var titleClass = $(this).find(".title");
+    const titleClass = $(this).find(".title");
     if (!titleClass.length) {
       $(this).append(
-        "<p class='title'>" +
-          $(this)
-            .attr("title")
-            .replace(/\n/g, "<br>") +
-          "</p>"
+        `<p class='title'>${$(this)
+          .attr("title")
+          .replace(/\n/g, "<br>")}</p>`
       );
     } else {
       titleClass.remove();
@@ -924,7 +894,7 @@ function getMinLuckArray(mouse) {
     );
   }
 
-  var retArr = [
+  const retArr = [
     ["Arcane", "N/A"],
     ["Draconic", "N/A"],
     ["Forgotten", "N/A"],
@@ -939,20 +909,17 @@ function getMinLuckArray(mouse) {
 
   if (!powersArray[mouse]) {
     return retArr;
-  } else {
-    var power = powersArray[mouse][0];
-    for (var i = 1; i < 11; i++) {
-      var eff = powersArray[mouse][i] / 100;
-      retArr[i - 1][1] = minLuck(eff, power);
-    }
-
-    // Sort by lowest min luck
-    retArr.sort(function(a, b) {
-      return a[1] - b[1];
-    });
-
-    return retArr;
   }
+  const power = powersArray[mouse][0];
+  for (let i = 1; i < 11; i++) {
+    const eff = powersArray[mouse][i] / 100;
+    retArr[i - 1][1] = minLuck(eff, power);
+  }
+
+  // Sort by lowest min luck
+  retArr.sort((a, b) => a[1] - b[1]);
+
+  return retArr;
 }
 
 function findBaseline(cheese) {
@@ -964,7 +931,6 @@ function getStringListFromURL(parameters) {
     parameters = decodeURIComponent(parameters[1]);
 
     return parameters.split("/").join("\n");
-  } else {
-    return [];
   }
+  return [];
 }

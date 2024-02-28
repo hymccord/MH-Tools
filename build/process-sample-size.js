@@ -13,9 +13,9 @@
  */
 
 const fs = require("fs");
-const fileUtils = require("./file-utils");
 const request = require("request");
 const puppeteer = require("puppeteer");
+const fileUtils = require("./file-utils");
 
 // GitHub-served raw JSON file URLs from gh-pages branch
 const overallURL =
@@ -63,7 +63,7 @@ function calculateNormalizedMoE(obj, sampleSize) {
   let marginE = 0;
   let relativeE = 0;
 
-  for (let key of keys) {
+  for (const key of keys) {
     const percent = obj[key];
     const moe = MarginOfError(percent / 100, sampleSize) * 100;
     marginE += moe;
@@ -92,7 +92,7 @@ function calculateACScore(obj, sampleSize) {
 
   const sortedArray = [];
   let sum = 0;
-  for (let key of keys) {
+  for (const key of keys) {
     sum += obj[key];
     sortedArray.push(obj[key]);
   }
@@ -164,16 +164,13 @@ const overallObj = {};
  * Parse the full population JSON file
  */
 function parseJSON() {
-  fs.readFile("data/json/populations-cre-setup.json", "utf8", function(
-    err,
-    data
-  ) {
+  fs.readFile("data/json/populations-cre-setup.json", "utf8", (err, data) => {
     if (err) throw err;
-    let obj = JSON.parse(data);
+    const obj = JSON.parse(data);
 
     let overallSummaryScore = 0;
     let numLocations = Object.keys(obj).length;
-    for (let location in obj) {
+    for (const location in obj) {
       // Exclude Event mice which have no sample data
       if (location === "Event") {
         numLocations -= 1;
@@ -181,16 +178,16 @@ function parseJSON() {
       }
 
       detailedObj[location] = {};
-      for (let phase in obj[location]) {
-        for (let cheese in obj[location][phase]) {
-          for (let charm in obj[location][phase][cheese]) {
+      for (const phase in obj[location]) {
+        for (const cheese in obj[location][phase]) {
+          for (const charm in obj[location][phase][cheese]) {
             const point = obj[location][phase][cheese][charm];
-            const sampleSize = point["SampleSize"];
+            const sampleSize = point.SampleSize;
             let rawScore = 0;
             let score = 0;
 
             if (sampleSize) {
-              delete point["SampleSize"];
+              delete point.SampleSize;
               rawScore = (
                 calculateNormalizedMoE(point, sampleSize) +
                 calculateACScore(point, sampleSize)
@@ -204,9 +201,9 @@ function parseJSON() {
 
             const pcc = `${phase}, ${cheese}, ${charm}`;
             detailedObj[location][pcc] = {};
-            detailedObj[location][pcc]["score"] = +score;
-            detailedObj[location][pcc]["sample"] = sampleSize ? +sampleSize : 0;
-            detailedObj[location][pcc]["count"] = +Object.keys(point).length;
+            detailedObj[location][pcc].score = +score;
+            detailedObj[location][pcc].sample = sampleSize ? +sampleSize : 0;
+            detailedObj[location][pcc].count = +Object.keys(point).length;
           }
         }
       }
@@ -215,10 +212,10 @@ function parseJSON() {
       let conciseAvgSize = 0;
       let conciseAvgMice = 0;
 
-      for (let el in detailedObj[location]) {
-        conciseAvgScore += detailedObj[location][el]["score"];
-        conciseAvgSize += detailedObj[location][el]["sample"];
-        conciseAvgMice += detailedObj[location][el]["count"];
+      for (const el in detailedObj[location]) {
+        conciseAvgScore += detailedObj[location][el].score;
+        conciseAvgSize += detailedObj[location][el].sample;
+        conciseAvgMice += detailedObj[location][el].count;
       }
 
       const locLen = Object.keys(detailedObj[location]).length;
@@ -241,7 +238,7 @@ function parseJSON() {
 
     const overallSummaryAvg = (overallSummaryScore / numLocations).toFixed(2);
 
-    overallObj["score"] = overallSummaryAvg;
+    overallObj.score = overallSummaryAvg;
 
     // Next function called to calculate diffs from current data
     calculateDiffs();
@@ -258,8 +255,8 @@ function processOverall() {
       const obj = JSON.parse(body);
 
       // Compare overall summary scores
-      const currentOverallSS = +obj["score"];
-      const incomingOverallSS = +overallObj["score"];
+      const currentOverallSS = +obj.score;
+      const incomingOverallSS = +overallObj.score;
 
       console.log("----------------------------------------\n");
       console.log(
@@ -282,16 +279,10 @@ function processLocation() {
       console.log("[ Changes By Location ]\n");
 
       // Compare concise summaries
-      for (let el in conciseObj) {
+      for (const el in conciseObj) {
         if (!obj[el]) {
           console.log(
-            `${el} (New Location)\n  Average Score: ${
-              conciseObj[el]["Average Score"]
-            }\n  Location Rating: ${
-              conciseObj[el]["Location Rating"]
-            }\n  Average Sample Size: ${
-              conciseObj[el]["Average Sample Size"]
-            }\n  Average Mice Count: ${conciseObj[el]["Average Mice Count"]}\n`
+            `${el} (New Location)\n  Average Score: ${conciseObj[el]["Average Score"]}\n  Location Rating: ${conciseObj[el]["Location Rating"]}\n  Average Sample Size: ${conciseObj[el]["Average Sample Size"]}\n  Average Mice Count: ${conciseObj[el]["Average Mice Count"]}\n`
           );
         } else if (
           conciseObj[el]["Average Score"] != obj[el]["Average Score"] ||
@@ -301,15 +292,7 @@ function processLocation() {
           conciseObj[el]["Average Mice Count"] != obj[el]["Average Mice Count"]
         ) {
           console.log(
-            `${el}\n  Average Score: ${obj[el]["Average Score"]} -> ${
-              conciseObj[el]["Average Score"]
-            }\n  Location Rating: ${obj[el]["Location Rating"]} -> ${
-              conciseObj[el]["Location Rating"]
-            }\n  Average Sample Size: ${obj[el]["Average Sample Size"]} -> ${
-              conciseObj[el]["Average Sample Size"]
-            }\n  Average Mice Count: ${obj[el]["Average Mice Count"]} -> ${
-              conciseObj[el]["Average Mice Count"]
-            }\n`
+            `${el}\n  Average Score: ${obj[el]["Average Score"]} -> ${conciseObj[el]["Average Score"]}\n  Location Rating: ${obj[el]["Location Rating"]} -> ${conciseObj[el]["Location Rating"]}\n  Average Sample Size: ${obj[el]["Average Sample Size"]} -> ${conciseObj[el]["Average Sample Size"]}\n  Average Mice Count: ${obj[el]["Average Mice Count"]} -> ${conciseObj[el]["Average Mice Count"]}\n`
           );
         }
       }
@@ -328,43 +311,29 @@ function processDetailed() {
       console.log("[ Changes By Phase/Cheese/Charm ]\n");
 
       // Compare detailed summaries
-      for (let loc in detailedObj) {
+      for (const loc in detailedObj) {
         if (!obj[loc]) {
           console.log(`${loc} (New Location)`);
-          for (let sub in detailedObj[loc]) {
+          for (const sub in detailedObj[loc]) {
             console.log(
-              `${sub}\n  Score: ${
-                detailedObj[loc][sub]["score"]
-              }\n  Sample Size: ${
-                detailedObj[loc][sub]["sample"]
-              }\n  Mouse Count: ${detailedObj[loc][sub]["count"]}`
+              `${sub}\n  Score: ${detailedObj[loc][sub].score}\n  Sample Size: ${detailedObj[loc][sub].sample}\n  Mouse Count: ${detailedObj[loc][sub].count}`
             );
           }
           console.log("");
         } else {
-          for (let sub in detailedObj[loc]) {
+          for (const sub in detailedObj[loc]) {
             if (!obj[loc][sub]) {
               // Log location every time?
               console.log(
-                `${loc}, ${sub} (New PCC)\n  Score: ${
-                  detailedObj[loc][sub]["score"]
-                }\n  Sample Size: ${
-                  detailedObj[loc][sub]["sample"]
-                }\n  Mouse Count: ${detailedObj[loc][sub]["count"]}\n`
+                `${loc}, ${sub} (New PCC)\n  Score: ${detailedObj[loc][sub].score}\n  Sample Size: ${detailedObj[loc][sub].sample}\n  Mouse Count: ${detailedObj[loc][sub].count}\n`
               );
             } else if (
-              detailedObj[loc][sub]["score"] != obj[loc][sub]["score"] ||
-              detailedObj[loc][sub]["sample"] != obj[loc][sub]["sample"] ||
-              detailedObj[loc][sub]["count"] != obj[loc][sub]["count"]
+              detailedObj[loc][sub].score != obj[loc][sub].score ||
+              detailedObj[loc][sub].sample != obj[loc][sub].sample ||
+              detailedObj[loc][sub].count != obj[loc][sub].count
             ) {
               console.log(
-                `${loc}, ${sub}\n  Score: ${obj[loc][sub]["score"]} -> ${
-                  detailedObj[loc][sub]["score"]
-                }\n  Sample Size: ${obj[loc][sub]["sample"]} -> ${
-                  detailedObj[loc][sub]["sample"]
-                }\n  Mouse Count: ${obj[loc][sub]["count"]} -> ${
-                  detailedObj[loc][sub]["count"]
-                }\n`
+                `${loc}, ${sub}\n  Score: ${obj[loc][sub].score} -> ${detailedObj[loc][sub].score}\n  Sample Size: ${obj[loc][sub].sample} -> ${detailedObj[loc][sub].sample}\n  Mouse Count: ${obj[loc][sub].count} -> ${detailedObj[loc][sub].count}\n`
               );
             }
           }

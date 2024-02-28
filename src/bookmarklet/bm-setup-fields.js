@@ -4,11 +4,11 @@
     urlParams,
     userSublocation
   ) {
-    var userQuests = user["quests"];
+    const userQuests = user.quests;
     if (userLocation === "Furoma Rift") {
-      var chargeLevel = userQuests["QuestRiftFuroma"]["droid"]["charge_level"];
+      const chargeLevel = userQuests.QuestRiftFuroma.droid.charge_level;
       if (chargeLevel !== "") {
-        var levels = {
+        const levels = {
           charge_level_one: 1,
           charge_level_two: 2,
           charge_level_three: 3,
@@ -20,22 +20,21 @@
           charge_level_nine: 9,
           charge_level_ten: 10
         };
-        urlParams["battery"] = levels[chargeLevel];
+        urlParams.battery = levels[chargeLevel];
       }
     } else if (userLocation === "Labyrinth") {
-      if (userQuests["QuestLabyrinth"]["lantern_status"] === "active") {
+      if (userQuests.QuestLabyrinth.lantern_status === "active") {
         /* Set url param directly instead of using temp variable */
-        urlParams["oil"] = "On";
+        urlParams.oil = "On";
       }
     } else if (userLocation === "Fort Rox") {
-      var fort = userQuests["QuestFortRox"]["fort"];
-      urlParams["ballistaLevel"] = fort["b"]["level"];
-      urlParams["cannonLevel"] = fort["c"]["level"];
+      const { fort } = userQuests.QuestFortRox;
+      urlParams.ballistaLevel = fort.b.level;
+      urlParams.cannonLevel = fort.c.level;
     } else if (userLocation === "Zugzwang's Tower") {
-      urlParams["amplifier"] = user["viewing_atts"]["zzt_amplifier"];
+      urlParams.amplifier = user.viewing_atts.zzt_amplifier;
     } else if (userLocation === "Sand Crypts") {
-      urlParams["saltLevel"] =
-        userQuests["QuestSandDunes"]["minigame"]["salt_charms_used"];
+      urlParams.saltLevel = userQuests.QuestSandDunes.minigame.salt_charms_used;
     }
   }
 
@@ -47,9 +46,9 @@
       var tide = userViewingAtts["tide"];
       if (tide === "low") {
         return "Low Tide";
-      } else if (tide === "med") {
+      } if (tide === "med") {
         return "Medium Tide";
-      } else if (tide === "high") {
+      } if (tide === "high") {
         return "High Tide";
       }
     } else if (userLocation === "Burroughs Rift") {
@@ -72,9 +71,9 @@
       var tmpPhase = fortRoxQuest["current_phase"];
       if (tmpPhase === "day") {
         return "Day";
-      } else if (tmpPhase === "dawn") {
+      } if (tmpPhase === "dawn") {
         return "Dawn";
-      } else if (tmpPhase === "night") {
+      } if (tmpPhase === "night") {
         var stage = fortRoxQuest["current_stage"];
         var stages = {
           stage_one: "Twilight",
@@ -84,11 +83,11 @@
           stage_five: "First Light"
         };
         return stages[stage];
-    } else if (fortRoxQuest["is_lair"]) {
+    } if (fortRoxQuest["is_lair"]) {
         return "Heart of the Meteor";
-      } else {
+      } 
         return tmpPhase;
-      }
+      
     } else if (userLocation === "Gnawnian Express Station") {
       var onTrain = userQuests["QuestTrainStation"]["on_train"];
       if (onTrain) {
@@ -98,7 +97,7 @@
           var supplyHoarder = trainData["supply_hoarder_turns"];
           if (supplyHoarder > 0) {
             return "Supply Depot (Supply Rush)";
-          } else if (supplyHoarder === 0) {
+          } if (supplyHoarder === 0) {
             return "Supply Depot (No Supply Rush)";
           }
         } else if (
@@ -119,17 +118,17 @@
         userBase === "Magnet Base"
       ) {
         return sublocation + " (Magnet)";
-      } else if (
+      } if (
         sublocation === "The Mad Depths" &&
         userBase === "Hearthstone Base"
       ) {
         return sublocation + " (Hearthstone)";
-      } else if (
+      } if (
         sublocation === "Bombing Run" &&
         userBase === "Remote Detonator Base"
       ) {
         return sublocation + " (Remote Detonator)";
-      } else if (
+      } if (
         (sublocation === "Treacherous Tunnels" ||
           sublocation === "Bombing Run" ||
           sublocation === "The Mad Depths") &&
@@ -182,9 +181,9 @@
 
       if (stormLevel !== "none") {
         return "Storm " + stormLevel;
-      } else if (elements[RAIN_KEY][DIRECTION_KEY] === UP_DIRECTION) {
+      } if (elements[RAIN_KEY][DIRECTION_KEY] === UP_DIRECTION) {
         return "Rain " + elements[RAIN_KEY][LEVEL_KEY];
-      } else if (elements[WIND_KEY][DIRECTION_KEY] === UP_DIRECTION) {
+      } if (elements[WIND_KEY][DIRECTION_KEY] === UP_DIRECTION) {
         return "Wind " + elements[WIND_KEY][LEVEL_KEY];
       }
     } else if (userLocation === "Twisted Garden") {
@@ -265,22 +264,22 @@
 
       if (contains(districtname, "Minotaur")) {
         return "Lair - Each 30+";
-      } else if (district_type == "Treasury") {
+      } if (district_type == "Treasury") {
         var tiers = ["15+", "50+"]
         return `Treasure ${tiers[district_tier - 1]}`
-      } else if (district_type == "Farming") {
+      } if (district_type == "Farming") {
         var tiers = ["0", "50+"]
         return `Farming ${tiers[district_tier - 1]}`
-      } else {
+      } 
         var tiers = ["15+", "50+", "80+"]
         return `${district_type} ${tiers[district_tier - 1]}`
-      }
+      
     } else if (userLocation === "Furoma Rift") {
       if (userQuests["QuestRiftFuroma"]["droid"]["charge_level"]) {
         return "Pagoda";
-      } else {
+      } 
         return "Training Grounds";
-      }
+      
     } else if (userLocation === "Bristle Woods Rift") {
       var stage = [];
       stage.push(userQuests["QuestRiftBristleWoods"]["chamber_name"]);
@@ -301,13 +300,13 @@
       if (mystic >= tech) {
         if (mystic >= 0 && mystic < 8) {
           return "Mystic Pawn Pincher";
-        } else if (mystic >= 8 && mystic < 10) {
+        } if (mystic >= 8 && mystic < 10) {
           return "Mystic Knights";
-        } else if (mystic >= 10 && mystic < 12) {
+        } if (mystic >= 10 && mystic < 12) {
           return "Mystic Bishops";
-        } else if (mystic >= 12 && mystic < 14) {
+        } if (mystic >= 12 && mystic < 14) {
           return "Mystic Rooks";
-        } else if (mystic === 14) {
+        } if (mystic === 14) {
           return "Mystic Queen";
         } else if (mystic === 15) {
           return "Mystic King";
@@ -469,7 +468,7 @@
    * @returns {string}
    */
   function findUserRank() {
-    var userRank = user["title_name"];
+    const userRank = user.title_name;
 
     if (
       userRank.indexOf("Archduke") >= 0 ||
@@ -525,40 +524,40 @@
   /**
    * Controls the names and values placed in URL
    */
-  var userLocation = user["environment_name"];
-  var userBase = user["base_name"];
+  const userLocation = user.environment_name;
+  const userBase = user.base_name;
 
   var urlParams = {};
-  urlParams["location"] = userLocation;
-  urlParams["weapon"] = user["weapon_name"];
-  urlParams["base"] = userBase;
-  urlParams["charm"] = user["trinket_name"];
-  urlParams["rank"] = findUserRank();
+  urlParams.location = userLocation;
+  urlParams.weapon = user.weapon_name;
+  urlParams.base = userBase;
+  urlParams.charm = user.trinket_name;
+  urlParams.rank = findUserRank();
 
-  if (!user["has_shield"]) {
-    urlParams["gs"] = "No";
+  if (!user.has_shield) {
+    urlParams.gs = "No";
   }
 
   // Rounded because of IEEE 754 floating point precision
-  urlParams["power_bonus"] = Math.round(user["trap_power_bonus"] * 100);
+  urlParams.power_bonus = Math.round(user.trap_power_bonus * 100);
 
-  var luck_element = document.querySelector(
+  const luck_element = document.querySelector(
     ".campPage-trap-trapStat.luck > .value"
   );
-  urlParams["total_luck"] =
+  urlParams.total_luck =
     luck_element && luck_element.textContent
       ? Number(luck_element.textContent)
-      : user["trap_luck"];
+      : user.trap_luck;
 
-  var userCheese = user["bait_name"];
-  var userSublocation = findSublocation(userLocation, userBase);
+  var userCheese = user.bait_name;
+  let userSublocation = findSublocation(userLocation, userBase);
   setLocationSpecificUrlParams(userLocation, urlParams, userSublocation);
 
   // Cheese edge cases
   if (userCheese) {
     if (contains(userCheese, "Empowered")) {
       userCheese = userCheese.slice(6, userCheese.length);
-      urlParams["empowered"] = "Yes";
+      urlParams.empowered = "Yes";
     }
 
     if (userCheese.indexOf("SUPER|brie+") >= 0) {
@@ -571,12 +570,12 @@
         userCheese = userCheese.slice(16, userCheese.length);
         userSublocation = userCheese;
       } else {
-        userCheese = userCheese.replace(/ Cheese$/gi, '');
+        userCheese = userCheese.replace(/ Cheese$/gi, "");
       }
     } else if (userCheese === "Fusion Fondue") {
-      urlParams["location"] = "M400 Hunting";
+      urlParams.location = "M400 Hunting";
     }
-    urlParams["cheese"] = userCheese;
+    urlParams.cheese = userCheese;
   }
 
   // Weapon edge cases
@@ -590,51 +589,50 @@
   // }
 
   if (userSublocation !== "N/A") {
-    urlParams["phase"] = userSublocation;
+    urlParams.phase = userSublocation;
   }
 
   // Denture Base un-charged check
-  if (urlParams["base"].indexOf("Denture Base") > -1) {
-    var baseIcon = document.querySelector(
+  if (urlParams.base.indexOf("Denture Base") > -1) {
+    const baseIcon = document.querySelector(
       ".mousehuntHud-userStat.trap.base > .icon"
     );
     if (baseIcon) {
       if (baseIcon.getAttribute("style").indexOf("vteeth") <= 0) {
-        urlParams["base"] += " (Toothless)";
+        urlParams.base += " (Toothless)";
       }
     }
   }
 
   // Prestige Base highest floor check
-  if (urlParams["base"] === "Prestige Base") {
+  if (urlParams.base === "Prestige Base") {
     document
       .querySelectorAll(".campPage-trap-trapStat-mathRow-name")
       .forEach(el => {
         if (el.textContent.indexOf("(Highest Umbra Floor") >= 0)
-          urlParams["umbraFloor"] = +el.textContent
+          urlParams.umbraFloor = +el.textContent
             .split("(Highest Umbra Floor: ")[1]
             .split(")")[0];
       });
   }
 
-  if (urlParams["weapon"] === "Father Winter's Timepiece Trap") {
+  if (urlParams.weapon === "Father Winter's Timepiece Trap") {
     document
-    .querySelectorAll(".campPage-trap-trapStat-mathRow-name")
-    .forEach(el => {
-      if (el.textContent.indexOf("(Acolyte Catches") >= 0)
-        urlParams["acolyteCatches"] = +el.textContent
-          .split("(Acolyte Catches: ")[1]
-          .split(")")[0];
-    });
+      .querySelectorAll(".campPage-trap-trapStat-mathRow-name")
+      .forEach(el => {
+        if (el.textContent.indexOf("(Acolyte Catches") >= 0)
+          urlParams.acolyteCatches = +el.textContent
+            .split("(Acolyte Catches: ")[1]
+            .split(")")[0];
+      });
   }
 
   // Golem Guardian skin module check
-  if (urlParams["weapon"].indexOf("Golem Guardian") >= 0) {
-    urlParams["weapon"] =
-      "Golem Guardian " + user["trap_power_type_name"] + " Trap";
+  if (urlParams.weapon.indexOf("Golem Guardian") >= 0) {
+    urlParams.weapon = `Golem Guardian ${user.trap_power_type_name} Trap`;
   }
 
-  if (urlParams["weapon"].indexOf("Golem Guardian") >= 0) {
+  if (urlParams.weapon.indexOf("Golem Guardian") >= 0) {
     $.post(
       "https://www.mousehuntgame.com/managers/ajax/users/gettrapcomponents.php",
       {
@@ -643,40 +641,40 @@
       },
       null,
       "json"
-    ).done(function(data) {
+    ).done(data => {
       if (data.components) {
-        var arr = data.components.filter(function(el) {
-          return el["component_type"] === "snow_golem_trap_weapon";
-        });
+        const arr = data.components.filter(
+          el => el.component_type === "snow_golem_trap_weapon"
+        );
 
-        var urlArr = [0, 0, 0, 0, 0];
-        for (var el of arr) {
-          switch (el["power_type"]) {
+        const urlArr = [0, 0, 0, 0, 0];
+        for (const el of arr) {
+          switch (el.power_type) {
             case "Arcane":
             case "arcn":
-              urlArr[0] = el["golem_guardian_charge_percentage"] || 0;
+              urlArr[0] = el.golem_guardian_charge_percentage || 0;
               break;
             case "Forgotten":
             case "frgttn":
-              urlArr[1] = el["golem_guardian_charge_percentage"] || 0;
+              urlArr[1] = el.golem_guardian_charge_percentage || 0;
               break;
             case "Hydro":
             case "hdr":
-              urlArr[2] = el["golem_guardian_charge_percentage"] || 0;
+              urlArr[2] = el.golem_guardian_charge_percentage || 0;
               break;
             case "Physical":
             case "phscl":
-              urlArr[3] = el["golem_guardian_charge_percentage"] || 0;
+              urlArr[3] = el.golem_guardian_charge_percentage || 0;
               break;
             case "Tactical":
             case "tctcl":
-              urlArr[4] = el["golem_guardian_charge_percentage"] || 0;
+              urlArr[4] = el.golem_guardian_charge_percentage || 0;
               break;
             default:
           }
         }
 
-        urlParams["golem_charge"] = urlArr;
+        urlParams.golem_charge = urlArr;
         sendData(urlParams);
       }
     });
@@ -685,17 +683,17 @@
   }
 
   function sendData(parameters) {
-    var url = "https://tsitu.github.io/MH-Tools/setup.html?";
+    let url = "https://tsitu.github.io/MH-Tools/setup.html?";
 
-    for (var key in parameters) {
-      var value = encodeURIComponent(parameters[key]);
+    for (const key in parameters) {
+      let value = encodeURIComponent(parameters[key]);
       if (key === "golem_charge") {
-        value = "%5B" + value + "%5D";
+        value = `%5B${value}%5D`;
       }
-      url += key + "=" + value + "&";
+      url += `${key}=${value}&`;
     }
 
-    var newWindow = window.open("", "mhsetup");
+    const newWindow = window.open("", "mhsetup");
     newWindow.location = url;
   }
 })();

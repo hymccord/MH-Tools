@@ -1,17 +1,17 @@
 function getColor(colorVal) {
   if (colorVal < 88) {
     myRed = 255;
-    myGreen = parseInt(colorVal * 1.136 * 255 / 100);
+    myGreen = parseInt((colorVal * 1.136 * 255) / 100);
   } else {
-    myRed = parseInt((175 - colorVal) * 1.136 * 255 / 100);
+    myRed = parseInt(((175 - colorVal) * 1.136 * 255) / 100);
     myGreen = 255;
   }
-  return "rgb(" + myRed + "," + myGreen + ",0)";
+  return `rgb(${myRed},${myGreen},0)`;
 }
 
 function refreshSlider(ui) {
-  var ampSlider = ui.value;
-  var myColor = getColor(ampSlider);
+  const ampSlider = ui.value;
+  const myColor = getColor(ampSlider);
   $("#ampSlider")
     .find(".ui-slider-range")
     .css("background-color", myColor);
@@ -25,17 +25,17 @@ function refreshSlider(ui) {
   calculateTrapSetup();
 }
 
-$(function() {
-  var sliderOptions = {
+$(() => {
+  const sliderOptions = {
     range: "min",
     min: 0,
     max: 175,
     step: 1,
-    slide: function(event, ui) {
+    slide(event, ui) {
       if (event.originalEvent) {
         refreshSlider(ui);
       } else {
-        var myColor = getColor(100);
+        const myColor = getColor(100);
         $("#ampSlider")
           .find(".ui-slider-range")
           .css("background-color", myColor);
@@ -45,11 +45,11 @@ $(function() {
         $("#ampValue").val(100);
       }
     },
-    change: function(event, ui) {
+    change(event, ui) {
       if (event.originalEvent) {
         refreshSlider(ui);
       } else {
-        var myColor = getColor(100);
+        const myColor = getColor(100);
         $("#ampSlider")
           .find(".ui-slider-range")
           .css("background-color", myColor);

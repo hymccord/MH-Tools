@@ -12,16 +12,12 @@
     },
     null,
     "json"
-  ).done(function(data) {
-    var arr = data.components;
+  ).done(data => {
+    const arr = data.components;
     if (arr) {
-      var bases = arr
-        .filter(function(el) {
-          return el.classification === "base" && el.quantity > 0;
-        })
-        .map(function(el) {
-          return el.name;
-        });
+      const bases = arr
+        .filter(el => el.classification === "base" && el.quantity > 0)
+        .map(el => el.name);
 
       // Auto-add Denture Base variants
       if (bases.indexOf("Denture Base") >= 0) {
@@ -36,54 +32,42 @@
         bases.push("Naughty List Printing Press Base (Paperless)");
       }
 
-      var weapons = arr
-        .filter(function(el) {
-          return el.classification === "weapon" && el.quantity > 0;
-        })
-        .map(function(el) {
-          // Weapon edge cases
-          // if (el.name === "Ambush Trap") {
+      const weapons = arr
+        .filter(el => el.classification === "weapon" && el.quantity > 0)
+        .map(
+          el =>
+            // Weapon edge cases
+            // if (el.name === "Ambush Trap") {
             // return "Ambush";
-          // } else if (el.name === "School of Sharks Trap") {
+            // } else if (el.name === "School of Sharks Trap") {
             // return "School of Sharks";
-          // }
-          return el.name;
-        });
+            // }
+            el.name
+        );
 
-      var charms = arr
-        .filter(function(el) {
-          return el.classification === "trinket" && el.quantity > 0;
-        })
-        .map(function(el) {
-          return el.name;
-        });
+      const charms = arr
+        .filter(el => el.classification === "trinket" && el.quantity > 0)
+        .map(el => el.name);
 
       console.group("Items Owned");
-      console.log("Bases: " + bases.length);
-      console.log("Weapons: " + weapons.length);
-      console.log("Charms: " + charms.length);
+      console.log(`Bases: ${bases.length}`);
+      console.log(`Weapons: ${weapons.length}`);
+      console.log(`Charms: ${charms.length}`);
       console.groupEnd();
 
       // Golem Guardian check
-      if (
-        weapons.filter(function(el) {
-          return el.indexOf("Golem Guardian") >= 0;
-        }).length > 0
-      ) {
-        var skins = arr
-          .filter(function(el) {
-            return (
+      if (weapons.filter(el => el.indexOf("Golem Guardian") >= 0).length > 0) {
+        const skins = arr
+          .filter(
+            el =>
               el.classification === "skin" &&
               el.name.indexOf("Golem Guardian") >= 0 &&
               el.quantity > 0
-            );
-          })
-          .map(function(el) {
-            return el.power_type_name;
-          });
+          )
+          .map(el => el.power_type_name);
 
-        for (var el of skins) {
-          var name = "Golem Guardian " + el + " Trap";
+        for (const el of skins) {
+          const name = `Golem Guardian ${el} Trap`;
           if (weapons.indexOf(name) < 0) {
             weapons.push(name);
           }
@@ -91,12 +75,12 @@
       }
 
       // Combine into a single object and pass to window.name
-      var combinedObj = {};
-      combinedObj["bases"] = bases;
-      combinedObj["weapons"] = weapons;
-      combinedObj["charms"] = charms;
+      const combinedObj = {};
+      combinedObj.bases = bases;
+      combinedObj.weapons = weapons;
+      combinedObj.charms = charms;
 
-      var newWindow = window.open("");
+      const newWindow = window.open("");
       newWindow.name = JSON.stringify(combinedObj);
       newWindow.location = "https://tsitu.github.io/MH-Tools/setup.html";
     }

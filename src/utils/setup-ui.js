@@ -1,12 +1,11 @@
-//TODO:Table not initialized correctly on best charm
-//TODO: Check compatibility and replace slider with HTML5 range input
+// TODO:Table not initialized correctly on best charm
+// TODO: Check compatibility and replace slider with HTML5 range input
 
 /**
  * Setup for setup tool's Google Analytics, tablesorter and amp slider.
  */
 (function() {
-  "use strict";
-  var tablesorterOptions = {
+  const tablesorterOptions = {
     // sortForce: [[noMice,1]],
     sortReset: true,
     widthFixed: true,
@@ -52,14 +51,14 @@
       pager_fixedHeight: false,
       pager_removeRows: false, // removing rows in larger tables speeds up the sort
       pager_ajaxUrl: null,
-      pager_customAjaxUrl: function(table, url) {
+      pager_customAjaxUrl(table, url) {
         return url;
       },
       pager_ajaxError: null,
       pager_ajaxObject: {
         dataType: "json"
       },
-      pager_ajaxProcessing: function(ajax) {
+      pager_ajaxProcessing(ajax) {
         return [0, [], null];
       },
 
@@ -84,14 +83,14 @@
     }
   };
 
-  $(window).load(function() {
+  $(window).load(() => {
     initTableSorter();
     setupGA();
   });
 
   function setupGA() {
     (function(i, s, o, g, r, a, m) {
-      i["GoogleAnalyticsObject"] = r;
+      i.GoogleAnalyticsObject = r;
       (i[r] =
         i[r] ||
         function() {
@@ -115,28 +114,20 @@
   }
 
   /*
-     * Best setup tablesroter
-     * Initialize the tablesorter and bind it to the results table
-     */
+   * Best setup tablesroter
+   * Initialize the tablesorter and bind it to the results table
+   */
   function initTableSorter() {
     $.tablesorter.defaults.sortInitialOrder = "desc";
     $("#results")
       .tablesorter(tablesorterOptions)
-      .bind("pagerChange pagerComplete pagerInitialized pageMoved", function(
-        e,
-        c
-      ) {
-        var p = c.pager, // NEW with the widget... it returns config, instead of config.pager
-          msg =
-            "'</span> event triggered, " +
-            (e.type === "pagerChange" ? "going to" : "now on") +
-            " page <span class='typ'>" +
-            (p.page + 1) +
-            "/" +
-            p.totalPages +
-            "</span>";
+      .bind("pagerChange pagerComplete pagerInitialized pageMoved", (e, c) => {
+        const p = c.pager; // NEW with the widget... it returns config, instead of config.pager
+        const msg = `'</span> event triggered, ${
+          e.type === "pagerChange" ? "going to" : "now on"
+        } page <span class='typ'>${p.page + 1}/${p.totalPages}</span>`;
         $("#display")
-          .append("<li><span class='str'>'" + e.type + msg + "</li>")
+          .append(`<li><span class='str'>'${e.type}${msg}</li>`)
           .find("li:first")
           .remove();
       });

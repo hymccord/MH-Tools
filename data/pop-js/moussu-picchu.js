@@ -1,6 +1,6 @@
 const utils = require("../_utils");
 
-var stages = [
+const stages = [
   "Rain low",
   "Rain medium",
   "Rain high",
@@ -156,16 +156,13 @@ module.exports = {
       config: [
         {
           vars: {
-            stage:  { "Wind low": true},
+            stage: { "Wind low": true },
             stage1: { "Rain low": true },
             cheese: { Dragonvine: true }
           },
           fields: { stage: "Storm low", cheese: "Dragonvine" },
           opts: {
-            include: [
-              "Thunder Strike",
-              "Violet Stormchild"
-            ]
+            include: ["Thunder Strike", "Violet Stormchild"]
           }
         }
       ]
@@ -174,16 +171,13 @@ module.exports = {
       config: [
         {
           vars: {
-            stage:  { "Wind medium": true},
+            stage: { "Wind medium": true },
             stage1: { "Rain medium": true },
             cheese: { Dragonvine: true }
           },
           fields: { stage: "Storm medium", cheese: "Dragonvine" },
           opts: {
-            include: [
-              "Thundering Watcher",
-              "⚡Thunderlord⚡"
-            ]
+            include: ["Thundering Watcher", "⚡Thunderlord⚡"]
           }
         }
       ]
@@ -192,7 +186,7 @@ module.exports = {
       config: [
         {
           vars: {
-            stage:  { "Wind high": true},
+            stage: { "Wind high": true },
             stage1: { "Rain high": true },
             cheese: { Dragonvine: true }
           },
@@ -211,28 +205,24 @@ module.exports = {
       config: [
         {
           vars: {
-            stage:  { "Wind max": true},
+            stage: { "Wind max": true },
             stage1: { "Rain max": true },
             cheese: { Dragonvine: true }
           },
           fields: { stage: "Storm max", cheese: "Dragonvine" },
           opts: {
-            include: [
-              "Ful'Mina, The Mountain Queen",
-            ]
+            include: ["Ful'Mina, The Mountain Queen"]
           }
         }
       ]
     }
   ],
-  postProcess: function(data) {
-    return data.map(function(item) {
+  postProcess(data) {
+    return data.map(item => {
       // Rename to Thunderlord
-      var mouse =
-        item.mouse === "⚡Thunderlord⚡"
-          ? "Thunderlord"
-          : item.mouse;
-      return Object.assign(item, { mouse: mouse });
+      const mouse =
+        item.mouse === "⚡Thunderlord⚡" ? "Thunderlord" : item.mouse;
+      return Object.assign(item, { mouse });
     });
   }
 };

@@ -3,7 +3,7 @@ const utils = require("../_utils");
 module.exports = {
   default: {
     location: utils.genVarField("location", "Balack's Cove"),
-    after: utils.genVarField("after", 1673960400), // 2023-01-17T13:00:00Z
+    after: utils.genVarField("after", 1673960400) // 2023-01-17T13:00:00Z
   },
   series: [
     {
@@ -75,7 +75,7 @@ module.exports = {
               "Balack the Banished",
               "Derr Lich",
               "Elub Lich",
-              "Nerg Lich",
+              "Nerg Lich"
             ]
           }
         }
@@ -84,7 +84,7 @@ module.exports = {
     {
       cheese: utils.genVarField("cheese", [
         "Vanilla Stilton",
-        "Vengeful Vanilla Stilton",
+        "Vengeful Vanilla Stilton"
       ]),
       phase: utils.genVarField("stage", "High Tide"),
       config: [
@@ -101,9 +101,23 @@ module.exports = {
    * @param {{stage: string, location: string, cheese: string, mouse: string, attraction: string, sample: number}[]} data
    * @returns {{stage: string, location: string, cheese: string, mouse: string, attraction: string, sample: number}[]}
    */
-    postProcess: function(data) {
-      data.push({stage: "High Tide", location: "Balack's Cove", cheese: "Vanilla Stilton", mouse: "Riptide", attraction: "100.00%", sample: 1});
-      data.push({stage: "High Tide", location: "Balack's Cove", cheese: "Vengeful Vanilla Stilton", mouse: "Riptide", attraction: "100.00%", sample: 1});
-      return data;
-    },
+  postProcess(data) {
+    data.push({
+      stage: "High Tide",
+      location: "Balack's Cove",
+      cheese: "Vanilla Stilton",
+      mouse: "Riptide",
+      attraction: "100.00%",
+      sample: 1
+    });
+    data.push({
+      stage: "High Tide",
+      location: "Balack's Cove",
+      cheese: "Vengeful Vanilla Stilton",
+      mouse: "Riptide",
+      attraction: "100.00%",
+      sample: 1
+    });
+    return data;
+  }
 };

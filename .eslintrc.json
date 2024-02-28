@@ -13,7 +13,7 @@
   "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": "error",
-    "linebreak-style": "off"
-    // "no-use-before-define": ["error", { "functions": false }]
+    "linebreak-style": "off",
+    "no-use-before-define": ["error", { "functions": false }]
   }
 }

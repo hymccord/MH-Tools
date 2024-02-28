@@ -1,20 +1,18 @@
-"use strict";
-
-$(window).load(function() {
+$(window).load(() => {
   user = SETUP_USER;
 
   loadBookmarkletFromJS(
-    BOOKMARKLET_URLS["loader"],
+    BOOKMARKLET_URLS.loader,
     "bookmarkletLoader",
     "#bookmarkletloader"
   );
   loadBookmarkletFromJS(
-    BOOKMARKLET_URLS["setup_items"],
+    BOOKMARKLET_URLS.setup_items,
     "setupBookmarklet",
     "#setupBookmarklet"
   );
   loadBookmarkletFromJS(
-    BOOKMARKLET_URLS["setup_fields"],
+    BOOKMARKLET_URLS.setup_fields,
     "setupFieldsBookmarklet",
     "#setupFieldsBookmarklet"
   );
@@ -27,13 +25,13 @@ $(window).load(function() {
   loadCharmDropdown();
   $("#main").show();
 
-  var bonusPowerParameter = parseInt(getURLParameter("bonusPower"));
+  const bonusPowerParameter = parseInt(getURLParameter("bonusPower"));
   if (bonusPowerParameter >= 0) {
     document.getElementById("bonusPower").value = bonusPowerParameter;
     bonusPowerChanged();
   }
 
-  var bonusLuckParameter = parseInt(getURLParameter("bonusLuck"));
+  const bonusLuckParameter = parseInt(getURLParameter("bonusLuck"));
   if (bonusLuckParameter >= 0) {
     document.getElementById("bonusLuck").value = bonusLuckParameter;
     bonusLuckChanged();
@@ -61,17 +59,17 @@ $(window).load(function() {
 
   $("#save_setup_button").click(saveSetupStorage);
 
-  $("#show_pop_button").click(function() {
+  $("#show_pop_button").click(() => {
     $("#pleaseWaitMessage").css("display", "inline");
     setTimeout(showPop, 0);
   });
   bindSelectorButtons();
 
   $("#results")
-    .bind("sortStart", function() {
+    .bind("sortStart", () => {
       $("#pleaseWaitMessage").show();
     })
-    .bind("sortEnd", function() {
+    .bind("sortEnd", () => {
       $("#pleaseWaitMessage").hide();
     });
 
@@ -79,23 +77,23 @@ $(window).load(function() {
    * Toggle weapon/charm/base selectors
    */
   function bindSelectorButtons() {
-    var weaponsTable = getSelectors("weapon").container;
-    var baseTable = getSelectors("base").container;
-    var charmTable = getSelectors("charm").container;
+    const weaponsTable = getSelectors("weapon").container;
+    const baseTable = getSelectors("base").container;
+    const charmTable = getSelectors("charm").container;
 
-    $("#show_weapons_button").click(function() {
+    $("#show_weapons_button").click(() => {
       $(weaponsTable).toggle();
       $(baseTable).hide();
       $(charmTable).hide();
     });
 
-    $("#show_bases_button").click(function() {
+    $("#show_bases_button").click(() => {
       $(baseTable).toggle();
       $(weaponsTable).hide();
       $(charmTable).hide();
     });
 
-    $("#show_charms_button").click(function() {
+    $("#show_charms_button").click(() => {
       $(charmTable).toggle();
       $(weaponsTable).hide();
       $(baseTable).hide();
@@ -105,22 +103,22 @@ $(window).load(function() {
   // Check window.name for bookmarklet data
   if (window.name) {
     try {
-      var basesWeaponsCharms = JSON.parse(window.name);
+      const basesWeaponsCharms = JSON.parse(window.name);
       if (
-        basesWeaponsCharms["bases"] &&
-        basesWeaponsCharms["weapons"] &&
-        basesWeaponsCharms["charms"]
+        basesWeaponsCharms.bases &&
+        basesWeaponsCharms.weapons &&
+        basesWeaponsCharms.charms
       ) {
         // Write to object along with current arrays.js keys
-        var storageObj = {};
+        const storageObj = {};
         storageObj["all-items"] = {};
-        storageObj["all-items"]["bases"] = baseKeys;
-        storageObj["all-items"]["charms"] = charmKeys;
-        storageObj["all-items"]["weapons"] = weaponKeys;
+        storageObj["all-items"].bases = baseKeys;
+        storageObj["all-items"].charms = charmKeys;
+        storageObj["all-items"].weapons = weaponKeys;
         storageObj["owned-items"] = {};
-        storageObj["owned-items"]["bases"] = basesWeaponsCharms["bases"];
-        storageObj["owned-items"]["charms"] = basesWeaponsCharms["charms"];
-        storageObj["owned-items"]["weapons"] = basesWeaponsCharms["weapons"];
+        storageObj["owned-items"].bases = basesWeaponsCharms.bases;
+        storageObj["owned-items"].charms = basesWeaponsCharms.charms;
+        storageObj["owned-items"].weapons = basesWeaponsCharms.weapons;
         localStorage.setItem("best-setup-items", JSON.stringify(storageObj));
         window.name = ""; // Reset name after capturing data
       } else {
@@ -129,7 +127,7 @@ $(window).load(function() {
         );
       }
     } catch (e) {
-      console.error("(Error in window.name) - " + e.stack);
+      console.error(`(Error in window.name) - ${e.stack}`);
     }
     // called after try...catch
     checkStorage();
@@ -141,8 +139,8 @@ $(window).load(function() {
 
 function loadCharmDropdown() {
   loadDropdown("charm", charmKeys, charmChanged, "<option>No Charm</option>");
-  var charmParameter = recentCharm || getURLParameter("charm");
-  var select = document.getElementById("charm");
+  const charmParameter = recentCharm || getURLParameter("charm");
+  const select = document.getElementById("charm");
   if (charmParameter != NULL_URL_PARAM) {
     select.value = charmParameter;
   }
@@ -158,14 +156,14 @@ function loadCharmDropdown() {
  * @return {{checkboxClass, labelClass, checkbox, container, allCheckbox, name: string}}
  */
 function getSelectors(type) {
-  var checkboxClass = type + "_checkbox";
+  const checkboxClass = `${type}_checkbox`;
   return {
-    checkboxClass: checkboxClass,
-    labelClass: checkboxClass + "-label",
-    checkbox: "." + checkboxClass,
-    container: "#" + type + "s_selector_table",
-    allCheckbox: "#all_" + type + "s_checkbox",
-    name: type + "-owned"
+    checkboxClass,
+    labelClass: `${checkboxClass}-label`,
+    checkbox: `.${checkboxClass}`,
+    container: `#${type}s_selector_table`,
+    allCheckbox: `#all_${type}s_checkbox`,
+    name: `${type}-owned`
   };
 }
 
@@ -175,21 +173,21 @@ function getSelectors(type) {
  * @param {string} type @see {@link getSelectors}
  */
 function loadItemSelection(itemKeys, type) {
-  var i;
-  var select = getSelectors(type);
+  let i;
+  const select = getSelectors(type);
   for (i = 0; i < itemKeys.length; i++) {
-    var checkboxItem = buildCheckboxItem(select, itemKeys[i]);
+    const checkboxItem = buildCheckboxItem(select, itemKeys[i]);
     $(checkboxItem)
       .appendTo(select.container)
       .wrap("<li>");
   }
 
-  $(select.checkbox).change(function() {
+  $(select.checkbox).change(() => {
     $(select.allCheckbox).prop("checked", false);
   });
 
   $(select.allCheckbox).change(function() {
-    var checked = this.checked;
+    const { checked } = this;
     $(select.checkbox).prop("checked", checked);
   });
 
@@ -200,7 +198,7 @@ function loadItemSelection(itemKeys, type) {
    * @return {jQuery}
    */
   function buildCheckboxItem(select, itemName) {
-    var row = $("<label></label>");
+    const row = $("<label></label>");
     $("<input />", {
       type: "checkbox",
       checked: "checked",
@@ -220,7 +218,7 @@ function loadItemSelection(itemKeys, type) {
  * Check localStorage for saved items
  */
 function checkStorage() {
-  var storedData = JSON.parse(localStorage.getItem("best-setup-items"));
+  const storedData = JSON.parse(localStorage.getItem("best-setup-items"));
   if (storedData) {
     checkForNewItems(storedData);
     processStoredData(storedData);
@@ -232,41 +230,40 @@ function checkStorage() {
    */
   function checkForNewItems(storedData) {
     if (
-      storedData["all-items"]["bases"].length !== baseKeys.length ||
-      storedData["all-items"]["charms"].length !== charmKeys.length ||
-      storedData["all-items"]["weapons"].length !== weaponKeys.length
+      storedData["all-items"].bases.length !== baseKeys.length ||
+      storedData["all-items"].charms.length !== charmKeys.length ||
+      storedData["all-items"].weapons.length !== weaponKeys.length
     ) {
-      var newItemString = "";
+      let newItemString = "";
       for (var i = 0; i < baseKeys.length; i++) {
-        if (storedData["all-items"]["bases"].indexOf(baseKeys[i]) < 0) {
-          newItemString += "Base - " + baseKeys[i] + "\n";
+        if (storedData["all-items"].bases.indexOf(baseKeys[i]) < 0) {
+          newItemString += `Base - ${baseKeys[i]}\n`;
         }
       }
       for (var i = 0; i < charmKeys.length; i++) {
-        if (storedData["all-items"]["charms"].indexOf(charmKeys[i]) < 0) {
-          newItemString += "Charm - " + charmKeys[i] + "\n";
+        if (storedData["all-items"].charms.indexOf(charmKeys[i]) < 0) {
+          newItemString += `Charm - ${charmKeys[i]}\n`;
         }
       }
       for (var i = 0; i < weaponKeys.length; i++) {
-        if (storedData["all-items"]["weapons"].indexOf(weaponKeys[i]) < 0) {
-          newItemString += "Weapon - " + weaponKeys[i] + "\n";
+        if (storedData["all-items"].weapons.indexOf(weaponKeys[i]) < 0) {
+          newItemString += `Weapon - ${weaponKeys[i]}\n`;
         }
       }
       window.alert(
-        "> New Items <\n\n" +
-          newItemString +
-          "\nPlease add appropriate checkmarks or use the bookmarklet at your earliest convenience!"
+        `> New Items <\n\n${newItemString}\nPlease add appropriate checkmarks or use the bookmarklet at your earliest convenience!`
       );
-      storedData["all-items"]["bases"] = baseKeys;
-      storedData["all-items"]["charms"] = charmKeys;
-      storedData["all-items"]["weapons"] = weaponKeys;
+      storedData["all-items"].bases = baseKeys;
+      storedData["all-items"].charms = charmKeys;
+      storedData["all-items"].weapons = weaponKeys;
       localStorage.setItem("best-setup-items", JSON.stringify(storedData));
     }
   }
 
   function processStorageArray(indexArray, ownedItems, type) {
-    var currentItem, i;
-    var selectors = getSelectors(type);
+    let currentItem;
+    let i;
+    const selectors = getSelectors(type);
 
     $(selectors.checkbox).prop("checked", false);
     $(selectors.allCheckbox).prop("checked", false);
@@ -279,23 +276,23 @@ function checkStorage() {
   }
 
   function processStoredData(storedData) {
-    var ownedBases = storedData["owned-items"]["bases"];
-    var ownedWeapons = storedData["owned-items"]["weapons"];
-    var ownedCharms = storedData["owned-items"]["charms"];
+    const ownedBases = storedData["owned-items"].bases;
+    const ownedWeapons = storedData["owned-items"].weapons;
+    const ownedCharms = storedData["owned-items"].charms;
 
     // Handle Golem Guardian variants
-    var golemCount = 0;
-    for (var el of ownedWeapons) {
+    let golemCount = 0;
+    for (const el of ownedWeapons) {
       if (el.indexOf("Golem Guardian") >= 0) golemCount += 1;
     }
     golemCount -= 1;
-    var ownedWeaponsLength = ownedWeapons.length - golemCount;
-    var totalWeaponsLength = weaponKeys.length - 4;
+    const ownedWeaponsLength = ownedWeapons.length - golemCount;
+    const totalWeaponsLength = weaponKeys.length - 4;
 
     console.group("Items: Owned / Total");
-    console.log("Bases: " + ownedBases.length + " / " + baseKeys.length);
-    console.log("Weapons: " + ownedWeaponsLength + " / " + totalWeaponsLength);
-    console.log("Charms: " + ownedCharms.length + " / " + charmKeys.length);
+    console.log(`Bases: ${ownedBases.length} / ${baseKeys.length}`);
+    console.log(`Weapons: ${ownedWeaponsLength} / ${totalWeaponsLength}`);
+    console.log(`Charms: ${ownedCharms.length} / ${charmKeys.length}`);
     console.groupEnd();
 
     if (ownedBases && ownedBases.length > 0) {
@@ -328,19 +325,19 @@ function checkStorage() {
  * Also stores current total number of items for future comparison
  */
 function saveSetupStorage() {
-  var storageObj = {};
+  const storageObj = {};
   storageObj["all-items"] = {};
-  storageObj["all-items"]["bases"] = baseKeys;
-  storageObj["all-items"]["charms"] = charmKeys;
-  storageObj["all-items"]["weapons"] = weaponKeys;
+  storageObj["all-items"].bases = baseKeys;
+  storageObj["all-items"].charms = charmKeys;
+  storageObj["all-items"].weapons = weaponKeys;
   storageObj["owned-items"] = {};
-  storageObj["owned-items"]["bases"] = getCheckboxString(
+  storageObj["owned-items"].bases = getCheckboxString(
     getSelectors("base").checkbox
   );
-  storageObj["owned-items"]["charms"] = getCheckboxString(
+  storageObj["owned-items"].charms = getCheckboxString(
     getSelectors("charm").checkbox
   );
-  storageObj["owned-items"]["weapons"] = getCheckboxString(
+  storageObj["owned-items"].weapons = getCheckboxString(
     getSelectors("weapon").checkbox
   );
   localStorage.setItem("best-setup-items", JSON.stringify(storageObj));
@@ -365,20 +362,20 @@ function saveSetupStorage() {
  * Loads the cheese dropdown menu
  */
 function loadCheeseDropdown(location, phase) {
-  var cheeseDropdown = document.getElementById("cheese");
-  var cheeseDropdownHTML = "";
+  const cheeseDropdown = document.getElementById("cheese");
+  let cheeseDropdownHTML = "";
 
-  var insertedCheeses = [];
+  const insertedCheeses = [];
 
   function addCheeseOption(insertedCheeses, cheeseName, cheeseDropdownHTML) {
     if (!contains(insertedCheeses, cheeseName)) {
-      cheeseDropdownHTML += "<option>" + cheeseName + "</option>\n";
+      cheeseDropdownHTML += `<option>${cheeseName}</option>\n`;
       insertedCheeses.push(cheeseName);
     }
     return cheeseDropdownHTML;
   }
 
-  for (var cheeseOption in popArray[location][phase]) {
+  for (const cheeseOption in popArray[location][phase]) {
     cheeseDropdownHTML = addCheeseOption(
       insertedCheeses,
       cheeseOption,
@@ -389,8 +386,8 @@ function loadCheeseDropdown(location, phase) {
   cheeseDropdown.innerHTML = cheeseDropdownHTML;
   cheeseDropdown.selectedIndex = 0;
 
-  var select = document.getElementById("cheese");
-  var cheeseParameter = recentCheese || getURLParameter("cheese");
+  const select = document.getElementById("cheese");
+  const cheeseParameter = recentCheese || getURLParameter("cheese");
   if (cheeseParameter !== NULL_URL_PARAM) {
     select.value = cheeseParameter;
   }
@@ -402,10 +399,10 @@ function loadCheeseDropdown(location, phase) {
 }
 
 function updateLink() {
-  var select = document.getElementById("charm");
-  var selectedCharm = select.value;
+  const select = document.getElementById("charm");
+  const selectedCharm = select.value;
 
-  var urlParams = {
+  const urlParams = {
     location: locationName,
     phase: phaseName,
     cheese: cheeseName,
@@ -413,18 +410,18 @@ function updateLink() {
     empowered: isEmpowered,
     battery: batteryPower,
     gs: !gsLuck,
-    bonusPower: bonusPower,
-    bonusLuck: bonusLuck,
+    bonusPower,
+    bonusLuck,
     riftstalker: riftStalkerCodex,
     ballistaLevel: fortRox.ballistaLevel,
     cannonLevel: fortRox.cannonLevel,
-    saltLevel: saltLevel,
-    rank: rank,
+    saltLevel,
+    rank,
     amplifier: ztAmp,
     vrFloorType: document.querySelector("#vrFloorType").selectedIndex
   };
 
-  var urlString = buildURL("setup.html", urlParams);
+  const urlString = buildURL("setup.html", urlParams);
   document.getElementById("link").href = urlString;
 
   ga("send", "event", "link", "updated", urlString);
@@ -450,7 +447,7 @@ function baseChanged() {
 }
 
 function charmChanged(customValue) {
-  var select = document.getElementById("charm");
+  let select = document.getElementById("charm");
   select = select.value.trim().replace(/\*$/, "");
   recentCharm = select;
 
@@ -468,15 +465,14 @@ function showPop() {
   if (!locationName || !cheeseName) {
     document.getElementById("results").innerHTML = "";
     $("#pleaseWaitMessage").hide();
-    return;
   } else {
     charmChanged();
-    var selectedCharm = $("#charm").val();
+    let selectedCharm = $("#charm").val();
     selectedCharm =
       selectedCharm.indexOf("*") > -1
         ? (selectedCharm = selectedCharm.slice(0, -7))
         : (selectedCharm = selectedCharm.slice(0, -6));
-    var population = getPopulation(selectedCharm);
+    const population = getPopulation(selectedCharm);
     console.group("Calculation Details");
     printCombinations(population, getHeader(population));
     console.groupEnd();
@@ -488,9 +484,9 @@ function showPop() {
    * @return {string}
    */
   function getHeader(population) {
-    var resultsHeader = "<thead><tr><th align='left'>Trap Setup</th>";
-    for (var mouseName in population) {
-      resultsHeader += "<th data-filter='false'>" + mouseName + "</th>";
+    let resultsHeader = "<thead><tr><th align='left'>Trap Setup</th>";
+    for (const mouseName in population) {
+      resultsHeader += `<th data-filter='false'>${mouseName}</th>`;
     }
     resultsHeader += "<th id='overallHeader' data-filter='false'>Overall</th>";
     if (rank) {
@@ -508,25 +504,25 @@ function showPop() {
  * @return Mouse population object (name -> AR)
  */
 function getPopulation(selectedCharm) {
-  var popArrayLPC = popArray[locationName][phaseName][cheeseName];
-  var charmObj = popArrayLPC[selectedCharm]
+  const popArrayLPC = popArray[locationName][phaseName][cheeseName];
+  const charmObj = popArrayLPC[selectedCharm]
     ? popArrayLPC[selectedCharm]
     : popArrayLPC["-"];
-  var returnObj = {};
+  const returnObj = {};
 
   // Trim the extra "SampleSize" element
-  delete charmObj["SampleSize"];
+  delete charmObj.SampleSize;
 
   // Handle dynamic mouse name conversion
-  Object.keys(charmObj).forEach(function(mouse) {
-    var dynMouse = dynamicMouseRename(mouse);
+  Object.keys(charmObj).forEach(mouse => {
+    const dynMouse = dynamicMouseRename(mouse);
     returnObj[dynMouse] = charmObj[mouse];
   });
 
   // Generate placeholder Event ARs (simply 100% / number of mice)
   if (locationName === "Event") {
-    var evenAR = 100 / Object.keys(returnObj).length;
-    Object.keys(returnObj).forEach(function(mouse) {
+    const evenAR = 100 / Object.keys(returnObj).length;
+    Object.keys(returnObj).forEach(mouse => {
       returnObj[mouse] = evenAR;
     });
   }
@@ -540,8 +536,8 @@ function getPopulation(selectedCharm) {
  * @return {{string: number}} Object with Mouse : Effectiveness
  */
 function buildEffectivenessArray(micePopulation) {
-  var eff = {};
-  for (var mouse in micePopulation) {
+  const eff = {};
+  for (const mouse in micePopulation) {
     eff[mouse] = findEff(mouse);
   }
   return eff;
@@ -553,15 +549,15 @@ function buildEffectivenessArray(micePopulation) {
  * @return {{string: number}} -  Object with Mouse : Power
  */
 function buildPowersArray(micePopulation) {
-  var power = {};
-  for (var mouse in micePopulation) {
+  const power = {};
+  for (const mouse in micePopulation) {
     power[mouse] = powersArray[mouse][0];
   }
   return power;
 }
 
 // sample: [{catches: [0.5, 0.4], rank: 0.001, link: "url", cr: 0.9}, {}, etc]
-var unsortedOverallCR = [];
+let unsortedOverallCR = [];
 
 /**
  * Build an array of objects for faster sorting
@@ -581,16 +577,16 @@ function buildOverallCR(
   selectedCharm,
   headerHtml
 ) {
-  var overallAR = getCheeseAttraction();
-  var effArray = buildEffectivenessArray(micePopulation);
-  var overallCR = 0;
-  var overallProgress = 0;
-  var fullRow = {};
-  fullRow["catches"] = [];
-  var i = mpLen;
+  const overallAR = getCheeseAttraction();
+  const effArray = buildEffectivenessArray(micePopulation);
+  let overallCR = 0;
+  let overallProgress = 0;
+  const fullRow = {};
+  fullRow.catches = [];
+  let i = mpLen;
   while (i--) {
-    var mouse = mpKeys[mpLen - i - 1];
-    var catches = getMouseCatches(
+    const mouse = mpKeys[mpLen - i - 1];
+    const catches = getMouseCatches(
       micePopulation,
       mouse,
       overallAR,
@@ -598,7 +594,7 @@ function buildOverallCR(
       powersArray
     );
     overallCR += catches;
-    fullRow["catches"].push(catches);
+    fullRow.catches.push(catches);
     if (rank) {
       // handle missing data
       if (mouseWisdom[mouse]) {
@@ -606,14 +602,9 @@ function buildOverallCR(
       }
     }
   }
-  fullRow["rank"] = overallProgress;
-  fullRow["link"] = getLinkCell(
-    selectedCharm,
-    weaponName,
-    baseName,
-    headerHtml
-  );
-  fullRow["cr"] = overallCR;
+  fullRow.rank = overallProgress;
+  fullRow.link = getLinkCell(selectedCharm, weaponName, baseName, headerHtml);
+  fullRow.cr = overallCR;
   unsortedOverallCR.push(fullRow);
 }
 
@@ -624,15 +615,15 @@ function buildOverallCR(
  * @return {string}
  */
 function buildMiceCRCells(micePopulation) {
-  var overallCR = 0;
-  var overallProgress = 0;
-  var overallAR = getCheeseAttraction();
-  var effectivenessArray = buildEffectivenessArray(micePopulation);
-  var powersArray = buildPowersArray(micePopulation);
-  var html = "";
+  let overallCR = 0;
+  let overallProgress = 0;
+  const overallAR = getCheeseAttraction();
+  const effectivenessArray = buildEffectivenessArray(micePopulation);
+  const powersArray = buildPowersArray(micePopulation);
+  let html = "";
 
-  for (var mouse in micePopulation) {
-    var catches = getMouseCatches(
+  for (const mouse in micePopulation) {
+    const catches = getMouseCatches(
       micePopulation,
       mouse,
       overallAR,
@@ -646,14 +637,13 @@ function buildMiceCRCells(micePopulation) {
         overallProgress += (mouseWisdom[mouse] / rankupDiff[rank]) * catches;
       }
     }
-    html += "<td align='center'>" + catches.toFixed(2) + "</td>";
+    html += `<td align='center'>${catches.toFixed(2)}</td>`;
   }
 
-  html += "<td align='center'>" + overallCR.toFixed(2) + "</td>";
+  html += `<td align='center'>${overallCR.toFixed(2)}</td>`;
   if (rank) {
     // numbers are usually 0.00##% per hunt, but per 100 hunts is consistent with values shown
-    html +=
-      "<td align='center'>" + (overallProgress * 100).toFixed(2) + "%</td>";
+    html += `<td align='center'>${(overallProgress * 100).toFixed(2)}%</td>`;
   }
   return html;
 }
@@ -664,36 +654,35 @@ function buildMiceCRCells(micePopulation) {
  * @param headerHtml
  */
 function printCombinations(micePopulation, headerHtml) {
-  var weaponSelectors = getSelectors("weapon");
-  var baseSelectors = getSelectors("base");
-  var selectedCharm = document.getElementById("charm").value;
-  var tableHTML = headerHtml + "<tbody>";
+  const weaponSelectors = getSelectors("weapon");
+  const baseSelectors = getSelectors("base");
+  const selectedCharm = document.getElementById("charm").value;
+  let tableHTML = `${headerHtml}<tbody>`;
   charmName = selectedCharm;
 
   console.log(
-    "Weapons: " +
-      $(weaponSelectors.checkbox + ":checked").length +
-      " / Bases: " +
-      $(baseSelectors.checkbox + ":checked").length +
-      " / Mice: " +
-      Object.keys(micePopulation).length
+    `Weapons: ${$(`${weaponSelectors.checkbox}:checked`).length} / Bases: ${
+      $(`${baseSelectors.checkbox}:checked`).length
+    } / Mice: ${Object.keys(micePopulation).length}`
   );
 
-  var powersArray = buildPowersArray(micePopulation);
-  var mousePopKeys = Object.keys(micePopulation);
-  var mousePopLength = mousePopKeys.length;
+  const powersArray = buildPowersArray(micePopulation);
+  const mousePopKeys = Object.keys(micePopulation);
+  const mousePopLength = mousePopKeys.length;
   unsortedOverallCR = [];
 
   console.time("weapon & base $.each() loop");
-  $(weaponSelectors.checkbox + ":checked").each(function(index, weaponElement) {
+  $(`${weaponSelectors.checkbox}:checked`).each((index, weaponElement) => {
     weaponName = weaponElement.value;
     weaponChanged();
 
-    $(baseSelectors.checkbox + ":checked").each(function(index, baseElement) {
+    $(`${baseSelectors.checkbox}:checked`).each((index, baseElement) => {
       baseName = baseElement.value;
 
       // Skip Denture Base variants if filter is checked
-      var isDentureFiltered = localStorage.getItem("best-setup-denture-filter");
+      const isDentureFiltered = localStorage.getItem(
+        "best-setup-denture-filter"
+      );
       if (isDentureFiltered === "true" && baseName.indexOf("Denture") >= 0) {
         return true;
       }
@@ -712,37 +701,33 @@ function printCombinations(micePopulation, headerHtml) {
   console.timeEnd("weapon & base $.each() loop");
 
   // Sort in place based on greater overall catch rate
-  unsortedOverallCR.sort(function(a, b) {
-    return b["cr"] - a["cr"];
-  });
+  unsortedOverallCR.sort((a, b) => b.cr - a.cr);
 
   // Grab user defined number of rows to pass into tablesorter
-  var rowIterations = $("input[name=rowLimit]:checked").val();
+  let rowIterations = $("input[name=rowLimit]:checked").val();
   if (rowIterations === "All" || rowIterations > unsortedOverallCR.length) {
     rowIterations = unsortedOverallCR.length;
   }
 
   // Concatenate into single HTML string
-  for (var i = 0; i < rowIterations; i++) {
-    var obj = unsortedOverallCR[i];
-    tableHTML += "<tr>" + obj["link"];
-    for (var j = 0; j < obj["catches"].length; j++) {
-      tableHTML +=
-        "<td align='center'>" + obj["catches"][j].toFixed(2) + "</td>";
+  for (let i = 0; i < rowIterations; i++) {
+    const obj = unsortedOverallCR[i];
+    tableHTML += `<tr>${obj.link}`;
+    for (let j = 0; j < obj.catches.length; j++) {
+      tableHTML += `<td align='center'>${obj.catches[j].toFixed(2)}</td>`;
     }
-    tableHTML += "<td align='center'>" + obj["cr"].toFixed(2) + "</td>";
+    tableHTML += `<td align='center'>${obj.cr.toFixed(2)}</td>`;
     if (rank) {
       // numbers are usually 0.00##% per hunt, but per 100 hunts is consistent with values shown
-      tableHTML +=
-        "<td align='center'>" + (obj["rank"] * 100).toFixed(2) + "%</td>";
+      tableHTML += `<td align='center'>${(obj.rank * 100).toFixed(2)}%</td>`;
     }
   }
   $("#results").html(tableHTML);
 
   console.time("tablesorter update trigger");
-  var resort = true;
-  var callback = function() {
-    var header = $("#overallHeader");
+  const resort = true;
+  const callback = function() {
+    const header = $("#overallHeader");
     if (header.hasClass("tablesorter-headerAsc")) {
       header.click();
       header.click();
@@ -762,17 +747,17 @@ function printCombinations(micePopulation, headerHtml) {
  * @return {string}
  */
 function getLinkCell(selectedCharm, weaponName, baseName, headerHtml) {
-  var cell = "</td><td>" + getCRELinkElement();
+  let cell = `</td><td>${getCRELinkElement()}`;
 
   // prettier-ignore
   if (selectedCharm === "No Charm") {
-    cell += '<span style="float: right"><button onclick="weaponName=\''
-    + weaponName.replace(/'/g, "\\'")
-    + '\';baseName=\''
-    + baseName.replace(/'/g, "\\'")
-    + '\';weaponChanged();baseChanged();printCharmCombinations(getPopulation(EMPTY_SELECTION), \''
-    + headerHtml.replace(/'/g, "\\'")
-    + '\')">Find best charm</button></span>';
+    cell += `<span style="float: right"><button onclick="weaponName='${
+     weaponName.replace(/'/g, "\\'")
+     }';baseName='${
+     baseName.replace(/'/g, "\\'")
+     }';weaponChanged();baseChanged();printCharmCombinations(getPopulation(EMPTY_SELECTION), '${
+     headerHtml.replace(/'/g, "\\'")
+     }')">Find best charm</button></span>`;
   }
 
   return cell;
@@ -783,26 +768,20 @@ function getLinkCell(selectedCharm, weaponName, baseName, headerHtml) {
  * @return {string}
  */
 function getCRELinkElement() {
-  var urlString = buildCRELink();
-  var caption = weaponName + " / " + baseName;
+  const urlString = buildCRELink();
+  let caption = `${weaponName} / ${baseName}`;
   if (charmName && charmName !== "No Charm") {
     charmName = charmName.trim().replace(/\*$/, "");
-    caption += " / " + charmName;
+    caption += ` / ${charmName}`;
   }
-  return (
-    "<a href='" +
-    urlString +
-    "' target='_blank' rel='noopener'>" +
-    caption +
-    "</a>"
-  );
+  return `<a href='${urlString}' target='_blank' rel='noopener'>${caption}</a>`;
 
   /**
    * Builds the actual url with parameter to the CRE page
    * @return {string}
    */
   function buildCRELink() {
-    var urlParams = {
+    const urlParams = {
       location: locationName,
       phase: phaseName,
       cheese: cheeseName,
@@ -810,19 +789,19 @@ function getCRELinkElement() {
       empowered: isEmpowered,
       battery: batteryPower,
       gs: !gsLuck,
-      bonusPower: bonusPower,
-      bonusLuck: bonusLuck,
+      bonusPower,
+      bonusLuck,
       riftstalker: riftStalkerCodex,
       weapon: weaponName,
       base: baseName,
       ballistaLevel: fortRox.ballistaLevel,
       cannonLevel: fortRox.cannonLevel,
-      saltLevel: saltLevel,
-      rank: rank,
+      saltLevel,
+      rank,
       amplifier: ztAmp,
       vrFloorType: document.querySelector("#vrFloorType").selectedIndex
     };
-    var urlString = buildURL("cre.html", urlParams);
+    let urlString = buildURL("cre.html", urlParams);
     urlString = urlString.replace(/'/g, "%27");
     return urlString;
   }
@@ -844,9 +823,9 @@ function getMouseACR(
   effectivenessArray,
   powersArray
 ) {
-  var attractions = micePopulation[mouseName] * overallAR;
-  var mousePower = powersArray[mouseName];
-  var trapEffectiveness = effectivenessArray[mouseName];
+  const attractions = micePopulation[mouseName] * overallAR;
+  let mousePower = powersArray[mouseName];
+  const trapEffectiveness = effectivenessArray[mouseName];
 
   if (locationName === "Fort Rox") {
     if (
@@ -858,12 +837,12 @@ function getMouseACR(
   }
 
   calculateTrapSetup();
-  var catchRate = calcCR(trapEffectiveness, trapPower, trapLuck, mousePower);
+  const catchRate = calcCR(trapEffectiveness, trapPower, trapLuck, mousePower);
   return {
-    attractions: attractions,
-    catchRate: catchRate,
+    attractions,
+    catchRate,
     eff: trapEffectiveness,
-    mousePower: mousePower
+    mousePower
   };
 }
 
@@ -883,15 +862,15 @@ function getMouseCatches(
   effectivenessArray,
   powersArray
 ) {
-  var mouseACDetails = getMouseACR(
+  const mouseACDetails = getMouseACR(
     micePopulation,
     mouse,
     overallAR,
     effectivenessArray,
     powersArray
   );
-  var attractions = mouseACDetails.attractions;
-  var catchRate = mouseACDetails.catchRate;
+  const { attractions } = mouseACDetails;
+  let { catchRate } = mouseACDetails;
   catchRate = calcCREffects(
     catchRate,
     mouse,
@@ -910,22 +889,20 @@ function getMouseCatches(
  * @param {string} headerHTML
  */
 function printCharmCombinations(micePopulation, headerHTML) {
-  var charmSelectors = getSelectors("charm");
-  var tableHTML = headerHTML + "<tbody>";
+  const charmSelectors = getSelectors("charm");
+  let tableHTML = `${headerHTML}<tbody>`;
 
-  $(charmSelectors.checkbox + ":checked").each(function(index, element) {
+  $(`${charmSelectors.checkbox}:checked`).each((index, element) => {
     charmChanged(element.value);
-    tableHTML +=
-      "<tr><td>" +
-      getCRELinkElement() +
-      "</td>" +
-      buildMiceCRCells(micePopulation);
+    tableHTML += `<tr><td>${getCRELinkElement()}</td>${buildMiceCRCells(
+      micePopulation
+    )}`;
   });
   $("#results").html(tableHTML);
 
-  var resort = true;
-  var callback = function() {
-    var header = $("#overallHeader");
+  const resort = true;
+  const callback = function() {
+    const header = $("#overallHeader");
     if (
       header.hasClass("tablesorter-headerAsc") ||
       header.hasClass("tablesorter-headerUnSorted")

@@ -2,7 +2,7 @@ const utils = require("../_utils");
 
 module.exports = {
   default: {
-    location: utils.genVarField("location", "Gloomy Greenwood"),
+    location: utils.genVarField("location", "Gloomy Greenwood")
   },
   series: [
     {
@@ -90,19 +90,19 @@ module.exports = {
               "Bonbon Gummy Globlin",
               "Hollowed",
               "Hollowed Minion",
-              "Swamp Thang",
+              "Swamp Thang"
             ]
           }
         }
       ]
-    },
+    }
   ],
   /**
    *
    * @param {{stage: string, location: string, cheese: string, mouse: string, attraction: string, sample: number}[]} data
    * @returns {{stage: string, location: string, cheese: string, mouse: string, attraction: string, sample: number}[]}
    */
-  postProcess: function(data) {
+  postProcess(data) {
     return data;
-  },
+  }
 };

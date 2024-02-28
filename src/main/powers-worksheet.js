@@ -135,10 +135,7 @@ const subcategories = {
     "Sky Paragons",
     "The Richest"
   ],
-  "Foreword Farmers": [
-    "Seed Stowers",
-    "Petulant Pests"
-  ],
+  "Foreword Farmers": ["Seed Stowers", "Petulant Pests"],
   "Prologue Pond Prowlers": [
     "Grub Gatherers",
     "Shallow Swimmers",
@@ -173,12 +170,12 @@ const subcategories = {
 
 window.onload = function() {
   loadBookmarkletFromJS(
-    BOOKMARKLET_URLS["loader"],
+    BOOKMARKLET_URLS.loader,
     "bookmarkletLoader",
     "#bookmarkletloader"
   );
   loadBookmarkletFromJS(
-    BOOKMARKLET_URLS["powers"],
+    BOOKMARKLET_URLS.powers,
     "powersBookmarklet",
     "#bookmarklet"
   );
@@ -188,16 +185,16 @@ window.onload = function() {
     $("#group-select").append($("<option>", { value: cat, text: cat }));
   }
 
-  $("#group-select").change(function() {
-    var selectedGroup = $("#group-select :selected").text();
-    var subgroupz = subcategories[selectedGroup];
-    var subgroupSelect = document.getElementById("subgroup-select");
+  $("#group-select").change(() => {
+    const selectedGroup = $("#group-select :selected").text();
+    const subgroupz = subcategories[selectedGroup];
+    const subgroupSelect = document.getElementById("subgroup-select");
     if (subgroupSelect) {
       subgroupSelect.innerHTML = "";
       subgroupSelect.appendChild(new Option("All", "All"));
       if (subgroupz) {
-        for (var i = 0; i < subgroupz.length; i++) {
-          var group = subgroupz[i];
+        for (let i = 0; i < subgroupz.length; i++) {
+          const group = subgroupz[i];
           subgroupSelect.appendChild(new Option(group, group));
         }
       }
@@ -209,16 +206,16 @@ window.onload = function() {
   if (prefString) {
     const prefs = JSON.parse(prefString);
     $(".shown-type:checkbox").each(function() {
-      if (prefs["types"].indexOf($(this).val()) > -1) {
+      if (prefs.types.indexOf($(this).val()) > -1) {
         $(this).prop("checked", true);
       } else {
         $(this).prop("checked", false);
       }
     });
-    $("#group-select").val(prefs["group"]);
+    $("#group-select").val(prefs.group);
     $("#group-select").change();
-    $("#subgroup-select").val(prefs["subgroup"]);
-    $("#mouse-filter").val(prefs["mouse"]);
+    $("#subgroup-select").val(prefs.subgroup);
+    $("#mouse-filter").val(prefs.mouse);
   }
 
   // Process data from window.name
@@ -348,7 +345,7 @@ window.onload = function() {
     }
   });
 
-  $("#reset-button").click(function() {
+  $("#reset-button").click(() => {
     // Reset each or both tables
     const reset = confirm("Are you sure you want to reset worksheet data?");
     if (reset) {
@@ -360,7 +357,7 @@ window.onload = function() {
     }
   });
 
-  $("#type-select-all").click(function() {
+  $("#type-select-all").click(() => {
     if ($(".shown-type:checked").length === 10) {
       $(".shown-type:checkbox").each(function() {
         $(this).prop("checked", false);
@@ -372,23 +369,23 @@ window.onload = function() {
     }
   });
 
-  $("#reload-button").click(function() {
+  $("#reload-button").click(() => {
     renderTables();
   });
 
-  $("#save-button").click(function() {
+  $("#save-button").click(() => {
     const saveObj = {};
-    saveObj["types"] = [];
+    saveObj.types = [];
     $(".shown-type:checked").each(function() {
-      saveObj["types"].push($(this).val());
+      saveObj.types.push($(this).val());
     });
-    saveObj["group"] = $("#group-select")
+    saveObj.group = $("#group-select")
       .find(":selected")
       .text();
-    saveObj["subgroup"] = $("#subgroup-select")
+    saveObj.subgroup = $("#subgroup-select")
       .find(":selected")
       .text();
-    saveObj["mouse"] = $("#mouse-filter").val();
+    saveObj.mouse = $("#mouse-filter").val();
     localStorage.setItem("powers-worksheet-prefs", JSON.stringify(saveObj));
   });
 
@@ -419,7 +416,7 @@ function loadData(inputText) {
  */
 function validateJsonData(jsonObj) {
   let returnBool = true;
-  for (let key in jsonObj) {
+  for (const key in jsonObj) {
     if (key !== "mouse-data" && key !== "user-data") {
       returnBool = false;
       break;
@@ -438,11 +435,11 @@ function validateJsonData(jsonObj) {
 function calculateBounds(input, trapPower, trapType) {
   const incMouseData = input;
 
-  for (let group in incMouseData) {
-    for (let mouse in incMouseData[group]) {
+  for (const group in incMouseData) {
+    for (const mouse in incMouseData[group]) {
       let lowerBound = 0;
       let upperBound = "∞";
-      switch (input[group][mouse]["difficulty"]) {
+      switch (input[group][mouse].difficulty) {
         case "Effortless":
           upperBound = parseFloat((trapPower / 19).toFixed(2));
           break;
@@ -473,12 +470,12 @@ function calculateBounds(input, trapPower, trapType) {
 
       const ttIndex = trapTypes.indexOf(trapType);
       const inArr = [];
-      inArr.push(incMouseData[group][mouse]["effs"][ttIndex]);
+      inArr.push(incMouseData[group][mouse].effs[ttIndex]);
       inArr.push(lowerBound);
       inArr.push(upperBound);
 
-      incMouseData[group][mouse]["effs"][ttIndex] = inArr;
-      delete incMouseData[group][mouse]["difficulty"];
+      incMouseData[group][mouse].effs[ttIndex] = inArr;
+      delete incMouseData[group][mouse].difficulty;
     }
   }
 
@@ -493,29 +490,29 @@ function calculateBounds(input, trapPower, trapType) {
  */
 function normalizeRanges(stored) {
   const minCache = {};
-  for (let group in stored) {
+  for (const group in stored) {
     minCache[group] = {};
-    for (let mouse in stored[group]) {
+    for (const mouse in stored[group]) {
       minCache[group][mouse] = {};
-      minCache[group][mouse]["effs"] = [];
+      minCache[group][mouse].effs = [];
       for (let i = 0; i < 10; i++) {
-        const el = stored[group][mouse]["effs"][i];
+        const el = stored[group][mouse].effs[i];
         if (typeof el === "object" && el[0] === 100) {
-          if (!minCache[group][mouse]["range"]) {
-            minCache[group][mouse]["range"] = [el[1], el[2]];
+          if (!minCache[group][mouse].range) {
+            minCache[group][mouse].range = [el[1], el[2]];
           }
-          if (el[1] > minCache[group][mouse]["range"][0]) {
-            minCache[group][mouse]["range"][0] = el[1];
+          if (el[1] > minCache[group][mouse].range[0]) {
+            minCache[group][mouse].range[0] = el[1];
           }
-          if (el[2] < minCache[group][mouse]["range"][1]) {
-            minCache[group][mouse]["range"][1] = el[2];
+          if (el[2] < minCache[group][mouse].range[1]) {
+            minCache[group][mouse].range[1] = el[2];
           }
-          minCache[group][mouse]["effs"].push(trapTypes[i]);
+          minCache[group][mouse].effs.push(trapTypes[i]);
         } else if (typeof el === "number" && el === 100) {
-          minCache[group][mouse]["effs"].push(trapTypes[i]);
+          minCache[group][mouse].effs.push(trapTypes[i]);
         }
       }
-      const effLen = minCache[group][mouse]["effs"].length;
+      const effLen = minCache[group][mouse].effs.length;
       if (effLen === 0 || effLen === 1) {
         delete minCache[group][mouse];
       }
@@ -525,15 +522,15 @@ function normalizeRanges(stored) {
     }
   }
 
-  for (let group in minCache) {
-    for (let mouse in minCache[group]) {
-      for (let el of minCache[group][mouse]["effs"]) {
-        if (minCache[group][mouse]["range"] !== undefined) {
+  for (const group in minCache) {
+    for (const mouse in minCache[group]) {
+      for (const el of minCache[group][mouse].effs) {
+        if (minCache[group][mouse].range !== undefined) {
           const ttIndex = trapTypes.indexOf(el);
-          stored[group][mouse]["effs"][ttIndex] = [
+          stored[group][mouse].effs[ttIndex] = [
             100,
-            minCache[group][mouse]["range"][0],
-            minCache[group][mouse]["range"][1]
+            minCache[group][mouse].range[0],
+            minCache[group][mouse].range[1]
           ];
         }
       }
@@ -551,19 +548,19 @@ function normalizeRanges(stored) {
  * @return {object} Modified in-place
  */
 function mouseDataDiff(input, stored) {
-  for (let group in input) {
+  for (const group in input) {
     if (!stored[group]) {
       stored[group] = input[group];
     } else {
-      for (let mouse in input[group]) {
+      for (const mouse in input[group]) {
         if (!stored[group][mouse]) {
           stored[group][mouse] = input[group][mouse];
         } else {
-          for (let field in input[group][mouse]) {
+          for (const field in input[group][mouse]) {
             if (field === "effs") {
               for (let i = 0; i < 10; i++) {
-                const inputArr = input[group][mouse]["effs"][i];
-                let storedArr = stored[group][mouse]["effs"][i];
+                const inputArr = input[group][mouse].effs[i];
+                let storedArr = stored[group][mouse].effs[i];
                 if (
                   typeof inputArr === "object" &&
                   inputArr.length === 3 &&
@@ -595,7 +592,7 @@ function mouseDataDiff(input, stored) {
                     storedArr[2] = inputArr[2];
                   }
                 }
-                stored[group][mouse]["effs"][i] = storedArr;
+                stored[group][mouse].effs[i] = storedArr;
               }
             } else {
               // Check for ID, Gold, Points updates
@@ -623,13 +620,13 @@ function processInput(inputText) {
 
   const user = inputObj["user-data"];
   const bonusObj = {};
-  bonusObj["battery"] = battery[user["battery"]];
-  bonusObj["power"] = user["power-bonus"] * 100;
-  bonusObj["amp"] = user["zt-amp"] / 100;
-  bonusObj["cheese"] = user["empowered"] ? 20 : 0;
-  bonusObj["pour"] = user["tg-pour"] ? 5 : 0;
+  bonusObj.battery = battery[user.battery];
+  bonusObj.power = user["power-bonus"] * 100;
+  bonusObj.amp = user["zt-amp"] / 100;
+  bonusObj.cheese = user.empowered ? 20 : 0;
+  bonusObj.pour = user["tg-pour"] ? 5 : 0;
 
-  bonusObj["rift"] = 0;
+  bonusObj.rift = 0;
   const riftMultiplier = user["rift-multiplier"];
   if (riftMultiplier >= 1) {
     // Rift Bonus count
@@ -639,12 +636,12 @@ function processInput(inputText) {
       +(riftCharms.indexOf(user.charm) > -1 || user.charm.indexOf("Rift") > -1);
     if (riftCount >= 2) {
       // 2 or 3 triggers the power bonus of Rift set
-      bonusObj["rift"] = 20 * riftMultiplier;
+      bonusObj.rift = 20 * riftMultiplier;
     }
   }
 
   // Festive & Halloween bonus check
-  bonusObj["event"] =
+  bonusObj.event =
     (user.charm.indexOf("Snowball Charm") > -1 &&
       festiveTraps.indexOf(user.weapon) > -1) ||
     (user.charm.indexOf("Spooky Charm") > -1 &&
@@ -655,18 +652,18 @@ function processInput(inputText) {
       : 0;
 
   // Physical Brace Base check
-  bonusObj["brace"] =
+  bonusObj.brace =
     weaponsArray[user.weapon][0] === "Physical" &&
     user.base === "Physical Brace Base"
       ? 25
       : 0;
 
   // Subtract shownPowerBonus[es] to get true value
-  bonusObj["power"] -=
+  bonusObj.power -=
     weaponsArray[user.weapon][2] +
     basesArray[user.base][1] +
     charmsArray[user.charm][1] +
-    bonusObj["rift"];
+    bonusObj.rift;
 
   const calculatedPower = calcPower(
     user.weapon,
@@ -702,7 +699,7 @@ function processInput(inputText) {
     storedObj["trap-history"].push([
       user["dom-trap-type"],
       calculatedPower,
-      user["timestamp"],
+      user.timestamp,
       user["dom-trap-power"]
     ]);
 
@@ -717,7 +714,7 @@ function processInput(inputText) {
     incomingObj["trap-history"].push([
       user["dom-trap-type"],
       calculatedPower,
-      user["timestamp"],
+      user.timestamp,
       user["dom-trap-power"]
     ]);
     incomingObj["mouse-data"] = normalizeRanges(incomingObj["mouse-data"]);
@@ -739,7 +736,7 @@ function renderMousePowers(mouseData) {
   let powersHTML =
     "<caption>Mouse Powers</caption><thead><tr><th>Group</th><th>Mouse</th>";
 
-  for (let type of powersArr) {
+  for (const type of powersArr) {
     powersHTML += `<th colspan='3'>${type}</th>`;
   }
   powersHTML +=
@@ -750,7 +747,7 @@ function renderMousePowers(mouseData) {
   powersHTML += "</tr></thead><tbody>";
 
   // Preferred group/mouse logic
-  for (let group in mouseData) {
+  for (const group in mouseData) {
     const groupSelect = $("#group-select")
       .find(":selected")
       .text();
@@ -766,30 +763,27 @@ function renderMousePowers(mouseData) {
       continue;
     }
 
-    for (let mouse in mouseData[group]) {
+    for (const mouse in mouseData[group]) {
       const data = mouseData[group][mouse];
       const gString = group.slice(0, group.indexOf("(") - 1);
       const sString = group.slice(group.indexOf("("), group.length);
       powersHTML += `<tr><td>${gString}<br>${sString}</td><td>${mouse}</td>`;
-      for (let type of powersArr) {
+      for (const type of powersArr) {
         const i = trapTypes.indexOf(type);
         const eff =
-          typeof data["effs"][i] === "object" &&
-          data["effs"][i][0] !== undefined
-            ? data["effs"][i][0]
-            : data["effs"][i];
+          typeof data.effs[i] === "object" && data.effs[i][0] !== undefined
+            ? data.effs[i][0]
+            : data.effs[i];
         let lowerBound =
-          typeof data["effs"][i] === "object" &&
-          data["effs"][i][1] !== undefined
-            ? data["effs"][i][1]
+          typeof data.effs[i] === "object" && data.effs[i][1] !== undefined
+            ? data.effs[i][1]
             : 0;
-        if (typeof data["effs"][i] === "number" && data["effs"][i] === 0) {
+        if (typeof data.effs[i] === "number" && data.effs[i] === 0) {
           lowerBound = "∞";
         }
         const upperBound =
-          typeof data["effs"][i] === "object" &&
-          data["effs"][i][2] !== undefined
-            ? data["effs"][i][2]
+          typeof data.effs[i] === "object" && data.effs[i][2] !== undefined
+            ? data.effs[i][2]
             : "∞";
         powersHTML += `<td>${eff}%</td><td>${lowerBound}</td><td>${upperBound}</td>`;
       }
@@ -830,16 +824,12 @@ function renderTables() {
     let detailsHTML =
       "<caption>Mouse Details</caption><thead><tr><th id='details-group'>Group</th><th id='details-mouse'>Mouse</th><th id='details-gold'>Gold</th><th id='details-points'>Points</th><th id='details-id'>ID</th></tr></thead><tbody>";
 
-    for (let group in mouseData) {
-      for (let mouse in mouseData[group]) {
+    for (const group in mouseData) {
+      for (const mouse in mouseData[group]) {
         const data = mouseData[group][mouse];
-        const url = `<a href='https://www.mousehuntgame.com/m.php?id=${
-          data["id"]
-        }' target='_blank' rel='noopener'>Link</a>`;
+        const url = `<a href='https://www.mousehuntgame.com/m.php?id=${data.id}' target='_blank' rel='noopener'>Link</a>`;
 
-        detailsHTML += `<tr><td>${group}</td><td>${mouse}</td><td>${
-          data["gold"]
-        }</td><td>${data["points"]}</td><td>${url}</td></tr>`;
+        detailsHTML += `<tr><td>${group}</td><td>${mouse}</td><td>${data.gold}</td><td>${data.points}</td><td>${url}</td></tr>`;
       }
     }
 
@@ -863,7 +853,7 @@ function renderTables() {
 
     trapHTML =
       "<caption>Trap History</caption><thead><tr><th id='history-date'>Date</th><th id='history-type'>Type</th><th id='history-precise-power'>Power<br>(Precise)</th><th id='history-displayed-power'>Power<br>(Displayed)</th></tr></thead><tbody>";
-    for (let setup of trapHistory.reverse()) {
+    for (const setup of trapHistory.reverse()) {
       trapHTML += `<tr><td>${new Date(setup[2])}</td><td>${setup[0]}</td><td>${
         setup[1]
       }</td><td>${setup[3]}</td></tr>`;

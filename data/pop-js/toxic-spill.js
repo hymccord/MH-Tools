@@ -1,7 +1,7 @@
 const utils = require("../_utils");
 
-var cheeses = ["Rancid Radioactive Blue", "Magical Rancid Radioactive Blue"];
-var stages = [
+const cheeses = ["Rancid Radioactive Blue", "Magical Rancid Radioactive Blue"];
+const stages = [
   "Hero",
   "Knight",
   "Lord/Lady",
@@ -22,7 +22,7 @@ module.exports = {
       charm: [
         {
           vars: {
-            charm: { Rotten: false, "Super Rotten": false }
+            charm: { "Rotten": false, "Super Rotten": false }
           }
         }
       ],
@@ -67,14 +67,14 @@ module.exports = {
       phases: utils.genVarField("stage", stages)
     }
   ],
-  postProcess: function(data) {
-    return data.map(function(item) {
+  postProcess(data) {
+    return data.map(item => {
       // Rename to Grand Duke/Grand Duchess
-      var stage =
+      const stage =
         item.stage === "Grand Duke/Duchess"
           ? "Grand Duke/Grand Duchess"
           : item.stage;
-      return Object.assign(item, { stage: stage });
+      return Object.assign(item, { stage });
     });
   }
 };

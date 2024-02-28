@@ -1,7 +1,7 @@
-var Promise = require("bluebird");
-var json2csv = require("json2csv");
-var _ = require("lodash");
-var Combinatorics = require("js-combinatorics");
+const Promise = require("bluebird");
+const json2csv = require("json2csv");
+const _ = require("lodash");
+const Combinatorics = require("js-combinatorics");
 
 // Location,Phase,Cheese,Charm,Attraction Rate,Mouse,Sample Size
 exports.POP_FIELDS = [
@@ -17,7 +17,7 @@ exports.POP_FIELDS = [
 exports.preparePopulation = function(base, population) {
   return _.extend({}, base, {
     mouse: population.mouse,
-    attraction: (population.attraction * 100).toFixed(2) + "%",
+    attraction: `${(population.attraction * 100).toFixed(2)}%`,
     sample: population.sample
   });
 };
@@ -25,35 +25,29 @@ exports.preparePopulation = function(base, population) {
 exports.toCsv = function toCsv(fields, rows) {
   return Promise.resolve(rows)
     .then(Promise.all.bind(Promise))
-    .then(function(rows) {
+    .then(rows => {
       console.error("");
       return json2csv({
         data: rows,
-        fields: fields,
+        fields,
         defaultValue: "-"
       });
     });
 };
 
 exports.process = function(config) {
-  return Promise.mapSeries(config.series, function(setup) {
-    var vectors = _.values(
+  return Promise.mapSeries(config.series, setup => {
+    let vectors = _.values(
       _.defaultsDeep(setup, _.cloneDeep(config.default || {}))
     );
     if (!vectors || !vectors.length) vectors = [[{}]];
-    var p = Combinatorics.cartesianProduct.apply(Combinatorics, vectors);
-    return Promise.mapSeries(p.toArray(), function(iter) {
-      var item = iter.reduce(function(opts, vec) {
-        return _.defaultsDeep(opts, vec);
-      }, {});
+    const p = Combinatorics.cartesianProduct.apply(Combinatorics, vectors);
+    return Promise.mapSeries(p.toArray(), iter => {
+      const item = iter.reduce((opts, vec) => _.defaultsDeep(opts, vec), {});
 
       return config.process(item);
-    }).reduce(function(a, b) {
-      return a.concat(b);
-    });
-  }).reduce(function(a, b) {
-    return a.concat(b);
-  });
+    }).reduce((a, b) => a.concat(b));
+  }).reduce((a, b) => a.concat(b));
 };
 
 /**
@@ -65,7 +59,7 @@ exports.process = function(config) {
  */
 exports.genVarItem = function genVarItem(type, value, base) {
   base = base || {};
-  var item = { vars: {}, fields: {} };
+  const item = { vars: {}, fields: {} };
   item.vars[type] = {};
   item.vars[type][value] = true;
   item.fields[type] = value;
@@ -81,7 +75,5 @@ exports.genVarItem = function genVarItem(type, value, base) {
  */
 exports.genVarField = function genVarField(type, values, base) {
   if (!Array.isArray(values)) values = [values];
-  return _.map(values, function(value) {
-    return exports.genVarItem(type, value, base);
-  });
+  return _.map(values, value => exports.genVarItem(type, value, base));
 };

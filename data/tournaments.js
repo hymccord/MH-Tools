@@ -1,4 +1,4 @@
-var tourneysArray = {
+const tourneysArray = {
   "Baker's Dozen": {
     "White": 1,
     "Grey": 1,

@@ -1,4 +1,4 @@
-var BOOKMARKLET_URLS = {
+const BOOKMARKLET_URLS = {
   analyzer: "src/bookmarklet/bm-analyzer.min.js",
   crafting: "src/bookmarklet/bm-crafting.min.js",
   cre: "src/bookmarklet/bm-cre.min.js",
@@ -17,7 +17,7 @@ var BOOKMARKLET_URLS = {
  * @return {string}
  */
 function makeBookmarkletString(content) {
-  return "javascript:void" + encodeURI(" " + content);
+  return `javascript:void${encodeURI(` ${content}`)}`;
 }
 /**
  * Loads bookmarklet content from a js file into an html element's href attribute
@@ -28,14 +28,14 @@ function makeBookmarkletString(content) {
 function loadBookmarkletFromJS(url, storageKey, linkSelector) {
   $.get(
     `https://cdn.jsdelivr.net/gh/tsitu/MH-Tools@master/${url}`,
-    function(data) {
+    data => {
       checkBookmarklet(makeBookmarkletString(data), storageKey);
     },
     "text"
   );
 
   function checkBookmarklet(bookmarkletString, storageKey) {
-    var keyMap = {
+    const keyMap = {
       bookmarkletLoader: "Auto-Loader",
       creBookmarklet: "Catch Rate Estimator",
       mapBookmarklet: "Map Solver",
@@ -48,8 +48,7 @@ function loadBookmarkletFromJS(url, storageKey, linkSelector) {
     };
 
     if (bookmarkletString !== localStorage.getItem(storageKey)) {
-      var alertString =
-        "The " + keyMap[storageKey] + " bookmarklet has been updated.";
+      let alertString = `The ${keyMap[storageKey]} bookmarklet has been updated.`;
       if (storageKey !== "bookmarkletLoader") {
         alertString += "\nPlease edit accordingly, or try the Auto-Loader!";
       }
@@ -58,8 +57,8 @@ function loadBookmarkletFromJS(url, storageKey, linkSelector) {
     }
 
     $(linkSelector).attr("href", bookmarkletString);
-    $(linkSelector + "Copy").click(function() {
-      var tempCopyArea = document.createElement("textarea");
+    $(`${linkSelector}Copy`).click(() => {
+      const tempCopyArea = document.createElement("textarea");
       tempCopyArea.style.position = "fixed";
       tempCopyArea.style.top = 0;
       tempCopyArea.style.left = 0;
@@ -75,12 +74,10 @@ function loadBookmarkletFromJS(url, storageKey, linkSelector) {
       tempCopyArea.focus();
       tempCopyArea.select();
 
-      var copySuccess = document.execCommand("copy");
+      const copySuccess = document.execCommand("copy");
       if (copySuccess) {
         alert(
-          "The " +
-            keyMap[storageKey] +
-            " bookmarklet was copied to your clipboard."
+          `The ${keyMap[storageKey]} bookmarklet was copied to your clipboard.`
         );
       } else {
         alert("Failed to copy bookmarklet to clipboard.");

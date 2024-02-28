@@ -5,7 +5,7 @@ const string_cheeses = [
   "Swiss String",
   "Brie String",
   "Magical String"
-]
+];
 
 module.exports = {
   default: {
@@ -52,7 +52,7 @@ module.exports = {
               "Phase Zombie",
               "Prototype",
               "Robat",
-              "Tech Ravenous Zombie",
+              "Tech Ravenous Zombie"
             ]
           }
         }
@@ -69,7 +69,7 @@ module.exports = {
               "Cyber Miner",
               "Itty Bitty Rifty Burroughs",
               "Pneumatic Dirt Displacement",
-              "Rifterranian",
+              "Rifterranian"
             ]
           }
         }
@@ -81,11 +81,7 @@ module.exports = {
       config: [
         {
           opts: {
-            include: [
-              "Mecha Tail",
-              "Radioactive Ooze",
-              "Toxikinetic"
-            ]
+            include: ["Mecha Tail", "Radioactive Ooze", "Toxikinetic"]
           }
         }
       ]
@@ -124,7 +120,7 @@ module.exports = {
               "Lambent",
               "Master Exploder",
               "Pneumatic Dirt Displacement",
-              "Rifterranian",
+              "Rifterranian"
             ]
           }
         }
@@ -142,7 +138,7 @@ module.exports = {
               "Rancid Bog Beast",
               "Super Mega Mecha Ultra RoboGold",
               "Toxic Avenger",
-              "Toxikinetic",
+              "Toxikinetic"
             ]
           }
         }
@@ -194,14 +190,16 @@ module.exports = {
       cheese: utils.genVarField("cheese", "Undead String Emmental"),
       config: [
         {
-          fields: { stage: "Undead String Emmental" },
+          fields: { stage: "Undead String Emmental" }
         }
       ]
     }
   ],
-  postProcess: function(data) {
-    return data.map(function(item) {
-      return Object.assign(item, { stage: item.stage.replace(/Mist/g, "Mist Level") });
-    });
+  postProcess(data) {
+    return data.map(item =>
+      Object.assign(item, {
+        stage: item.stage.replace(/Mist/g, "Mist Level")
+      })
+    );
   }
 };

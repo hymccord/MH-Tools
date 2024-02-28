@@ -5,12 +5,12 @@ const cheese = [
   "SB+",
   "Beanster",
   "Lavish Beanster",
-  "Royal Beanster",
+  "Royal Beanster"
 ];
 
 module.exports = {
   default: {
-    location: utils.genVarField("location", "Bountiful Beanstalk"),
+    location: utils.genVarField("location", "Bountiful Beanstalk")
   },
   series: [
     {
@@ -19,10 +19,10 @@ module.exports = {
       config: [
         {
           opts: {
-            include: ["Budrich Thornborn", "Leafton Beanwell"],
-          },
-        },
-      ],
+            include: ["Budrich Thornborn", "Leafton Beanwell"]
+          }
+        }
+      ]
     },
     {
       cheese: utils.genVarField("cheese", "SB+"),
@@ -31,10 +31,14 @@ module.exports = {
       config: [
         {
           opts: {
-            include: ["Budrich Thornborn", "Leafton Beanwell", "Herbaceous Bravestalk"],
-          },
-        },
-      ],
+            include: [
+              "Budrich Thornborn",
+              "Leafton Beanwell",
+              "Herbaceous Bravestalk"
+            ]
+          }
+        }
+      ]
     },
     {
       cheese: utils.genVarField("cheese", ["Gouda", "SB+"]),
@@ -42,10 +46,10 @@ module.exports = {
       config: [
         {
           opts: {
-            include: ["Vinneus Stalkhome"],
-          },
-        },
-      ],
+            include: ["Vinneus Stalkhome"]
+          }
+        }
+      ]
     },
     {
       cheese: utils.genVarField("cheese", cheese),
@@ -56,14 +60,14 @@ module.exports = {
               "Dungeon": true,
               "Dungeon - Magic": true,
               "Dungeon - Lavish Lapis": true,
-              "Dungeon - Mystery": true,
-            },
+              "Dungeon - Mystery": true
+            }
           },
           fields: {
-            stage: "Dungeon",
-          },
-        },
-      ],
+            stage: "Dungeon"
+          }
+        }
+      ]
     },
     {
       cheese: utils.genVarField("cheese", cheese),
@@ -74,14 +78,14 @@ module.exports = {
               "Ballroom": true,
               "Ballroom - Royal Ruby": true,
               "Ballroom - Golden Harp String": true,
-              "Ballroom - Mystery": true,
-            },
+              "Ballroom - Mystery": true
+            }
           },
           fields: {
-            stage: "Ballroom",
-          },
-        },
-      ],
+            stage: "Ballroom"
+          }
+        }
+      ]
     },
     {
       cheese: utils.genVarField("cheese", cheese),
@@ -90,34 +94,34 @@ module.exports = {
           vars: {
             stage: {
               "Great Hall": true,
-              "Great Hall - Golden Goose Egg": true,
-            },
+              "Great Hall - Golden Goose Egg": true
+            }
           },
           fields: {
-            stage: "Great Hall",
-          },
-        },
-      ],
-    },
+            stage: "Great Hall"
+          }
+        }
+      ]
+    }
   ],
 
-  postProcess: function(data) {
+  postProcess(data) {
     const giants = [
       "Dungeon Master",
       "Malevolent Maestro",
       "Mythical Giant King"
     ];
-    giants.forEach((mouse) => {
+    giants.forEach(mouse => {
       data.push({
         stage: "Castle Giants",
         location: "Bountiful Beanstalk",
         cheese: "SB+",
-        mouse: mouse,
+        mouse,
         attraction: "33.33%",
-        sample: giants.length,
+        sample: giants.length
       });
     });
 
     return data;
-  },
+  }
 };

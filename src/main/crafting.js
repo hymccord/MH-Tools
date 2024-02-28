@@ -1,15 +1,15 @@
 // Global objects
-var ALL_RECIPES = {};
-var USER_INVENTORY = {};
+let ALL_RECIPES = {};
+let USER_INVENTORY = {};
 
 window.onload = function() {
   loadBookmarkletFromJS(
-    BOOKMARKLET_URLS["loader"],
+    BOOKMARKLET_URLS.loader,
     "bookmarkletLoader",
     "#bookmarkletloader"
   );
   loadBookmarkletFromJS(
-    BOOKMARKLET_URLS["crafting"],
+    BOOKMARKLET_URLS.crafting,
     "craftingBookmarklet",
     "#bookmarklet"
   );
@@ -146,25 +146,23 @@ function calculateRecipes() {
 
   while (rkLength--) {
     const itemName = recipeKeys[staticRk - rkLength - 1];
-    const type = ALL_RECIPES[itemName]["type"];
+    const { type } = ALL_RECIPES[itemName];
 
     let recipeStr = "";
-    const materialKeys = Object.keys(ALL_RECIPES[itemName]["recipe"]);
+    const materialKeys = Object.keys(ALL_RECIPES[itemName].recipe);
     let mkLength = materialKeys.length;
     while (mkLength--) {
       // Display 'Required Materials' in proper order
       const pos = materialKeys[mkLength];
-      recipeStr += `[${ALL_RECIPES[itemName]["recipe"][pos]}] ${pos}<br />`;
+      recipeStr += `[${ALL_RECIPES[itemName].recipe[pos]}] ${pos}<br />`;
     }
 
-    if (hasProperMaterials(ALL_RECIPES[itemName]["recipe"])) {
+    if (hasProperMaterials(ALL_RECIPES[itemName].recipe)) {
       const craftableQty = calcCraftableQuantity(itemName);
 
       // Build craftable HTML string
       craftingHTML += `<tr><td>${type}</td><td>${itemName}</td><td>${craftableQty *
-        ALL_RECIPES[itemName][
-          "qty"
-        ]}</td><td>${recipeStr}</td><td>N/A</td></tr>`;
+        ALL_RECIPES[itemName].qty}</td><td>${recipeStr}</td><td>N/A</td></tr>`;
     } else {
       let output = "";
       const missingObj = checkMissingMaterials(itemName);
@@ -180,16 +178,16 @@ function calculateRecipes() {
   craftingHTML += "</tbody>";
   document.getElementById("crafting-recipes").innerHTML = craftingHTML;
 
-  const resort = true,
-    callback = function() {
-      const header = $("#crafting-total-qty");
-      if (header.hasClass("tablesorter-headerAsc")) {
-        header.click();
-        header.click();
-      } else if (header.hasClass("tablesorter-headerUnSorted")) {
-        header.click();
-      }
-    };
+  const resort = true;
+  const callback = function() {
+    const header = $("#crafting-total-qty");
+    if (header.hasClass("tablesorter-headerAsc")) {
+      header.click();
+      header.click();
+    } else if (header.hasClass("tablesorter-headerUnSorted")) {
+      header.click();
+    }
+  };
   $("#crafting-recipes").trigger("updateAll", [resort, callback]);
 }
 
@@ -200,7 +198,7 @@ function calculateRecipes() {
  */
 function checkMissingMaterials(item) {
   const missingObj = {};
-  const recipeMaterials = ALL_RECIPES[item]["recipe"];
+  const recipeMaterials = ALL_RECIPES[item].recipe;
   const matKeys = Object.keys(recipeMaterials);
   let mkLength = matKeys.length;
   while (mkLength--) {
@@ -223,7 +221,7 @@ function checkMissingMaterials(item) {
 function calcCraftableQuantity(item) {
   let craftableQuantity = 1;
   let tmpQty = Infinity;
-  const recipeMaterials = ALL_RECIPES[item]["recipe"];
+  const recipeMaterials = ALL_RECIPES[item].recipe;
   const matKeys = Object.keys(recipeMaterials);
   let mkLength = matKeys.length;
   while (mkLength--) {
@@ -253,10 +251,9 @@ function hasProperMaterials(item) {
     const material = itemKeys[ikLength];
     if (!USER_INVENTORY[material]) {
       return false;
-    } else {
-      if (USER_INVENTORY[material] < item[material]) {
-        return false;
-      }
+    }
+    if (USER_INVENTORY[material] < item[material]) {
+      return false;
     }
   }
   return true;

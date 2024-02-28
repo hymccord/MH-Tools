@@ -22,7 +22,7 @@
         repo: options.repo,
         path: bm.path,
         per_page: 1,
-        page: 1,
+        page: 1
       });
 
       // Example Response: 2011-04-14T16:00:49Z
@@ -32,7 +32,7 @@
           year: "numeric",
           month: "short",
           day: "numeric"
-      });
+        });
 
       // transform src/bookmarket/bm-some-name.js -> some_name
       const bookmarklet = path
@@ -62,8 +62,8 @@
     const bookmarkletJson = await fetchTimestamps({
       owner: "tsitu",
       repo: "MH-Tools",
-      path: "src/bookmarklet",
-    }).catch((error) => console.log(error));
+      path: "src/bookmarklet"
+    }).catch(error => console.log(error));
 
     console.log(bookmarkletJson);
 

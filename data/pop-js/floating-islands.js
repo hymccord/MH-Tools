@@ -53,13 +53,10 @@ const launch_pad = [
   "Skydiver",
   "Sky Greaser",
   "Launchpad Labourer",
-  "Cloud Miner", // SB+ only
+  "Cloud Miner" // SB+ only
 ];
 
-const cloud_commoner = [
-  "Daydreamer",
-  "Kite Flyer"
-];
+const cloud_commoner = ["Daydreamer", "Kite Flyer"];
 
 const sky_pirates = [
   "Suave Pirate",
@@ -71,10 +68,7 @@ const sky_pirates = [
   "Peggy the Plunderer"
 ];
 
-const the_richest = [
-  "Richard the Rich",
-  "Fortuitous Fool"
-];
+const the_richest = ["Richard the Rich", "Fortuitous Fool"];
 
 const empyrean_guard = [
   "Empyrean Appraiser",
@@ -86,8 +80,8 @@ const palace_stage_mods = [
   "Ancient Jade Stockpile",
   "Empyrean Seal Stowage",
   "Ore and Glass Deposit",
-  "Sky Pirate Den",
-]
+  "Sky Pirate Den"
+];
 
 const island_configurations = {
   Arcane: {
@@ -96,7 +90,7 @@ const island_configurations = {
     Stages: {
       Low: "Arcane Island",
       High: "Arcane Keep",
-      Palace: "Arcane Cauldron",
+      Palace: "Arcane Cauldron"
     }
   },
   Draconic: {
@@ -106,7 +100,7 @@ const island_configurations = {
       Low: "Draconic Island",
       High: "Draconic Sanctuary",
       Palace: "Draconic Hoard"
-    },
+    }
   },
   Forgotten: {
     Common: ["Spry Sky Explorer", "Spry Sky Seer"],
@@ -115,7 +109,7 @@ const island_configurations = {
       Low: "Forgotten Island",
       High: "Forgotten Fortress",
       Palace: "Forgotten Tomb"
-    },
+    }
   },
   Hydro: {
     Common: ["Nimbomancer", "Sky Surfer"],
@@ -124,7 +118,7 @@ const island_configurations = {
       Low: "Hydro Island",
       High: "Hydro Hideaway",
       Palace: "Hydro Reservoir"
-    },
+    }
   },
   Law: {
     Common: ["Stack of Thieves", "Devious Gentleman"],
@@ -133,7 +127,7 @@ const island_configurations = {
       Low: "Law Island",
       High: "Law Garrison",
       Palace: "Law Lockup"
-    },
+    }
   },
   Physical: {
     Common: ["Sky Swordsman", "Ground Gavaleer"],
@@ -142,7 +136,7 @@ const island_configurations = {
       Low: "Physical Island",
       High: "Physical Palisade",
       Palace: "Physical Strongbox"
-    },
+    }
   },
   Shadow: {
     Common: ["Astrological Astronomer", "Overcaster"],
@@ -151,7 +145,7 @@ const island_configurations = {
       Low: "Shadow Island",
       High: "Shadow Stronghold",
       Palace: "Shadow Crypt"
-    },
+    }
   },
   Tactical: {
     Common: ["Gyrologer", "Worried Wayfinder"],
@@ -160,11 +154,11 @@ const island_configurations = {
       Low: "Tactical Island",
       High: "Tactical Castle",
       Palace: "Tactical Maze"
-    },
-  },
-}
+    }
+  }
+};
 
-var config = {
+const config = {
   default: {
     location: utils.genVarField("location", "Floating Islands")
   },
@@ -190,15 +184,16 @@ var config = {
         "Vault Pirates x1",
         "Vault Pirates x2",
         "Vault Pirates x3",
-        "Vault Pirates x4"]),
+        "Vault Pirates x4"
+      ]),
       config: [
         {
           opts: {
             include: sky_pirates,
             attraction: 0.005 // For a few pirates slipping out of their associated stage
-          },
-        },
-      ],
+          }
+        }
+      ]
     },
     {
       cheese: utils.genVarField("cheese", allCheese),
@@ -206,13 +201,13 @@ var config = {
       config: [
         {
           opts: {
-            include: [ "Empyrean Empress" ]
+            include: ["Empyrean Empress"]
           }
         }
       ]
     }
   ],
-  postProcess: function(data) {
+  postProcess(data) {
     const masterArr = data; // TODO: Temporary until generic processing implemented
 
     // Add fixed populations (Wardens + Paragons)
@@ -227,7 +222,7 @@ var config = {
         stage: "Sky Wardens",
         location: "Floating Islands",
         cheese: "SB+",
-        mouse: mouse,
+        mouse,
         attraction: "25.00%",
         sample: 4
       });
@@ -248,7 +243,7 @@ var config = {
         stage: "Sky Paragons",
         location: "Floating Islands",
         cheese: "SB+",
-        mouse: mouse,
+        mouse,
         attraction: "12.50%",
         sample: 8
       });
@@ -273,7 +268,7 @@ var config = {
  * @returns {string[]} An array of generated stages plus the original stage from the argument
  */
 function generatePalaceStages(stage) {
-  var stages = [stage];
+  const stages = [stage];
   for (modType of palace_stage_mods) {
     for (modCount of [3, 4]) {
       stages.push(`${stage} ${modCount}x ${modType}`);
@@ -284,30 +279,32 @@ function generatePalaceStages(stage) {
 
 /**
  * Generate all stages need for loot caches (Rich + Fool)
- * @param {{Low: string, High: string, Palace: string}} islandStages 
+ * @param {{Low: string, High: string, Palace: string}} islandStages
  * @returns {string[]}
  */
 function generateLootCacheStages(islandStages) {
-  var stages = []
-  for (let stage of [islandStages.Low, islandStages.High]) {
-    stages.push(`${stage} - Loot x2`)
+  const stages = [];
+  for (const stage of [islandStages.Low, islandStages.High]) {
+    stages.push(`${stage} - Loot x2`);
   }
 
   for (let i = 2; i <= 4; i++) {
-    stages.push(`${islandStages.Palace} - Loot x${i}`)
+    stages.push(`${islandStages.Palace} - Loot x${i}`);
   }
   return stages;
 }
 
 function generateConfig() {
-  
   for (const [powerType, value] of Object.entries(island_configurations)) {
-    
     // All non-special LAI, HAI, SP stages
-    var stages = [value.Stages.Low, value.Stages.High, ...generatePalaceStages(value.Stages.Palace)];
+    var stages = [
+      value.Stages.Low,
+      value.Stages.High,
+      ...generatePalaceStages(value.Stages.Palace)
+    ];
     for (cheese of allCheese) {
       const seriesMiceInclude = cheese.match(/Cheesecake/) ? value.Cloud : [];
-      for (let stage of stages) {
+      for (const stage of stages) {
         const series = {
           cheese: utils.genVarField("cheese", cheese),
           stage: utils.genVarField("stage", stage),
@@ -319,11 +316,11 @@ function generateConfig() {
                   ...value.Common,
                   ...seriesMiceInclude,
                   ...(stage.match(/[34]x/) ? empyrean_guard : [])
-                ],
-              },
-            },
-          ],
-        }
+                ]
+              }
+            }
+          ]
+        };
         config.series.push(series);
       }
     }
@@ -343,10 +340,10 @@ function generateConfig() {
               ...the_richest
             ],
             attraction: 0.05 // quick exclude for Fool in 2x zones
-          },
-        },
-      ],
-    }
+          }
+        }
+      ]
+    };
     config.series.push(series);
   }
 

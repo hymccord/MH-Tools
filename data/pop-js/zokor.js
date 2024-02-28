@@ -1,9 +1,6 @@
 const utils = require("../_utils");
 
-const allDistrictMice = [
-  "Shadow Stalker",
-  "Reanimated Carver"
-]
+const allDistrictMice = ["Shadow Stalker", "Reanimated Carver"];
 
 const mice = {
   Farming: [
@@ -12,7 +9,7 @@ const mice = {
     "Nightshade Fungalmancer",
     "Nightshade Nanny",
     "Reanimated Carver",
-    "Shadow Stalker",
+    "Shadow Stalker"
   ],
   Treasure: [
     "Hired Eidolon",
@@ -21,7 +18,7 @@ const mice = {
     "Molten Midas",
     "Reanimated Carver",
     "Shadow Stalker",
-    "Treasure Brawler",
+    "Treasure Brawler"
   ],
   Fealty: [
     "Battle Cleric",
@@ -33,7 +30,7 @@ const mice = {
     "Reanimated Carver",
     "Shadow Stalker",
     "Sir Fleekio",
-    "Solemn Soldier",
+    "Solemn Soldier"
   ],
   Scholar: [
     "Ancient Scribe",
@@ -45,7 +42,7 @@ const mice = {
     "Sanguinarian",
     "Shadow Stalker",
     "Soul Binder",
-    "Summoning Scholar",
+    "Summoning Scholar"
   ],
   Tech: [
     "Ash Golem",
@@ -57,14 +54,10 @@ const mice = {
     "Reanimated Carver",
     "RR-8",
     "Shadow Stalker",
-    "Tech Golem",
+    "Tech Golem"
   ],
-  Lair: [
-    "Corridor Bruiser",
-    "Decrepit Tentacle Terror",
-    "Retired Minotaur",
-  ]
-}
+  Lair: ["Corridor Bruiser", "Decrepit Tentacle Terror", "Retired Minotaur"]
+};
 
 function genSeriesObject(quality, district) {
   // Returns an array of two series [{}, {}]
@@ -76,10 +69,7 @@ function genSeriesObject(quality, district) {
       config: [
         {
           opts: {
-            include: [
-              ...allDistrictMice,
-              ...mice[district]
-            ]
+            include: [...allDistrictMice, ...mice[district]]
           }
         }
       ]
@@ -89,10 +79,7 @@ function genSeriesObject(quality, district) {
       config: [
         {
           opts: {
-            include: [
-              ...allDistrictMice,
-              ...mice[district]
-            ]
+            include: [...allDistrictMice, ...mice[district]]
           },
           vars: {
             cheese: {
@@ -105,27 +92,26 @@ function genSeriesObject(quality, district) {
             cheese: "SB+/Gouda/Brie"
           }
         }
-      ],
+      ]
     }
-  ]
+  ];
 }
 
 function genDistricts() {
-
   // flat(2) because we have two levels of nested arrays due to map
-  const levelThreeDistricts = ["Fealty", "Scholar", "Tech"].map(district => {
-    return ["15+", "50+", "80+"].map(quality => {
-      return genSeriesObject(quality, district);
-    })
-  }).flat(2);
+  const levelThreeDistricts = ["Fealty", "Scholar", "Tech"]
+    .map(district =>
+      ["15+", "50+", "80+"].map(quality => genSeriesObject(quality, district))
+    )
+    .flat(2);
 
-  const farmDistrict = ["0+", "50+"].map(q => {
-      return genSeriesObject(q, "Farming");
-  }).flat()
+  const farmDistrict = ["0+", "50+"]
+    .map(q => genSeriesObject(q, "Farming"))
+    .flat();
 
-  const treasureDistrict = ["15+", "50+"].map(q => {
-      return genSeriesObject(q, "Treasure");
-  }).flat();
+  const treasureDistrict = ["15+", "50+"]
+    .map(q => genSeriesObject(q, "Treasure"))
+    .flat();
 
   const minotaur = genSeriesObject("- Each 30+", "Lair");
 
@@ -139,7 +125,7 @@ function genDistricts() {
 
 module.exports = {
   default: {
-    location: utils.genVarField("location", "Zokor"),
+    location: utils.genVarField("location", "Zokor")
   },
   series: genDistricts()
-}
+};

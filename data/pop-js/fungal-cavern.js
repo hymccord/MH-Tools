@@ -2,15 +2,11 @@ const utils = require("../_utils");
 
 module.exports = {
   default: {
-    location: utils.genVarField("location", "Fungal Cavern"),
+    location: utils.genVarField("location", "Fungal Cavern")
   },
   series: [
     {
-      cheese: utils.genVarField("cheese", [
-        "SB+",
-        "Gouda",
-        "Brie",
-      ]),
+      cheese: utils.genVarField("cheese", ["SB+", "Gouda", "Brie"]),
       config: [
         {
           opts: {
@@ -96,14 +92,10 @@ module.exports = {
       config: [
         {
           opts: {
-            include: [
-              "Diamondhide",
-              "Huntereater",
-              "Crystal Behemoth"
-            ]
+            include: ["Diamondhide", "Huntereater", "Crystal Behemoth"]
           }
         }
       ]
-    },
+    }
   ]
 };

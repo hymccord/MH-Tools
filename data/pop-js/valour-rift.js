@@ -250,7 +250,7 @@ module.exports = {
       ]
     }
   ],
-  postProcess: function(data) {
+  postProcess(data) {
     const floorNormal = [
       "Puppetto",
       "Cutpurse",
@@ -275,7 +275,7 @@ module.exports = {
 
     // Step 1: Separate into staged buckets
     const bucketData = {};
-    data.map(function(item) {
+    data.map(item => {
       const stageName = item.stage.replace("UU", "Umbra");
       Object.assign(item, { stage: stageName });
       if (bucketData[stageName] === undefined) bucketData[stageName] = [item];
@@ -283,12 +283,12 @@ module.exports = {
     });
 
     // Step 2: Gather up floor and champion mice
-    Object.keys(bucketData).forEach(function(phase) {
+    Object.keys(bucketData).forEach(phase => {
       const combinedData = [];
       let sumNormal = 0;
       let sumChampion = 0;
 
-      bucketData[phase].forEach(function(item) {
+      bucketData[phase].forEach(item => {
         if (floorNormal.indexOf(item.mouse) > -1) {
           sumNormal += parseFloat(item.attraction);
         } else if (floorChampion.indexOf(item.mouse) > -1) {
@@ -304,7 +304,7 @@ module.exports = {
           location: "Valour Rift",
           cheese: "Gauntlet String",
           mouse: "Floor Basic",
-          attraction: sumNormal.toFixed(2) + "%",
+          attraction: `${sumNormal.toFixed(2)}%`,
           sample: bucketData[phase][0].sample
         });
       }
@@ -315,12 +315,12 @@ module.exports = {
           location: "Valour Rift",
           cheese: "Gauntlet String",
           mouse: "Floor Champion",
-          attraction: sumChampion.toFixed(2) + "%",
+          attraction: `${sumChampion.toFixed(2)}%`,
           sample: bucketData[phase][0].sample
         });
       }
 
-      combinedData.forEach(function(item) {
+      combinedData.forEach(item => {
         masterArr.push(item);
       });
     });

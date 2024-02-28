@@ -13,31 +13,31 @@ module.exports = {
           // include: [],
           // exclude: [],
           // attraction: 0.0,
-        },
-      },
-    ],
+        }
+      }
+    ]
   },
   series: [
     // Simple query
     {
-      cheese: utils.genVarField("cheese", "SB+"),
+      cheese: utils.genVarField("cheese", "SB+")
     },
 
     // Simple AND multi condition query.
     {
       charm: utils.genVarField("charm", "Dragonbane"),
-      stage: utils.genVarField("stage", "Boss"),
+      stage: utils.genVarField("stage", "Boss")
     },
 
     // Two simple queries. Same as writing a simple query twice but different values.
     {
-      cheese: utils.genVarField("cheese", ["Brie", "Gouda"]),
+      cheese: utils.genVarField("cheese", ["Brie", "Gouda"])
     },
 
     // Query permutation. Aka Cartesion Product. Same as writing 4 queries
     {
       cheese: utils.genVarField("cheese", ["Brie", "Gouda"]),
-      charm: utils.genVarField("charm", ["Power Charm", "Lucky Charm"]),
+      charm: utils.genVarField("charm", ["Power Charm", "Lucky Charm"])
     },
 
     // Simple query equivalent but manually typed and commented
@@ -49,23 +49,23 @@ module.exports = {
           // 'vars' controls how the database queries. See below for more advanced examples
           vars: {
             cheese: {
-              "SB+": true,
-            },
+              "SB+": true
+            }
           },
           // 'fields' controls what will be written to the csv columns.
           // here SB+ will be in the cheese column.
           fields: {
-            cheese: "SB+",
-          },
-        },
-      ],
+            cheese: "SB+"
+          }
+        }
+      ]
     },
 
     // Negating query. Most queries are for a var to be true but we can do the opposite as well
     // (see catacombs)
     // Query for antiskele charm
     {
-      charm: utils.genVarField("charm", "Antiskele"),
+      charm: utils.genVarField("charm", "Antiskele")
     },
     // Query for NO antiskele charm
     {
@@ -73,12 +73,12 @@ module.exports = {
         {
           vars: {
             charm: {
-              Antiskele: false,
-            },
-          },
+              Antiskele: false
+            }
+          }
           // We don't fill out 'fields'. csv charm column will default to '-'
-        },
-      ],
+        }
+      ]
     },
 
     // Custom stage name output
@@ -88,13 +88,13 @@ module.exports = {
       config: [
         {
           vars: {
-            stage: { "Commander's Hideout": true },
+            stage: { "Commander's Hideout": true }
           },
           fields: {
-            stage: "Commander's Lair",
-          },
-        },
-      ],
+            stage: "Commander's Lair"
+          }
+        }
+      ]
     },
 
     // Multi stage AND. Each hunt needs to have these stages (eg BWRift, Moussu Picchu)
@@ -104,13 +104,13 @@ module.exports = {
           vars: {
             // up to stage5
             stage: { "First Part": true },
-            stage1: { "Second Part": true },
+            stage1: { "Second Part": true }
           },
           fields: {
             stage: "Custom Name"
           }
-        },
-      ],
+        }
+      ]
     },
 
     // Multi stage OR. Each hunt should have one of these stages (eg BB)
@@ -120,24 +120,24 @@ module.exports = {
         {
           vars: {
             stage: {
-              "One": true,
-              "Two": true,
-              "Three": true
+              One: true,
+              Two: true,
+              Three: true
             }
           },
           fields: {
             stage: "Combined"
           }
-        },
-      ],
-    },
+        }
+      ]
+    }
   ],
   /**
    *
    * @param {{stage: string, location: string, cheese: string, mouse: string, attraction: string, sample: number}[]} data
    * @returns {{stage: string, location: string, cheese: string, mouse: string, attraction: string, sample: number}[]}
    */
-  postProcess: function(data) {
+  postProcess(data) {
     return data;
-  },
+  }
 };

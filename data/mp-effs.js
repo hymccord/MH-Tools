@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-const util = require("node:util")
+const util = require("node:util");
 const request = require("request");
 const { parse } = require("csv-parse/sync");
-const { stringify } = require("csv-stringify/sync")
+const { stringify } = require("csv-stringify/sync");
 
 const requestAsync = util.promisify(request);
 
@@ -12,26 +12,44 @@ const sheedId = "0";
 const format = "csv";
 
 (async () => {
-  const {body:data} = await requestAsync(`https://docs.google.com/spreadsheets/d/${spreadSheetId}/export?format=${format}&gid=${sheedId}`);
+  const { body: data } = await requestAsync(
+    `https://docs.google.com/spreadsheets/d/${spreadSheetId}/export?format=${format}&gid=${sheedId}`
+  );
 
   const records = parse(data, {
     cast: (value, context) => {
       if (context.header) return value;
-      if (["Mouse","Group","Sub-Group"].includes(context.column)) return String(value);
+      if (["Mouse", "Group", "Sub-Group"].includes(context.column))
+        return String(value);
       return Number(value);
     },
-    columns: true,
+    columns: true
   });
 
   const record = records[0];
-  const expectedRowHeaders = ["Mouse","Power","Arcane","Draconic","Forgotten","Hydro","Parental","Physical","Shadow","Tactical","Law","Rift","Group","Sub-Group"];
-  if (!Object.keys(record).every((value, i) => value == expectedRowHeaders[i])) {
-    throw new Error('Expected CSV columns does not match recieved columns.')
+  const expectedRowHeaders = [
+    "Mouse",
+    "Power",
+    "Arcane",
+    "Draconic",
+    "Forgotten",
+    "Hydro",
+    "Parental",
+    "Physical",
+    "Shadow",
+    "Tactical",
+    "Law",
+    "Rift",
+    "Group",
+    "Sub-Group"
+  ];
+  if (
+    !Object.keys(record).every((value, i) => value == expectedRowHeaders[i])
+  ) {
+    throw new Error("Expected CSV columns does not match recieved columns.");
   }
 
-  const modifiedRecords = records
-    .map(modifyFortRoxMice)
-    .map(renameThunderlord);
+  const modifiedRecords = records.map(modifyFortRoxMice).map(renameThunderlord);
 
   const csvValues = stringify(modifiedRecords, {
     header: true,
@@ -66,7 +84,10 @@ const format = "csv";
  * @returns {MouseRecord}
  */
 function modifyFortRoxMice(record) {
-  if (record["Sub-Group"] == "Weremice" || record["Sub-Group"] == "Cosmic Critter") {
+  if (
+    record["Sub-Group"] == "Weremice" ||
+    record["Sub-Group"] == "Cosmic Critter"
+  ) {
     record.Power *= 2;
   }
 

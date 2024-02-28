@@ -8,30 +8,30 @@
     return;
   }
 
-  var nodeList = document.querySelectorAll(
+  const nodeList = document.querySelectorAll(
     ".mousehuntHud-page-subTabContent.crafting_table div.tooltip"
   );
 
   // Make sure search bar is empty to avoid duplicates
-  var itemList = Array.prototype.map.call(nodeList, function(node) {
-    var obj = {};
-    var itemName = node.querySelector("div.tooltipContent").children[0]
+  const itemList = Array.prototype.map.call(nodeList, node => {
+    const obj = {};
+    const itemName = node.querySelector("div.tooltipContent").children[0]
       .innerText;
-    var itemQuantity = node
+    const itemQuantity = node
       .querySelector("div.itemImage")
       .children[1].innerText.replace(/,/g, "");
-    obj["name"] = itemName;
-    obj["quantity"] = +itemQuantity;
+    obj.name = itemName;
+    obj.quantity = +itemQuantity;
     return obj;
   });
 
   // This should automatically de-dupe, hopefully no bad overrides
-  var itemObj = {};
-  itemList.forEach(function(element) {
+  const itemObj = {};
+  itemList.forEach(element => {
     itemObj[element.name] = element.quantity;
   });
 
-  var newWindow = window.open("");
+  const newWindow = window.open("");
   // 200 IQ method to transfer stringified data across origins
   newWindow.name = JSON.stringify(itemObj);
   newWindow.location = "https://tsitu.github.io/MH-Tools/crafting.html";

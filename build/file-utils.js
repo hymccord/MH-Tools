@@ -11,9 +11,9 @@
      * @param {function(err, data)} lineCallback Function called for each line that is read
      * @param {function()} fileCloseCallback Function called when the file stream is closed
      */
-    readFileByLine: function(filename, lineCallback, fileCloseCallback) {
-      var inputStream = fs.createReadStream(filename);
-      var lineReader = readline.createInterface({
+    readFileByLine(filename, lineCallback, fileCloseCallback) {
+      const inputStream = fs.createReadStream(filename);
+      const lineReader = readline.createInterface({
         input: inputStream
       });
 
@@ -21,23 +21,23 @@
       lineReader.on("close", fileCloseCallback);
     },
 
-    saveJsonFile: function(filename, object, whitespace) {
+    saveJsonFile(filename, object, whitespace) {
       const content = JSON.stringify(object, null, whitespace);
-      fs.writeFile(filename, content, "utf8", function(err) {
+      fs.writeFile(filename, content, "utf8", err => {
         if (err) {
           return console.log(err);
         }
-        console.log(filename + " was saved");
+        console.log(`${filename} was saved`);
       });
     },
 
-    makeDirectory: function(directory) {
+    makeDirectory(directory) {
       mkdirp(directory);
     },
 
-    createCombinedStream: function(files) {
-      var combinedStream = CombinedStream.create();
-      for (var i = 0, l = files.length; i < l; i++) {
+    createCombinedStream(files) {
+      const combinedStream = CombinedStream.create();
+      for (let i = 0, l = files.length; i < l; i++) {
         combinedStream.append(fs.createReadStream(files[i]));
       }
       return combinedStream;

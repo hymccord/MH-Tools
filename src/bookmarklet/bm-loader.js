@@ -5,8 +5,8 @@
    * Load bookmarklet-menu based on master branch.
    */
   function bmLoad() {
-    var el = document.createElement("script");
-    var cdn =
+    const el = document.createElement("script");
+    const cdn =
       "https://cdn.jsdelivr.net/gh/tsitu/MH-Tools@master/src/bookmarklet/bm-menu.min.js";
     el.src = cdn;
     document.body.appendChild(el);

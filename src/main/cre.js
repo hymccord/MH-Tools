@@ -1,18 +1,12 @@
-"use strict";
-
 window.onload = function() {
   user = CRE_USER;
 
   loadBookmarkletFromJS(
-    BOOKMARKLET_URLS["loader"],
+    BOOKMARKLET_URLS.loader,
     "bookmarkletLoader",
     "#bookmarkletloader"
   );
-  loadBookmarkletFromJS(
-    BOOKMARKLET_URLS["cre"],
-    "creBookmarklet",
-    "#bookmarklet"
-  );
+  loadBookmarkletFromJS(BOOKMARKLET_URLS.cre, "creBookmarklet", "#bookmarklet");
 
   startPopulationLoad("data/json/populations-cre-setup.json", user);
   loadDropdown("weapon", weaponKeys, weaponChanged, "<option></option>");
@@ -21,15 +15,15 @@ window.onload = function() {
   showHideWidgets(isCustom());
 
   // Populate initial golem charge levels
-  var arcaneCharge = parseFloat(localStorage.getItem("golem-charge-arcane"));
-  var forgottenCharge = parseFloat(
+  const arcaneCharge = parseFloat(localStorage.getItem("golem-charge-arcane"));
+  const forgottenCharge = parseFloat(
     localStorage.getItem("golem-charge-forgotten")
   );
-  var hydroCharge = parseFloat(localStorage.getItem("golem-charge-hydro"));
-  var physicalCharge = parseFloat(
+  const hydroCharge = parseFloat(localStorage.getItem("golem-charge-hydro"));
+  const physicalCharge = parseFloat(
     localStorage.getItem("golem-charge-physical")
   );
-  var tacticalCharge = parseFloat(
+  const tacticalCharge = parseFloat(
     localStorage.getItem("golem-charge-tactical")
   );
   $("#golem-charge-arcane").val(arcaneCharge || 0);
@@ -64,7 +58,7 @@ window.onload = function() {
   document.getElementById("umbraFloor").onchange = umbraChanged;
   document.getElementById("riftstalker").onchange = riftstalkerChange;
   document.getElementById("rank").onchange = rankChange;
-  document.getElementById("acolyteCatches").onchange = acolytesChanged
+  document.getElementById("acolyteCatches").onchange = acolytesChanged;
 
   document.getElementById("cheeseCost").onchange = function() {
     cheeseCost = parseInt(document.getElementById("cheeseCost").value);
@@ -107,7 +101,7 @@ window.onload = function() {
   };
 
   document.getElementById("toggleCustom").onchange = function() {
-    var toggle = document.getElementById("toggleCustom");
+    const toggle = document.getElementById("toggleCustom");
     if (toggle.checked) {
       $(".input-standard").hide();
       $(".input-custom").show(500);
@@ -146,11 +140,11 @@ function isCustom() {
 }
 
 function updateCustomSetup() {
-  var type = document.getElementById("trapPowerType").value;
-  var power = document.getElementById("trapPowerValue").value;
-  var luck = document.getElementById("trapLuckValue").value;
-  var attraction = document.getElementById("trapAttractionValue").value;
-  var effect = document.getElementById("trapEffect").value;
+  const type = document.getElementById("trapPowerType").value;
+  let power = document.getElementById("trapPowerValue").value;
+  let luck = document.getElementById("trapLuckValue").value;
+  let attraction = document.getElementById("trapAttractionValue").value;
+  const effect = document.getElementById("trapEffect").value;
   if (power < 0) {
     power = 0;
     document.getElementById("trapPowerValue").value = 0;
@@ -177,15 +171,15 @@ function updateCustomSetup() {
 
 // type = 2 means charms are not reset
 function showPop(type) {
-  var results = document.getElementById("results");
-  var commonCheeseIndex;
+  const results = document.getElementById("results");
+  let commonCheeseIndex;
 
   if (type !== 0 && type !== 2) {
     charmName = "No Charm";
   }
 
   function getHeaderRow() {
-    var headerHTML;
+    let headerHTML;
     if (locationName === "Event") {
       headerHTML = "<tr align='left'>";
       headerHTML += "<th align='left'>Mouse Name</th>";
@@ -254,48 +248,46 @@ function showPop(type) {
   ) {
     results.innerHTML = "";
   } else {
-    var popArrayLPC = popArray[locationName][phaseName][cheeseName];
-    var popCharmName = /^(.*?)(?:\s+Charm)?$/i.exec(charmName)[1];
+    const popArrayLPC = popArray[locationName][phaseName][cheeseName];
+    const popCharmName = /^(.*?)(?:\s+Charm)?$/i.exec(charmName)[1];
 
     if (popArrayLPC && popArrayLPC[popCharmName]) {
       var popArrayLC = popArrayLPC[popCharmName];
-    } else {
-      if (popArrayLPC) {
-        popArrayLC = popArrayLPC[EMPTY_SELECTION];
-      }
+    } else if (popArrayLPC) {
+      popArrayLC = popArrayLPC[EMPTY_SELECTION];
     }
 
-    var deltaAmpOverall = 0,
-      deltaDepthOverall = 0,
-      depthTest = 0,
-      diveMPH = 0,
-      avgLanternClues = 0,
-      overallCR = 0,
-      overallGold = 0,
-      overallPoints = 0,
-      overallTP = 0,
-      minLuckOverall = 0,
-      overallProgress = 0,
-      crazedRageIncreaseOverall = 0,
-      gnarledRageIncreaseOverall = 0,
-      deepRageIncreaseOverall = 0,
-      pressureOverall = 0,
-      pressureOverallTonic = 0,
-      pirateSeals = 0;
+    let deltaAmpOverall = 0;
+    let deltaDepthOverall = 0;
+    let depthTest = 0;
+    let diveMPH = 0;
+    let avgLanternClues = 0;
+    let overallCR = 0;
+    let overallGold = 0;
+    let overallPoints = 0;
+    let overallTP = 0;
+    let minLuckOverall = 0;
+    let overallProgress = 0;
+    let crazedRageIncreaseOverall = 0;
+    let gnarledRageIncreaseOverall = 0;
+    let deepRageIncreaseOverall = 0;
+    let pressureOverall = 0;
+    let pressureOverallTonic = 0;
+    let pirateSeals = 0;
 
-    var headerHTML = getHeaderRow();
-    var overallAR = getCheeseAttraction();
-    var resultsHTML = "<thead>" + headerHTML + "</thead><tbody>";
-    var miceNames = Object.keys(popArrayLC || []);
+    const headerHTML = getHeaderRow();
+    let overallAR = getCheeseAttraction();
+    let resultsHTML = `<thead>${headerHTML}</thead><tbody>`;
+    const miceNames = Object.keys(popArrayLC || []);
 
-    for (var i = 0; i < miceNames.length; i++) {
-      var mouseName = miceNames[i];
+    for (let i = 0; i < miceNames.length; i++) {
+      let mouseName = miceNames[i];
 
       if (mouseName !== "SampleSize") {
-        var attractions = popArrayLC[mouseName] * overallAR;
+        const attractions = popArrayLC[mouseName] * overallAR;
         mouseName = dynamicMouseRename(mouseName);
-        var eff = findEff(mouseName);
-        var mousePower = powersArray[mouseName][0];
+        const eff = findEff(mouseName);
+        let mousePower = powersArray[mouseName][0];
 
         if (
           (contains(wereMice, mouseName) && fortRox.ballistaLevel >= 1) ||
@@ -306,22 +298,22 @@ function showPop(type) {
 
         if (
           ((mouseName === "Nightmancer" && fortRox.ballistaLevel >= 3) ||
-           (mouseName === "Nightfire" && fortRox.cannonLevel >= 3)
-          ) &&
-          (eff > 0)) {
+            (mouseName === "Nightfire" && fortRox.cannonLevel >= 3)) &&
+          eff > 0
+        ) {
           mousePower = 0;
         }
 
-        var catchRate = calcCR(eff, trapPower, trapLuck, mousePower);
+        let catchRate = calcCR(eff, trapPower, trapLuck, mousePower);
         catchRate = calcCREffects(catchRate, mouseName, eff, mousePower);
         catchRate = calcCRMods(catchRate, mouseName);
-        var minLuckValue = minLuck(eff, mousePower);
+        const minLuckValue = minLuck(eff, mousePower);
         minLuckOverall = Math.max(minLuckValue, minLuckOverall);
 
-        var catches = attractions * catchRate;
-        var mouseRewards = miceArray[mouseName] || [0, 0];
-        var mouseGold = mouseRewards[0];
-        var mousePoints = mouseRewards[1];
+        let catches = attractions * catchRate;
+        const mouseRewards = miceArray[mouseName] || [0, 0];
+        let mouseGold = mouseRewards[0];
+        const mousePoints = mouseRewards[1];
 
         if (charmName === "Wealth Charm" || charmName === "Rift Wealth Charm") {
           mouseGold += Math.ceil(Math.min(mouseGold * 0.05, 1800));
@@ -333,9 +325,9 @@ function showPop(type) {
           mouseGold += Math.ceil(Math.min(mouseGold * 0.4, 50000));
         }
 
-        var gold = (catches * mouseGold) / 100;
-        var points = (catches * mousePoints) / 100;
-        var tournamentMice = tourneysArray[tournamentName];
+        const gold = (catches * mouseGold) / 100;
+        const points = (catches * mousePoints) / 100;
+        const tournamentMice = tourneysArray[tournamentName];
 
         if (tournamentMice) {
           var tourneyPoints = tournamentMice[mouseName] || 0;
@@ -343,7 +335,7 @@ function showPop(type) {
           tourneyPoints = 0;
         }
 
-        var TP = (catches * tourneyPoints) / 100;
+        const TP = (catches * tourneyPoints) / 100;
         overallCR += catches;
         overallTP += TP;
         overallGold += gold;
@@ -356,69 +348,49 @@ function showPop(type) {
 
         var mouseRow;
         if (locationName === "Event") {
-          var catchRateStr = catchRate + "%";
-          var minLuckStr = minLuckValue;
+          let catchRateStr = `${catchRate}%`;
+          let minLuckStr = minLuckValue;
           if (mousePower === 0) {
             // Link to 'MH Data Repository' spreadsheet
             // Currently limited to Event mice, but there may be others with MP = 0
             catchRateStr = "Missing MP";
             minLuckStr = "N/A";
           }
-          mouseRow =
-            "<td align='left'>" +
-            mouseName +
-            "</td><td>" +
-            catchRateStr +
-            "</td><td>" +
-            commafy(mouseGold) +
-            "</td><td>" +
-            commafy(mousePoints) +
-            "</td><td>" +
-            minLuckStr +
-            "</td>";
+          mouseRow = `<td align='left'>${mouseName}</td><td>${catchRateStr}</td><td>${commafy(
+            mouseGold
+          )}</td><td>${commafy(mousePoints)}</td><td>${minLuckStr}</td>`;
         } else {
-          mouseRow =
-            "<td align='left'>" +
-            mouseName +
-            "</td><td>" +
-            attractions.toFixed(2) +
-            "%</td><td>" +
-            catchRate +
-            "%</td><td>" +
-            catches +
-            "</td><td>" +
-            commafy(mouseGold) +
-            "</td><td>" +
-            commafy(mousePoints) +
-            "</td><td>" +
-            minLuckValue +
-            "</td>";
+          mouseRow = `<td align='left'>${mouseName}</td><td>${attractions.toFixed(
+            2
+          )}%</td><td>${catchRate}%</td><td>${catches}</td><td>${commafy(
+            mouseGold
+          )}</td><td>${commafy(mousePoints)}</td><td>${minLuckValue}</td>`;
         }
 
         if (rank) {
-          var adv = mouseWisdom[mouseName] / rankupDiff[rank];
-          var helpMessage =
+          let adv = mouseWisdom[mouseName] / rankupDiff[rank];
+          const helpMessage =
             "<a href='https://docs.google.com/spreadsheets/d/1nzD6iiHauMMwD2eHBuAyRziYJtCVnNwSYzCKbBnrRgc/edit?usp=sharing' target='blank'>Missing</a>";
           var rankStr;
-          rankStr = adv ? (adv * 100).toFixed(4) + "%" : helpMessage;
+          rankStr = adv ? `${(adv * 100).toFixed(4)}%` : helpMessage;
 
           // 0 wisdom edge case(s)
           if (mouseName === "Romeno") {
             rankStr = "0.0000%";
           }
 
-          mouseRow += "<td>" + rankStr + "</td>";
+          mouseRow += `<td>${rankStr}</td>`;
           adv *= catches;
           overallProgress += adv;
         }
 
         if (tournamentName !== "") {
-          mouseRow += "<td>" + tourneyPoints + "</td>";
+          mouseRow += `<td>${tourneyPoints}</td>`;
         }
 
         if (locationName === "Seasonal Garden") {
-          var dAmp = deltaAmp[mouseName];
-          var ampMultiplier = 1;
+          let dAmp = deltaAmp[mouseName];
+          let ampMultiplier = 1;
           if (charmName === "Amplifier Charm") ampMultiplier += 1;
           if (weaponName === "Chesla's Revenge") ampMultiplier += 0.125; // 12.5% proc additional charge
           dAmp *= ampMultiplier;
@@ -432,12 +404,12 @@ function showPop(type) {
           //   dAmp = 87.5; // 50% proc full charge (0.5 * 175)
           // }
 
-          mouseRow += "<td>" + dAmp.toFixed(2) + "%</td>";
+          mouseRow += `<td>${dAmp.toFixed(2)}%</td>`;
           deltaAmpOverall += (dAmp * catches) / 100;
         } else if (locationName === "Whisker Woods Rift") {
-          var crazedRageIncrease = rage_increase_table[mouseName]["Crazed"];
-          var gnarledRageIncrease = rage_increase_table[mouseName]["Gnarled"];
-          var deepRageIncrease = rage_increase_table[mouseName]["Deep"];
+          let crazedRageIncrease = rage_increase_table[mouseName].Crazed;
+          let gnarledRageIncrease = rage_increase_table[mouseName].Gnarled;
+          let deepRageIncrease = rage_increase_table[mouseName].Deep;
           if (charmName == "Cherry Charm") {
             crazedRageIncrease =
               crazedRageIncrease + gnarledRageIncrease + deepRageIncrease;
@@ -460,9 +432,9 @@ function showPop(type) {
             gnarledRageIncrease *= 1.33;
             deepRageIncrease *= 1.33;
           }
-          mouseRow += "<td>" + crazedRageIncrease + "</td>";
-          mouseRow += "<td>" + gnarledRageIncrease + "</td>";
-          mouseRow += "<td>" + deepRageIncrease + "</td>";
+          mouseRow += `<td>${crazedRageIncrease}</td>`;
+          mouseRow += `<td>${gnarledRageIncrease}</td>`;
+          mouseRow += `<td>${deepRageIncrease}</td>`;
           crazedRageIncreaseOverall +=
             ((catchRate / 100) * crazedRageIncrease * attractions) / 100.0;
           gnarledRageIncreaseOverall +=
@@ -473,8 +445,8 @@ function showPop(type) {
           contains(locationName, "Iceberg") &&
           phaseName.indexOf("Lair") < 0
         ) {
-          var deltaDepthCatch = catchDepth[mouseName];
-          var deltaDepthFTC = ftcDepth[mouseName];
+          let deltaDepthCatch = catchDepth[mouseName];
+          let deltaDepthFTC = ftcDepth[mouseName];
 
           if (charmName === "Wax Charm" && contains(berglings, mouseName)) {
             deltaDepthCatch += 1;
@@ -505,8 +477,7 @@ function showPop(type) {
             deltaDepthCatch = 20;
           }
 
-          mouseRow +=
-            "<td>" + deltaDepthCatch + "</td><td>" + deltaDepthFTC + "</td>";
+          mouseRow += `<td>${deltaDepthCatch}</td><td>${deltaDepthFTC}</td>`;
 
           deltaDepthOverall +=
             (((catchRate / 100) * deltaDepthCatch +
@@ -520,82 +491,76 @@ function showPop(type) {
         } else if (locationName === "Sunken City" && phaseName != "Docked") {
           mouseRow += "<td></td>";
         } else if (locationName == "Labyrinth" && phaseName != "Intersection") {
-          var mouseClues = labyrinthMiceClues[mouseName];
+          let mouseClues = labyrinthMiceClues[mouseName];
           if (lanternStatus == "On" && mouseClues != 0) mouseClues++;
           if (charmName === "Lantern Oil Charm" && mouseClues != 0)
             mouseClues += 1;
           if (charmName === "Super Lantern Oil Charm" && mouseClues != 0)
             mouseClues += 2;
           avgLanternClues += (mouseClues * catches) / 100;
-          mouseRow += "<td>" + mouseClues + "</td><td></td>";
+          mouseRow += `<td>${mouseClues}</td><td></td>`;
         } else if (
           locationName === "Queso Geyser" &&
           phaseName === "Pressure Building"
         ) {
-          var kPaGain = pressureMice[mouseName];
+          const kPaGain = pressureMice[mouseName];
           pressureOverall += (kPaGain * catches) / 100;
           pressureOverallTonic += (kPaGain * 2 * catches) / 100;
-          mouseRow += "<td>" + kPaGain + "</td><td>" + kPaGain * 2 + "</td>";
+          mouseRow += `<td>${kPaGain}</td><td>${kPaGain * 2}</td>`;
         } else if (
           locationName === "Floating Islands" &&
           phaseName.indexOf("Pirates") >= 0
         ) {
-          var sealsLooted = pirateSealMice[mouseName];
+          const sealsLooted = pirateSealMice[mouseName];
           pirateSeals += (sealsLooted * catches) / 100;
-          mouseRow += "<td>" + sealsLooted + "</td>";
+          mouseRow += `<td>${sealsLooted}</td>`;
         }
 
         if (locationName === "Event") {
-          resultsHTML += "<tr align='center'>" + mouseRow + "</tr>";
+          resultsHTML += `<tr align='center'>${mouseRow}</tr>`;
         } else {
-          resultsHTML += "<tr align='center'>" + mouseRow + "</tr>";
+          resultsHTML += `<tr align='center'>${mouseRow}</tr>`;
         }
       }
     }
 
     overallAR *= 100;
-    var averageCR = (overallCR / overallAR) * 100;
+    const averageCR = (overallCR / overallAR) * 100;
 
     // Generate 'Overall Stats' row
-    var statsRow;
+    let statsRow;
     if (locationName !== "Event") {
-      resultsHTML +=
-        "</tbody><tr align='center'><td align='left'><b>Overall Stats</b></td><td>" +
-        overallAR.toFixed(2) +
-        "%</td><td>" +
-        averageCR.toFixed(2) +
-        "%</td><td>" +
-        overallCR.toFixed(2) +
-        "</td><td>" +
-        commafy(Math.round(overallGold)) +
-        "</td><td>" +
-        commafy(Math.round(overallPoints)) +
-        "</td><td>" +
-        minLuckOverall +
-        "</td>";
+      resultsHTML += `</tbody><tr align='center'><td align='left'><b>Overall Stats</b></td><td>${overallAR.toFixed(
+        2
+      )}%</td><td>${averageCR.toFixed(2)}%</td><td>${overallCR.toFixed(
+        2
+      )}</td><td>${commafy(Math.round(overallGold))}</td><td>${commafy(
+        Math.round(overallPoints)
+      )}</td><td>${minLuckOverall}</td>`;
     }
 
     if (rank && locationName !== "Event") {
-      resultsHTML += "<td>" + overallProgress.toFixed(4) + "%</td>";
+      resultsHTML += `<td>${overallProgress.toFixed(4)}%</td>`;
     }
 
     if (tournamentName !== "") {
-      resultsHTML += "<td>" + overallTP.toFixed(2) + "</td>";
+      resultsHTML += `<td>${overallTP.toFixed(2)}</td>`;
     }
 
     if (locationName === "Seasonal Garden") {
       deltaAmpOverall += ((100 - overallAR) / 100) * -3; // Accounting for FTAs (-3%)
-      resultsHTML += "<td>" + deltaAmpOverall.toFixed(2) + "%</td>";
+      resultsHTML += `<td>${deltaAmpOverall.toFixed(2)}%</td>`;
     } else if (locationName === "Whisker Woods Rift") {
-      resultsHTML += "<td>" + crazedRageIncreaseOverall.toFixed(2) + "</td>";
-      resultsHTML += "<td>" + gnarledRageIncreaseOverall.toFixed(2) + "</td>";
-      resultsHTML += "<td>" + deepRageIncreaseOverall.toFixed(2) + "</td>";
+      resultsHTML += `<td>${crazedRageIncreaseOverall.toFixed(2)}</td>`;
+      resultsHTML += `<td>${gnarledRageIncreaseOverall.toFixed(2)}</td>`;
+      resultsHTML += `<td>${deepRageIncreaseOverall.toFixed(2)}</td>`;
     } else if (
       contains(locationName, "Iceberg") &&
       phaseName.indexOf("Lair") < 0
     ) {
-      resultsHTML +=
-        "<td colspan='2'>" + deltaDepthOverall.toFixed(2) + " ft/hunt</td>";
+      resultsHTML += `<td colspan='2'>${deltaDepthOverall.toFixed(
+        2
+      )} ft/hunt</td>`;
     } else if (locationName === "Sunken City" && phaseName != "Docked") {
       diveMPH = (30 * overallCR) / 100 + (10 * (overallAR - overallCR)) / 100;
       if (charmName.indexOf("Anchor Charm") >= 0) {
@@ -604,10 +569,10 @@ function showPop(type) {
         diveMPH =
           (500 * overallCR) / 100 + (10 * (overallAR - overallCR)) / 100;
       }
-      resultsHTML += "<td>" + diveMPH.toFixed(2) + "</td>";
+      resultsHTML += `<td>${diveMPH.toFixed(2)}</td>`;
     } else if (locationName == "Labyrinth" && phaseName != "Intersection") {
-      resultsHTML += "<td>" + avgLanternClues.toFixed(2) + "</td>";
-      var deadEnds = (overallAR - overallCR) / 100;
+      resultsHTML += `<td>${avgLanternClues.toFixed(2)}</td>`;
+      let deadEnds = (overallAR - overallCR) / 100;
       // Assuming 50% proc rates
       if (
         baseName == "Minotaur Base" ||
@@ -619,39 +584,32 @@ function showPop(type) {
       if (charmName == "Compass Magnet Charm") {
         deadEnds = (-0.5 * overallCR) / 100;
       }
-      resultsHTML += "<td>" + deadEnds.toFixed(2) + "</td>";
+      resultsHTML += `<td>${deadEnds.toFixed(2)}</td>`;
     } else if (
       locationName === "Queso Geyser" &&
       phaseName === "Pressure Building"
     ) {
-      resultsHTML +=
-        "<td>" +
-        pressureOverall.toFixed(2) +
-        "</td><td>" +
-        pressureOverallTonic.toFixed(2) +
-        "</td>";
+      resultsHTML += `<td>${pressureOverall.toFixed(
+        2
+      )}</td><td>${pressureOverallTonic.toFixed(2)}</td>`;
     } else if (
       locationName === "Floating Islands" &&
       phaseName.indexOf("Pirates") >= 0
     ) {
-      resultsHTML += "<td>" + pirateSeals.toFixed(2) + "</td>";
+      resultsHTML += `<td>${pirateSeals.toFixed(2)}</td>`;
     }
 
-    var cheeseEatenPerHunt = overallAR / 100;
-    var cheeseStaledPerHunt =
+    const cheeseEatenPerHunt = overallAR / 100;
+    const cheeseStaledPerHunt =
       ((100 - overallAR) / 100) * freshness2stale[trapEff];
 
     // Generate gold profit row
     if (locationName !== "Event") {
-      resultsHTML +=
-        "</tr><tr align='center'><td align='right'>Profit (minus cheese cost)</td><td></td><td></td><td></td><td>" +
-        commafy(
-          Math.round(
-            overallGold -
-              cheeseCost * (cheeseEatenPerHunt + cheeseStaledPerHunt)
-          )
-        ) +
-        "</td><td></td><td></td>";
+      resultsHTML += `</tr><tr align='center'><td align='right'>Profit (minus cheese cost)</td><td></td><td></td><td></td><td>${commafy(
+        Math.round(
+          overallGold - cheeseCost * (cheeseEatenPerHunt + cheeseStaledPerHunt)
+        )
+      )}</td><td></td><td></td>`;
 
       if (rank) {
         resultsHTML += "<td></td>";
@@ -681,34 +639,34 @@ function showPop(type) {
     resultsHTML += "</tr>";
     results.innerHTML = resultsHTML;
 
-    var resort = true,
-      callback = function() {
-        // empty
-      };
+    const resort = true;
+    const callback = function() {
+      // empty
+    };
     $("#results").trigger("updateAll", [resort, callback]);
   }
 }
 
 function loadCheeseDropdown(locationName, phaseName) {
   function getCheeseDropdownHTML(location, phase) {
-    var cheeses = Object.keys(popArray[location][phase] || []);
-    var cheeseDropdownHTML = "";
-    for (var key in cheeses) {
-      var option = cheeses[key];
-      cheeseDropdownHTML += "<option>" + option + "</option>\n";
+    const cheeses = Object.keys(popArray[location][phase] || []);
+    let cheeseDropdownHTML = "";
+    for (const key in cheeses) {
+      const option = cheeses[key];
+      cheeseDropdownHTML += `<option>${option}</option>\n`;
     }
     return cheeseDropdownHTML;
   }
 
-  var cheeseDropdown = document.getElementById("cheese");
+  const cheeseDropdown = document.getElementById("cheese");
 
   if (locationName) {
     cheeseDropdown.innerHTML = getCheeseDropdownHTML(locationName, phaseName);
   }
 
-  var cheeseParameter = recentCheese || getURLParameter("cheese");
+  const cheeseParameter = recentCheese || getURLParameter("cheese");
   if (cheeseParameter !== NULL_URL_PARAM) {
-    var select = document.getElementById("cheese");
+    const select = document.getElementById("cheese");
     select.value = cheeseParameter;
     if (select.selectedIndex === -1) {
       select.selectedIndex = 0;
@@ -720,20 +678,20 @@ function loadCheeseDropdown(locationName, phaseName) {
 }
 
 function loadTourneyDropdown() {
-  var tourneyDropdown = document.getElementById("tourney");
-  var tourneyDropdownHTML = "<option></option>";
-  var tourneys = Object.keys(tourneysArray || []);
+  const tourneyDropdown = document.getElementById("tourney");
+  let tourneyDropdownHTML = "<option></option>";
+  const tourneys = Object.keys(tourneysArray || []);
 
-  for (var key in tourneys) {
-    tourneyDropdownHTML += "<option>" + tourneys[key] + "</option>\n";
+  for (const key in tourneys) {
+    tourneyDropdownHTML += `<option>${tourneys[key]}</option>\n`;
   }
   tourneyDropdown.innerHTML = tourneyDropdownHTML;
 
-  var tourneyParameter = getURLParameter("tourney");
+  const tourneyParameter = getURLParameter("tourney");
   if (tourneyParameter !== NULL_URL_PARAM) {
-    var select = document.getElementById("tourney");
-    for (var i = 0; i < select.children.length; i++) {
-      var child = select.children[i];
+    const select = document.getElementById("tourney");
+    for (let i = 0; i < select.children.length; i++) {
+      const child = select.children[i];
       if (child.innerHTML === tourneyParameter) {
         child.selected = true;
         tourneyChanged();
@@ -744,7 +702,7 @@ function loadTourneyDropdown() {
 }
 
 function updateLink() {
-  var urlParams = {
+  const urlParams = {
     location: locationName,
     phase: phaseName,
     gs: !gsLuck,
@@ -755,18 +713,18 @@ function updateLink() {
     weapon: weaponName,
     base: baseName,
     charm: charmName,
-    bonusPower: bonusPower,
-    bonusLuck: bonusLuck,
+    bonusPower,
+    bonusLuck,
     tourney: tournamentName,
     riftstalker: riftStalkerCodex,
     ballistaLevel: fortRox.ballistaLevel,
     cannonLevel: fortRox.cannonLevel,
-    saltLevel: saltLevel,
-    rank: rank,
+    saltLevel,
+    rank,
     amplifier: ztAmp,
     vrFloorType: document.querySelector("#vrFloorType").selectedIndex
   };
-  var URLString = buildURL("cre.html", urlParams);
+  const URLString = buildURL("cre.html", urlParams);
   document.getElementById("link").href = URLString;
 }
 
@@ -792,7 +750,7 @@ function oilChanged() {
 }
 
 function weaponChanged() {
-  var select = document.getElementById("weapon");
+  const select = document.getElementById("weapon");
 
   updateLink();
   weaponName = select.value;
@@ -837,7 +795,7 @@ function weaponChanged() {
 }
 
 function icebergPhase() {
-  var autoPhase = "";
+  let autoPhase = "";
   if (
     !!~phaseName.indexOf("Bombing Run") &&
     baseName === "Remote Detonator Base"
@@ -855,7 +813,8 @@ function icebergPhase() {
     autoPhase = "Bombing Run";
   else if (
     phaseName === "Bombing Run (Ultimate Iceberg)" &&
-    (baseName !== "Ultimate Iceberg Base" && baseName !== "Iceberg Boiler Base")
+    baseName !== "Ultimate Iceberg Base" &&
+    baseName !== "Iceberg Boiler Base"
   )
     autoPhase = "Bombing Run";
   else if (
@@ -875,7 +834,8 @@ function icebergPhase() {
     autoPhase = "Treacherous Tunnels";
   else if (
     phaseName === "Treacherous Tunnels (Ultimate Iceberg)" &&
-    (baseName !== "Ultimate Iceberg Base" && baseName !== "Iceberg Boiler Base")
+    baseName !== "Ultimate Iceberg Base" &&
+    baseName !== "Iceberg Boiler Base"
   )
     autoPhase = "Treacherous Tunnels";
   else if (
@@ -902,12 +862,13 @@ function icebergPhase() {
     autoPhase = "The Mad Depths";
   else if (
     phaseName === "The Mad Depths (Ultimate Iceberg)" &&
-    (baseName !== "Ultimate Iceberg Base" && baseName !== "Iceberg Boiler Base")
+    baseName !== "Ultimate Iceberg Base" &&
+    baseName !== "Iceberg Boiler Base"
   )
     autoPhase = "The Mad Depths";
 
   if (autoPhase !== "") {
-    var phaseSelect = document.getElementById("phase");
+    const phaseSelect = document.getElementById("phase");
     if (phaseSelect.value !== autoPhase) {
       phaseSelect.value = autoPhase;
       phaseChanged();
@@ -916,7 +877,7 @@ function icebergPhase() {
 }
 
 function baseChanged() {
-  var baseSelet = document.getElementById("base");
+  const baseSelet = document.getElementById("base");
 
   baseName = baseSelet.value;
   updateLink();
@@ -935,7 +896,7 @@ function baseChanged() {
 }
 
 function charmChanged() {
-  var select = document.getElementById("charm");
+  const select = document.getElementById("charm");
   charmName = select.value.trim().replace(/\*$/, "");
   recentCharm = charmName;
   charmChangeCommon();
@@ -944,7 +905,7 @@ function charmChanged() {
 }
 
 function tourneyChanged() {
-  var select = document.getElementById("tourney");
+  const select = document.getElementById("tourney");
   tournamentName = select.value;
   updateLink();
   calculateTrapSetup();

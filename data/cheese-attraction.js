@@ -14,7 +14,7 @@
  */
 
 // prettier-ignore
-var baselineAttArray = {
+const baselineAttArray = {
   "Abominable Asiago": 1.0000, // Gamplay update 10/05
   "Ancient": 1.0000, // Gamplay update 10/05
   "Ancient String": 1.0000, // Gamplay update 10/05

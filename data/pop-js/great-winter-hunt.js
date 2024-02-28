@@ -34,7 +34,7 @@ const mouse_populations = {
       "Snowball Hoarder",
       "Sporty Ski Instructor",
       "Wreath Thief"
-    ],
+    ]
   },
   "Golem Workshop": {
     Common: [
@@ -59,7 +59,7 @@ const mouse_populations = {
       "Stocking",
       "Toy",
       "Toy Tinkerer"
-    ],
+    ]
   },
   "Ice Fortress": {
     Common: [
@@ -85,8 +85,8 @@ const mouse_populations = {
       "Snow Sorceress",
       "Squeaker Claws",
       "Tundra Huntress"
-    ],
-  },
+    ]
+  }
 };
 
 function generateSeries() {
@@ -153,7 +153,7 @@ function generateSeries() {
             }
           }
         ]
-      },
+      }
     );
   }
 
@@ -166,7 +166,7 @@ module.exports = {
     before: utils.genVarField("before", 1673384400) // 2023-01-10T14:00:00Z
   },
   series: generateSeries(),
-  postProcess: function(data) {
+  postProcess(data) {
     data.push({
       stage: "Boss",
       location: "Ice Fortress",

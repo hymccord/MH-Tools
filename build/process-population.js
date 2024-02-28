@@ -48,10 +48,10 @@
   const fileUtils = require("./file-utils");
   const CombinedStream = require("combined-stream");
 
-  var mapPopulations = {};
-  var creSetupPopulations = {};
+  const mapPopulations = {};
+  const creSetupPopulations = {};
 
-  var csvConverter = csv({
+  const csvConverter = csv({
     headers: [
       "location",
       "phase",
@@ -67,13 +67,13 @@
     }
   });
 
-  var inputStream = fileUtils.createCombinedStream(POPULATIONS);
+  const inputStream = fileUtils.createCombinedStream(POPULATIONS);
   csvConverter
     .fromStream(inputStream)
-    .on("json", function(jsonObj) {
+    .on("json", jsonObj => {
       lineHandler(jsonObj);
     })
-    .on("done", function(error) {
+    .on("done", error => {
       if (error) return console.log(error);
       saveFiles();
     });
@@ -114,9 +114,9 @@
     addKey(population, row.location);
     addKey(population[row.location], row.phase);
 
-    var cheeses = splitCheese ? row.cheese.split("/") : [row.cheese];
-    for (var cheeseIndex = 0; cheeseIndex < cheeses.length; cheeseIndex++) {
-      var cheese = cheeses[cheeseIndex];
+    const cheeses = splitCheese ? row.cheese.split("/") : [row.cheese];
+    for (let cheeseIndex = 0; cheeseIndex < cheeses.length; cheeseIndex++) {
+      const cheese = cheeses[cheeseIndex];
 
       addKey(population[row.location][row.phase], cheese);
       addKey(population[row.location][row.phase][cheese], row.charm);
@@ -125,16 +125,16 @@
         row.attraction;
 
       if (includeSampleSize && row.sampleSize) {
-        population[row.location][row.phase][cheese][row.charm]["SampleSize"] =
+        population[row.location][row.phase][cheese][row.charm].SampleSize =
           row.sampleSize;
       }
     }
   }
 
   function processMapPopItem(populationObject, row) {
-    var mouseName = row.mouse;
-    var cheese = row.cheese;
-    var attractionRate = row.attraction;
+    const mouseName = row.mouse;
+    const { cheese } = row;
+    const attractionRate = row.attraction;
 
     addKey(populationObject, mouseName);
     addKey(populationObject[mouseName], row.location);
