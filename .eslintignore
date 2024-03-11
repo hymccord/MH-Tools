@@ -1,2 +1,3 @@
 src/**/*.min.js
 lib/js/*.js
+data/json/*
