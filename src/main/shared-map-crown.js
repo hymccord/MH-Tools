@@ -478,7 +478,7 @@ function processMap(mapText, toolType) {
   var numCatchesArray; // Crown
   if (toolType === "map") {
     mouseArray = mapText.split("\n");
-    var url = "https://mhtools.hankmccord.dev/map.html";
+    var url = "http://localhost:8000/map.html";
     url += "?mice=" + encodeURIComponent(mouseArray.join("/"));
     $("#mapLink").attr("href", url);
   } else if (toolType === "crown") {

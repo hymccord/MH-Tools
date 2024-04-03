@@ -32,7 +32,6 @@
     "pop:living": "node data/pop living-garden > data/pop-csv/living-garden.csv",
     "pop:lost": "node data/pop lost-city > data/pop-csv/lost-city.csv",
     "pop:mopi": "node data/pop moussu-picchu > data/pop-csv/moussu-picchu.csv",
-    "pop:mountain": "node data/pop mountain > data/pop-csv/mountain.csv",
     "pop:moz": "node data/pop mousoleum > data/pop-csv/mousoleum.csv",
     "pop:pond": "node data/pop prologue-pond > data/pop-csv/prologue-pond.csv",
     "pop:prickly": "node data/pop prickly-plains > data/pop-csv/prickly-plains.csv",
@@ -56,7 +55,7 @@
     "sample": "node build/process-sample-size.js",
     "mouse-data": "node build/process-mouse-data.js",
     "population": "node build/process-population.js",
-    "build": "npm-run-all --parallel mouse-data population",
+    "build": "npm-run-all --parallel minify:bookmarklet mouse-data population",
     "\n-- MISC --": "",
     "mp-effs": "node data/mp-effs > data/mouse-power-effs.csv",
     "serve": "http-server -p 8000",
@@ -103,6 +102,6 @@
     "npm-run-all": "^4.1.5",
     "patch-package": "^6.5.1",
     "prettier": "^1.18.2",
-    "uglifyjs-folder": "^1.5.1"
+    "uglifyjs-folder": "^3.3.0"
   }
 }
