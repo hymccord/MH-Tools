@@ -7,9 +7,12 @@
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://tsitu.github.io/MH-Tools/cre.html">
   <meta property="og:title" content="Catch Rate Estimator">
-  <meta property="og:description" content="Calculates catch rate estimates along with points, gold, minimum luck and more!">
-  <meta property="og:image" content="https://cdn.jsdelivr.net/gh/tsitu/MH-Tools@30fb31004ae976aaf29652c435629dcca926d169/lib/img/cheese.jpg">
-  <meta property="og:image:secure_url" content="https://cdn.jsdelivr.net/gh/tsitu/MH-Tools@30fb31004ae976aaf29652c435629dcca926d169/lib/img/cheese.jpg">
+  <meta property="og:description"
+    content="Calculates catch rate estimates along with points, gold, minimum luck and more!">
+  <meta property="og:image"
+    content="https://cdn.jsdelivr.net/gh/tsitu/MH-Tools@30fb31004ae976aaf29652c435629dcca926d169/lib/img/cheese.jpg">
+  <meta property="og:image:secure_url"
+    content="https://cdn.jsdelivr.net/gh/tsitu/MH-Tools@30fb31004ae976aaf29652c435629dcca926d169/lib/img/cheese.jpg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
   <meta content="utf-8" http-equiv="encoding">
@@ -29,8 +32,8 @@
   <script type="text/javascript" src="src/main/cre.js"></script>
 
   <link rel="stylesheet" href="lib/css/style.css" type="text/css" media="print, projection, screen" />
-  <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css" type="text/css"
-    media="print, projection, screen" />
+  <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css"
+    type="text/css" media="print, projection, screen" />
   <link rel="icon" type="image/x-icon" href="lib/img/favicon.ico">
 </head>
 
@@ -40,8 +43,10 @@
       <a href="index.html">
         <- All Tools</a>
           <h1>Catch Rate Estimator</h1>
-          <a href="https://github.com/tsitu/MH-Tools/blob/master/README.md#straight_ruler-catch-rate-estimator" target="_blank" rel="noopener">Instructions</a> |
-          <a id="bookmarkletloader" href="#">Auto-Loader</a> <span id="bookmarkletloaderCopy" style="cursor: pointer">📋</span> |
+          <a href="https://github.com/tsitu/MH-Tools/blob/master/README.md#straight_ruler-catch-rate-estimator"
+            target="_blank" rel="noopener">Instructions</a> |
+          <a id="bookmarkletloader" href="#">Auto-Loader</a> <span id="bookmarkletloaderCopy"
+            style="cursor: pointer">📋</span> |
           <a id="bookmarklet" href="#">CRE</a> <span id="bookmarkletCopy" style="cursor: pointer">📋</span>
     </div>
 
@@ -235,9 +240,49 @@
         </tr>
 
         <tr>
-          <td>Riftstalker Codex:</td>
+          <td>Codexes:</td>
           <td>
-            <input type="checkbox" id="riftstalker">
+            <form>
+              <label for="rift_luck_codex_stat_item">
+                <input type="checkbox" id="rift_luck_codex_stat_item">Riftstalker Codex</option>
+              </label>
+              <label for="empyrean_codex_stat_item">
+                <input type="checkbox" id="empyrean_codex_stat_item">Empyrean Codex</option>
+              </label>
+              <label for="chrome_codex_stat_item">
+                <input type="checkbox" id="chrome_codex_stat_item">Chrome Codex</option>
+              </label>
+              <label for="codex_of_valour_stat_item">
+                <input type="checkbox" id="codex_of_valour_stat_item">Codex of Valour</option>
+              </label>
+              <label for="codex_of_valor_puppetry_page_stat_item">
+                <input type="checkbox" id="codex_of_valor_puppetry_page_stat_item">Codex of Valour: Puppetry Page</option>
+              </label>
+              <label for="codex_of_valor_thievery_page_stat_item">
+                <input type="checkbox" id="codex_of_valor_thievery_page_stat_item">Codex of Valour: Thievery Page</option>
+              </label>
+              <label for="codex_of_valor_bard_page_stat_item">
+                <input type="checkbox" id="codex_of_valor_bard_page_stat_item">Codex of Valour: Bard Page</option>
+              </label>
+              <label for="codex_of_valor_melee_page_stat_item">
+                <input type="checkbox" id="codex_of_valor_melee_page_stat_item">Codex of Valour: Melee Page</option>
+              </label>
+              <label for="codex_of_valor_magic_page_stat_item">
+                <input type="checkbox" id="codex_of_valor_magic_page_stat_item">Codex of Valour: Magic Page</option>
+              </label>
+              <label for="codex_of_valor_nobility_page_stat_item">
+                <input type="checkbox" id="codex_of_valor_nobility_page_stat_item">Codex of Valour: Noble Page</option>
+              </label>
+              <label for="codex_of_valor_dust_page_stat_item">
+                <input type="checkbox" id="codex_of_valor_dust_page_stat_item">Codex of Valour: Dusty Page</option>
+              </label>
+              <label for="codex_of_valor_eclipse_page_stat_item">
+                <input type="checkbox" id="codex_of_valor_eclipse_page_stat_item">Codex of Valour: Eclipse Page</option>
+              </label>
+              <label for="2024_lucky_codex_stat_item">
+                <input type="checkbox" id="2024_lucky_codex_stat_item">202X Lucky Codex</option>
+              </label>
+            </form>
           </td>
         </tr>
 
@@ -374,7 +419,8 @@
           <td>Comments:</td>
           <td class="locationComment">
             Rage states: Low = 1-24, Medium = 25-49, High = 50
-            <br>Many rage states and charm populations still <a href="https://github.com/tsitu/MH-Tools/issues/79" target="_blank">missing</a>
+            <br>Many rage states and charm populations still <a href="https://github.com/tsitu/MH-Tools/issues/79"
+              target="_blank">missing</a>
             <br>Darkest Chocolate Bunny proc rate currently set to 33%
           </td>
         </tr>
@@ -415,7 +461,8 @@
         <tr class="display-location display-claw-shot-city">
           <td>Comments:</td>
           <td class="locationComment">
-            'Crew' and 'Ringleaders' sublocations use placeholder attraction data (since each Wanted Poster is different)
+            'Crew' and 'Ringleaders' sublocations use placeholder attraction data (since each Wanted Poster is
+            different)
           </td>
         </tr>
 
@@ -425,7 +472,7 @@
             Salt level is believed to be logarithmically related to Grub & Scarab power values
             <br>The current formulas are approximations based on data from
             <a href="https://sites.google.com/site/tehhowch/data-spreadsheets/king_grub_salt_charms/kg_mouse_power"
-            target="_blank" rel="noopener">tehhowch</a>
+              target="_blank" rel="noopener">tehhowch</a>
           </td>
         </tr>
 
@@ -434,8 +481,9 @@
           <td class="locationComment">
             Many power and eff values are still missing or speculative
             <br>Event mouse data is liable to change on a yearly basis
-            <br>Refer to this <a href="https://docs.google.com/spreadsheets/d/1l6P9Cp2HceKSXgJKzcOy26lK_5BEAsAO9HhoiSYviTY/edit?usp=sharing"
-            target="_blank" rel="noopener">spreadsheet</a> for the latest research
+            <br>Refer to this <a
+              href="https://docs.google.com/spreadsheets/d/1l6P9Cp2HceKSXgJKzcOy26lK_5BEAsAO9HhoiSYviTY/edit?usp=sharing"
+              target="_blank" rel="noopener">spreadsheet</a> for the latest research
           </td>
         </tr>
 
@@ -487,7 +535,9 @@
 
         <tr>
           <td>Sample Size Score: </td>
-          <td><div id="sampleScore">N/A</div></td>
+          <td>
+            <div id="sampleScore">N/A</div>
+          </td>
         </tr>
 
         <tr class="input-standard">

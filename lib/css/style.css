@@ -275,3 +275,11 @@ ul.inline li {
     display: inline-block;
     padding: 0.05em;
 }
+
+details {
+  border: 1px solid #767676;
+  border-radius: 3px;
+  display: inline-flex;
+  flex-direction: column;
+  padding: 3px 6px;
+}

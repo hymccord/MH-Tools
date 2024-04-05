@@ -62,7 +62,7 @@ window.onload = function() {
   document.getElementById("saltLevel").onchange = saltChanged;
   document.getElementById("vrFloorType").onchange = genericOnChange;
   document.getElementById("umbraFloor").onchange = umbraChanged;
-  document.getElementById("riftstalker").onchange = riftstalkerChange;
+  document.getElementById("codexes").onchange = codexesChange;
   document.getElementById("rank").onchange = rankChange;
   document.getElementById("acolyteCatches").onchange = acolytesChanged
 

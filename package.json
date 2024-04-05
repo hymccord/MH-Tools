@@ -58,7 +58,7 @@
     "build": "npm-run-all --parallel minify:bookmarklet mouse-data population",
     "\n-- MISC --": "",
     "mp-effs": "node data/mp-effs > data/mouse-power-effs.csv",
-    "serve": "http-server -p 8000",
+    "serve": "http-server -p 8000 -c 0 --cors",
     "postinstall": "patch-package"
   },
   "repository": {
@@ -79,6 +79,7 @@
     "delayed-stream": "^1.0.0",
     "jsdom": "^16.2.2",
     "mkdirp": "^0.5.1",
+    "puppeteer": "^18.2.1",
     "request": "^2.83.0",
     "uglify-es": "^3.3.9",
     "uglify-js": "^3.0.25"
