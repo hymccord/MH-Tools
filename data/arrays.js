@@ -414,6 +414,8 @@ var typeEff = {
   Rift: 10
 };
 
+// sort_by(.name) | .[] | [.name + ":", [.power, (.power_bonus * 100 | round), (.attraction_bonus * 100 | round), .luck, .cheese_effect ]]
+
 // Power, power bonus (%), attraction bonus (%), luck, cheese effect
 var basesArray = {
   "10 Layer Birthday Cake Base": [300, 10, 10, 10, "No Effect"],
