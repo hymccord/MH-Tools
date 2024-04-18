@@ -15,7 +15,6 @@
 const fs = require("fs");
 const fileUtils = require("./file-utils");
 const request = require("request");
-const puppeteer = require("puppeteer");
 const chalk = require("chalk");
 
 // GitHub-served raw JSON file URLs from gh-pages branch
@@ -385,20 +384,6 @@ function processDetailed() {
  * Consistent console.log ordering by using separate functions and chaining
  */
 async function calculateDiffs() {
-  // Force update raw JSON files on GitHub using Puppeteer
-  const browser = await puppeteer.launch({
-    args: ["--no-sandbox", "--disable-setuid-sandbox"]
-    // executablePath:
-    //   "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
-  });
-  const overallPage = await browser.newPage();
-  const concisePage = await browser.newPage();
-  const detailedPage = await browser.newPage();
-  await overallPage.goto(overallURL);
-  await concisePage.goto(conciseURL);
-  await detailedPage.goto(detailedURL);
-  await browser.close();
-
   await processOverall();
   await processLocation();
   await processDetailed();
