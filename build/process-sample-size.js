@@ -384,6 +384,7 @@ function processDetailed() {
 async function calculateDiffs() {
   // Force update raw JSON files on GitHub using Puppeteer
   const browser = await puppeteer.launch({
+    headless: false,
     args: ["--no-sandbox", "--disable-setuid-sandbox"]
     // executablePath:
     //   "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
@@ -391,14 +392,19 @@ async function calculateDiffs() {
   const overallPage = await browser.newPage();
   const concisePage = await browser.newPage();
   const detailedPage = await browser.newPage();
-  await overallPage.goto(overallURL);
-  await concisePage.goto(conciseURL);
-  await detailedPage.goto(detailedURL);
+
+  await Promise.all([
+    overallPage.goto(overallURL),
+    concisePage.goto(conciseURL),
+    detailedPage.goto(detailedURL),
+  ]);
   await browser.close();
 
-  await processOverall();
-  await processLocation();
-  await processDetailed();
+  await Promise.all([
+    processOverall(),
+    processLocation(),
+    processDetailed(),
+  ]);
 
   // Finally, output JSON to overwrite the 3 initial files
   outputJSON();

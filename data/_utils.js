@@ -1,5 +1,5 @@
 var Promise = require("bluebird");
-var json2csv = require("json2csv");
+var json2csv = require("@json2csv/plainjs");
 var _ = require("lodash");
 var Combinatorics = require("js-combinatorics");
 
@@ -28,11 +28,10 @@ exports.toCsv = function toCsv(fields, rows) {
     .then(Promise.all.bind(Promise))
     .then(function(rows) {
       console.error("");
-      return json2csv({
-        data: rows,
+      return new json2csv.Parser({
         fields: fields,
         defaultValue: "-"
-      });
+      }).parse(rows);
     });
 };
 
@@ -42,7 +41,7 @@ exports.process = function(config) {
       _.defaultsDeep(setup, _.cloneDeep(config.default || {}))
     );
     if (!vectors || !vectors.length) vectors = [[{}]];
-    var p = Combinatorics.cartesianProduct.apply(Combinatorics, vectors);
+    var p = new Combinatorics.CartesianProduct(...vectors);
     return Promise.mapSeries(p.toArray(), function(iter) {
       var item = iter.reduce(function(opts, vec) {
         return _.defaultsDeep(opts, vec);

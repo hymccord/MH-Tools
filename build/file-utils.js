@@ -1,7 +1,7 @@
 (function() {
   const fs = require("fs");
   const readline = require("readline");
-  const mkdirp = require("mkdirp");
+  const { mkdirp } = require("mkdirp");
   const CombinedStream = require("combined-stream");
 
   module.exports = {

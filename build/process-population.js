@@ -72,7 +72,7 @@
   var inputStream = fileUtils.createCombinedStream(POPULATIONS);
   csvConverter
     .fromStream(inputStream)
-    .on("json", function(jsonObj) {
+    .subscribe(jsonObj => {
       lineHandler(jsonObj);
     })
     .on("done", function(error) {

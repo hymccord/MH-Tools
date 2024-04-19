@@ -17,7 +17,7 @@
   var inputStreamWisdom = fileUtils.createCombinedStream(WISDOM);
   csvConverterWisdom
     .fromStream(inputStreamWisdom)
-    .on("json", function(jsonObj) {
+    .subscribe(jsonObj => {
       mouseWisdom[jsonObj["mouse"]] = jsonObj["wisdom"];
     })
     .on("done", function(error) {
@@ -35,7 +35,7 @@
   var inputStreamGoldPoints = fileUtils.createCombinedStream(GOLD_POINTS);
   csvConverterGoldPoints
     .fromStream(inputStreamGoldPoints)
-    .on("json", function(jsonObj) {
+    .subscribe(jsonObj => {
       goldPoints[jsonObj["Mouse"]] = [];
       goldPoints[jsonObj["Mouse"]].push(jsonObj["Gold"]);
       goldPoints[jsonObj["Mouse"]].push(jsonObj["Points"]);
@@ -64,7 +64,7 @@
   var inputStreamPowerEffs = fileUtils.createCombinedStream(POWER_EFFS);
   csvConverterPowerEffs
     .fromStream(inputStreamPowerEffs)
-    .on("json", function(jsonObj) {
+    .subscribe(jsonObj => {
       powerEffs[jsonObj["Mouse"]] = [];
       powerEffs[jsonObj["Mouse"]].push(jsonObj["Power"]);
       powerEffs[jsonObj["Mouse"]].push(jsonObj["Arcane"]);
