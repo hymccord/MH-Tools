@@ -22,6 +22,15 @@ const battery = {
 };
 
 window.onload = function() {
+  var child = new AcrossTabs.default.Child({
+    onReady: () => console.log('acrosstabs ready'),
+    onParentCommunication: parentSays
+  });
+
+  function parentSays(data) {
+    console.log(`Parent says: ${data}`);
+  }
+
   loadBookmarkletFromJS(
     BOOKMARKLET_URLS["loader"],
     "bookmarkletLoader",
@@ -96,6 +105,21 @@ window.onload = function() {
         }
       };
     $("#trap-setups").trigger("updateAll", [resort, callback]);
+    $(".armButton").click(function() {
+      const row = $(this).closest("tr");
+      const base = row.find("td:nth-child(2)").text();
+      const trap = row.find("td:nth-child(3)").text();
+      const charm = row.find("td:nth-child(4)").text();
+
+      child.sendMessageToParent({
+        msg: "arm",
+        components: {
+          trinket: charm,
+          weapon: trap,
+          base: base,
+        },
+      });
+    });
     console.timeEnd("Tablesorter");
     console.groupEnd();
   });
@@ -194,6 +218,11 @@ function calcPower(weapon, base, charm, bonusObj) {
   rawPowerBonus +=
     weaponsArray[weapon][2] + basesArray[base][1] + bonusObj["event"];
 
+  if (base == "Prestige Base") {
+    var umbraFloor = parseInt(localStorage.getItem("tsitu-umbra-floor")) || 0;
+    rawPower += umbraFloor * 20
+  }
+
   const pourBonus = 1 + (bonusObj["pour"] / 100) * (1 + rawPowerBonus / 100);
   const totalPowerBonus =
     1 +
@@ -224,7 +253,7 @@ function generateResults() {
   });
   const riftMultiplier = parseInt($("input[name=rift-bonus]:checked").val());
   let resultsHTML =
-    "<caption>Results</caption><thead><tr><th id='precisePower'>Power<br>(Precise)</th><th id='base'>Base</th><th id='weapon'>Weapon</th><th id='charm'>Charm</th><th id='type'>Type</th><th id='roundedPower'>Power<br>(Displayed)</th></tr></thead><tbody>";
+    "<caption>Results</caption><thead><tr><th id='precisePower'>Power<br>(Precise)</th><th id='base'>Base</th><th id='weapon'>Weapon</th><th id='charm'>Charm</th><th id='type'>Type</th><th id='roundedPower'>Power<br>(Displayed)</th><th id='armSetup'>Arm</th></tr></thead><tbody>";
 
   // Power types default to Physical if empty
   if (powerTypes.length === 0) {
@@ -345,6 +374,8 @@ function generateResults() {
       loopWeapons[loopWeapons.indexOf("Mouse Mary O\\'Nette")] =
         "Mouse Mary O'Nette";
     }
+
+    loopWeapons = loopWeapons.filter(weapon => weapon !== "Golem Guardian Trap");
   }
 
   // Check for invalid weapons/bases/charms
@@ -388,7 +419,6 @@ function generateResults() {
 
     // Push in an empty charm and a RVC
     loopCharms.push("No Charm");
-    loopCharms.push("Rift Vacuum Charm");
 
     // Primary loop
     for (let weapon of loopWeapons) {
@@ -441,7 +471,7 @@ function generateResults() {
 
             if (precisePower >= powerMin && precisePower <= powerMax) {
               const roundedPower = Math.ceil(precisePower);
-              resultsHTML += `<tr><td>${precisePower}</td><td>${base}</td><td>${weapon}</td><td>${charm}</td><td>${powerType}</td><td>${roundedPower}</td></tr>`;
+              resultsHTML += `<tr><td>${precisePower}</td><td>${base}</td><td>${weapon}</td><td>${charm}</td><td>${powerType}</td><td>${roundedPower}</td><td><button class='armButton'>Arm!</button></td></tr>`;
               if (typeof countPer[precisePower] === "undefined") {
                 countPer[precisePower] = 1;
               } else {
