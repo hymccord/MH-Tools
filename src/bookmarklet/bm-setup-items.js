@@ -36,17 +36,12 @@
         bases.push("Naughty List Printing Press Base (Paperless)");
       }
 
+      /** @type {string[]} */
       var weapons = arr
         .filter(function(el) {
           return el.classification === "weapon" && el.quantity > 0;
         })
         .map(function(el) {
-          // Weapon edge cases
-          // if (el.name === "Ambush Trap") {
-            // return "Ambush";
-          // } else if (el.name === "School of Sharks Trap") {
-            // return "School of Sharks";
-          // }
           return el.name;
         });
 
@@ -79,7 +74,7 @@
             );
           })
           .map(function(el) {
-            return el.power_type_name;
+            return el.name.match(/^Golem Guardian (\w+) Skin Module$/)[1]
           });
 
         for (var el of skins) {
@@ -96,7 +91,14 @@
       combinedObj["weapons"] = weapons;
       combinedObj["charms"] = charms;
 
-      var newWindow = window.open("");
+      // let url = "http://localhost:8000/setup.html";
+      // // spawn a tab
+      // var newWindow = window.open(url, '_blank');
+      // if (newWindow) {
+      //   newWindow.postMessage("ping", url);
+      //   newWindow.open
+      // }
+      newWindow.open("");
       newWindow.name = JSON.stringify(combinedObj);
       newWindow.location = "https://tsitu.github.io/MH-Tools/setup.html";
     }

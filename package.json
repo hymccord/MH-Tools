@@ -61,7 +61,7 @@
     "build": "npm-run-all --parallel mouse-data population",
     "\n-- MISC --": "",
     "mouse-stats": "node data/mouse-stats",
-    "serve": "http-server -p 8000",
+    "serve": "http-server -p 8000 -c-1 --cors",
     "postinstall": "patch-package"
   },
   "repository": {
