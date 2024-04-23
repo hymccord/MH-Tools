@@ -1,4 +1,5 @@
 let ownedItems = {};
+let connectedToMouseHunt = false;
 
 const alterCharms = [
   "Forgotten Charm",
@@ -23,12 +24,23 @@ const battery = {
 
 window.onload = function() {
   var child = new AcrossTabs.default.Child({
-    onReady: () => console.log('acrosstabs ready'),
-    onParentCommunication: parentSays
+    onInitialize: onInitialize,
+    onParentCommunication: parentSays,
+    onParentDisconnect: onParentDisconnect,
   });
+
+  function onInitialize() {
+    console.log('Parent sent handshake. Ready to arm components');
+    connectedToMouseHunt = true;
+  }
 
   function parentSays(data) {
     console.log(`Parent says: ${data}`);
+  }
+
+  function onParentDisconnect() {
+    connectedToMouseHunt = false;
+    $('.armButton').css({"background-color": "red"});
   }
 
   loadBookmarkletFromJS(
@@ -105,6 +117,7 @@ window.onload = function() {
         }
       };
     $("#trap-setups").trigger("updateAll", [resort, callback]);
+    $(".armButton").css(`background-color: ${connectedToMouseHunt ? 'green' : 'red'}`);
     $(".armButton").click(function() {
       const row = $(this).closest("tr");
       const base = row.find("td:nth-child(2)").text();
@@ -471,7 +484,7 @@ function generateResults() {
 
             if (precisePower >= powerMin && precisePower <= powerMax) {
               const roundedPower = Math.ceil(precisePower);
-              resultsHTML += `<tr><td>${precisePower}</td><td>${base}</td><td>${weapon}</td><td>${charm}</td><td>${powerType}</td><td>${roundedPower}</td><td><button class='armButton'>Arm!</button></td></tr>`;
+              resultsHTML += `<tr><td>${precisePower}</td><td>${base}</td><td>${weapon}</td><td>${charm}</td><td>${powerType}</td><td>${roundedPower}</td><td><button class='armButton' style="background-color: ${connectedToMouseHunt ? 'green' : 'red'};>Arm!</button></td></tr>`;
               if (typeof countPer[precisePower] === "undefined") {
                 countPer[precisePower] = 1;
               } else {

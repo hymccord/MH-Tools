@@ -91,16 +91,18 @@
       combinedObj["weapons"] = weapons;
       combinedObj["charms"] = charms;
 
-      // let url = "http://localhost:8000/setup.html";
+      // let url = "https://mhtools.hankmccord.dev/setup.html";
       // // spawn a tab
       // var newWindow = window.open(url, '_blank');
       // if (newWindow) {
       //   newWindow.postMessage("ping", url);
       //   newWindow.open
       // }
-      newWindow.open("");
+      var newWindow = window.open("");
       newWindow.name = JSON.stringify(combinedObj);
       newWindow.location = "https://mhtools.hankmccord.dev/setup.html";
     }
+  }).fail((jqXHR, textStatus, errorThrown) => {
+    console.error(textStatus, errorThrown);
   });
 })();

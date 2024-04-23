@@ -3,13 +3,11 @@
   let parent;
   let pendingData;
 
-  loadAcrossTabs();
-
   function loadAcrossTabs() {
     if (!window.AcrossTabs) {
       var el = document.createElement("script");
       var cdn =
-      "https://cdnjs.cloudflare.com/ajax/libs/across-tabs/1.3.1/across-tabs.js";
+      "https://cdnjs.cloudflare.com/ajax/libs/across-tabs/1.4.0/across-tabs.js";
       el.src = cdn;
       document.body.appendChild(el);
       el.onload = function() {
@@ -357,6 +355,8 @@
    * 6. Parse basically the same parameters as before (response.mice: name, id, points, gold, difficulty)
    */
 
+  loadAcrossTabs();
+
   function main(targetGroup, targetSubgroup, riftMultiplier, temMode) {
     var cacheObj =
       JSON.parse(localStorage.getItem("tsitu-powers-subgroups")) || {};
@@ -649,6 +649,10 @@
     parent.broadCastTo(childWindow.id, JSON.stringify(object));
   }
 
+  function onChildDisconnect() {
+    childWindow = null;
+  }
+
   // Generate POST form data
   function genPayload(category) {
     return {
@@ -691,7 +695,7 @@
       },
       //onChildCommunication: onChildCommunication,
       //onPollingCallback: showList,
-      onChildDisconnect: function() { childWindow = null; }
+      onChildDisconnect: onChildDisconnect
     });
 
     var existing = document.getElementById("mht-mouse-powers-tool");
@@ -832,6 +836,7 @@
     };
 
     var goButton = document.createElement("button");
+    goButton.id = "mht-mouse-powers-tool-go"
     goButton.textContent = "Go";
     goButton.onclick = function() {
       var selectedGroup = $("#mouse-group-select :selected").text();
@@ -890,6 +895,7 @@
     mainDiv.style.padding = "10px";
     mainDiv.style.textAlign = "center";
     document.body.appendChild(mainDiv);
+    dragElement(document.getElementById("mht-mouse-powers-tool"));
 
     // Initial dropdown population based on cache or default
     var cacheSelect =
@@ -902,6 +908,45 @@
     } else {
       groupSelect.value = "Indigenous Mice";
       groupSelect.onchange();
+    }
+  }
+
+  /**
+   * Element dragging functionality
+   * @param {HTMLElement} el
+   */
+  function dragElement(el) {
+    var pos1 = 0,
+      pos2 = 0,
+      pos3 = 0,
+      pos4 = 0;
+    if (document.getElementById(el.id + "header")) {
+      document.getElementById(el.id + "header").onmousedown = dragMouseDown;
+    } else {
+      el.onmousedown = dragMouseDown;
+    }
+
+    function dragMouseDown(e) {
+      e = e || window.event;
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+      document.onmouseup = closeDragElement;
+      document.onmousemove = elementDrag;
+    }
+
+    function elementDrag(e) {
+      e = e || window.event;
+      pos1 = pos3 - e.clientX;
+      pos2 = pos4 - e.clientY;
+      pos3 = e.clientX;
+      pos4 = e.clientY;
+      el.style.top = el.offsetTop - pos2 + "px";
+      el.style.left = el.offsetLeft - pos1 + "px";
+    }
+
+    function closeDragElement() {
+      document.onmouseup = null;
+      document.onmousemove = null;
     }
   }
 })();

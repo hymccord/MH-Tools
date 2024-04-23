@@ -3,7 +3,7 @@
     if (!window.AcrossTabs) {
       var el = document.createElement("script");
       var cdn =
-        "https://cdnjs.cloudflare.com/ajax/libs/across-tabs/1.3.1/across-tabs.js";
+        "https://cdnjs.cloudflare.com/ajax/libs/across-tabs/1.4.0/across-tabs.js";
       el.src = cdn;
       document.body.appendChild(el);
       el.onload = function () {
@@ -32,10 +32,11 @@
   }
 
   function childSays(data) {
-    console.log(`child ${data.id} says: ${data.msg}`);
+    console.log(`child ${data.id} says: ${data.msg}`, data.components);
 
     if (data.msg === "arm") {
 
+      hg.utils.TrapControl.disarmTrinket();
       for (const componentClassification of Object.keys(data.components)) {
         const id = ownedItems[componentClassification][data.components[componentClassification]];
         if (id) {
