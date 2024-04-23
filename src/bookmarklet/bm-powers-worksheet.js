@@ -60,6 +60,7 @@
     "Prologue Pond Prowlers": "prologue_pond",
     "Storytellers": "table_of_contents",
     "Beanstalkers": "bountiful_beanstalk",
+    "Sorcery Apprentices": "school_of_sorcery",
     "Rift Walkers": "rift_walkers",
     "Rift Stalkers": "rift_stalkers",
     "The Polluted": "polluted",
@@ -287,6 +288,12 @@
       "Dungeon Dwellers",
       "Ballroom Blitzers",
       "Ruthless Royals"
+    ],
+    "Sorcery Apprentices": [
+      "Monitor of the Halls",
+      "Arcane Academics",
+      "Shadow Scholars",
+      "Master Sorcerers"
     ],
     "Rift Walkers": [
       "Gnawnia Rift",

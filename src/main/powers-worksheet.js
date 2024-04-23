@@ -215,6 +215,12 @@ var subcategories = {
     "Ballroom Blitzers",
     "Ruthless Royals"
   ],
+  "Sorcery Apprentices": [
+    "Monitor of the Halls",
+    "Arcane Academics",
+    "Shadow Scholars",
+    "Master Sorcerers"
+  ],
   "Rift Walkers": [
     "Gnawnia Rift",
     "Burroughs Rift",
