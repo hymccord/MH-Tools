@@ -244,7 +244,6 @@
             var newWindow = window.open("");
             newWindow.name = JSON.stringify(outputObj);
             newWindow.location = "https://mhtools.hankmccord.dev/crown.html";
-            // newWindow.location = "http://localhost:8000/crown.html";
           }
         }
       } else {
