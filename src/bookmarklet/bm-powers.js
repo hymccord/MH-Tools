@@ -1,14 +1,18 @@
 (function () {
   function loadAcrossTabs() {
-    // var el = document.createElement("script");
-    // var cdn =
-    //   "https://cdnjs.cloudflare.com/ajax/libs/across-tabs/1.3.1/across-tabs.js";
-    // el.src = cdn;
-    // document.body.appendChild(el);
-    // el.onload = function () {
-    //   el.remove();
-      continueLoading();
-    // };
+    if (!window.AcrossTabs) {
+      var el = document.createElement("script");
+      var cdn =
+        "https://cdnjs.cloudflare.com/ajax/libs/across-tabs/1.3.1/across-tabs.js";
+      el.src = cdn;
+      document.body.appendChild(el);
+      el.onload = function () {
+        el.remove();
+        continueLoading();
+      };
+    } else {
+      continueLoading()
+    }
   }
 
   let parent;
@@ -18,7 +22,7 @@
       onChildCommunication: childSays,
     });
     parent.openNewTab({
-      url: "https://tsitu.github.io/MH-Tools/powers.html"
+      url: "https://mhtools.hankmccord.dev/powers.html"
     });
   }
 

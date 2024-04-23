@@ -100,7 +100,7 @@
       // }
       newWindow.open("");
       newWindow.name = JSON.stringify(combinedObj);
-      newWindow.location = "https://tsitu.github.io/MH-Tools/setup.html";
+      newWindow.location = "https://mhtools.hankmccord.dev/setup.html";
     }
   });
 })();

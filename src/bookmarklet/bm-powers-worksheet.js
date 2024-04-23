@@ -3,16 +3,22 @@
   let parent;
   let pendingData;
 
+  loadAcrossTabs();
+
   function loadAcrossTabs() {
-    var el = document.createElement("script");
-    var cdn =
+    if (!window.AcrossTabs) {
+      var el = document.createElement("script");
+      var cdn =
       "https://cdnjs.cloudflare.com/ajax/libs/across-tabs/1.3.1/across-tabs.js";
-    el.src = cdn;
-    document.body.appendChild(el);
-    el.onload = function() {
-      el.remove();
+      el.src = cdn;
+      document.body.appendChild(el);
+      el.onload = function() {
+        el.remove();
+        buildUI();
+      };
+    } else {
       buildUI();
-    };
+    }
   }
 
   // name: type
@@ -351,8 +357,6 @@
    * 6. Parse basically the same parameters as before (response.mice: name, id, points, gold, difficulty)
    */
 
-  loadAcrossTabs();
-
   function main(targetGroup, targetSubgroup, riftMultiplier, temMode) {
     var cacheObj =
       JSON.parse(localStorage.getItem("tsitu-powers-subgroups")) || {};
@@ -633,7 +637,7 @@
     }
 
     childWindow = parent.openNewTab({
-      url: "https://tsitu.github.io/MH-Tools/powers-worksheet.html"
+      url: "https://mhtools.hankmccord.dev/powers-worksheet.html"
     });
   }
 

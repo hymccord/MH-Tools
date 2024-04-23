@@ -685,7 +685,7 @@
   }
 
   function sendData(parameters) {
-    var url = "https://tsitu.github.io/MH-Tools/cre.html?";
+    var url = "https://mhtools.hankmccord.dev/cre.html?";
 
     for (var key in parameters) {
       var value = encodeURIComponent(parameters[key]);
