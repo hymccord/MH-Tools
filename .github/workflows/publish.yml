@@ -80,3 +80,12 @@ jobs:
         # internal-only alpha, not available yet: https://github.com/actions/deploy-pages/pull/61
         # with:
         #   preview: ${{ github.event_name == 'pull_request_target' }}
+
+      - name: Purge Cloudflare Cache
+        run: |
+          curl --request POST \
+            --url https://api.cloudflare.com/client/v4/zones/356f093ebaea85a546ab8a35593e4820/purge_cache \
+            --header 'Content-Type: application/json' \
+            --header 'Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}' \
+            --header 'X-Auth-Email: ${{ secrets.CLOUDFLARE_EMAIL }}' \
+            --data '{"purge_everything": true}'
