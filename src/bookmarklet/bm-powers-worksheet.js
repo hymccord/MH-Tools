@@ -57,6 +57,7 @@
     "Storytellers": "table_of_contents",
     "Beanstalkers": "bountiful_beanstalk",
     "Sorcery Apprentices": "school_of_sorcery",
+    "Dragons of the Depths": "draconic_depths",
     "Rift Walkers": "rift_walkers",
     "Rift Stalkers": "rift_stalkers",
     "The Polluted": "polluted",
@@ -291,6 +292,11 @@
       "Shadow Scholars",
       "Master Sorcerers"
     ],
+    "Dragons of the Depths": [
+      "Fire Dragons",
+      "Ice Dragons",
+      "Poison Dragons"
+    ],
     "Rift Walkers": [
       "Gnawnia Rift",
       "Burroughs Rift",
@@ -305,14 +311,14 @@
       "Misc."
     ],
     "Event Mice": [
-      "Misc.",
       "Lunar New Year",
       "Birthday",
       "Spring Egg Hunt",
       "Halloween",
       "Great Winter Hunt",
       "New Year",
-      "Prize"
+      "Prize",
+      "Ronza's Stowaways"
     ]
   };
 

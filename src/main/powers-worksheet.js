@@ -221,6 +221,11 @@ var subcategories = {
     "Shadow Scholars",
     "Master Sorcerers"
   ],
+  "Dragons of the Depths": [
+    "Fire Dragons",
+    "Ice Dragons",
+    "Poison Dragons"
+  ],
   "Rift Walkers": [
     "Gnawnia Rift",
     "Burroughs Rift",
