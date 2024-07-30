@@ -215,6 +215,17 @@ var subcategories = {
     "Ballroom Blitzers",
     "Ruthless Royals"
   ],
+  "Sorcery Apprentices": [
+    "Monitor of the Halls",
+    "Arcane Academics",
+    "Shadow Scholars",
+    "Master Sorcerers"
+  ],
+  "Dragons of the Depths": [
+    "Fire Dragons",
+    "Ice Dragons",
+    "Poison Dragons"
+  ],
   "Rift Walkers": [
     "Gnawnia Rift",
     "Burroughs Rift",
@@ -241,6 +252,16 @@ var subcategories = {
 };
 
 window.onload = function() {
+  var child = new AcrossTabs.default.Child({
+      onReady: () => console.log('acrosstabs ready'),
+      onParentCommunication: parentSays
+  });
+
+  function parentSays(data) {
+    loadData(data);
+    renderTables();
+  }
+
   loadBookmarkletFromJS(
     BOOKMARKLET_URLS["loader"],
     "bookmarkletLoader",
@@ -288,11 +309,6 @@ window.onload = function() {
     $("#group-select").change();
     $("#subgroup-select").val(prefs["subgroup"]);
     $("#mouse-filter").val(prefs["mouse"]);
-  }
-
-  // Process data from window.name
-  if (window.name && window.name !== "mhworksheet") {
-    loadData(window.name);
   }
 
   // Initialize tablesorter
@@ -648,12 +664,12 @@ function mouseDataDiff(input, stored) {
                     // If eff is different, HG has tweaked it
                     storedArr = inputArr;
                   } else if (inputArr[1] > storedArr[1]) {
-                    if (inputArr[1] <= storedArr[2]) {
+                    if (inputArr[1] <= storedArr[2] || storedArr[2] === "∞") {
                       // Replace with a bigger lower bound
                       storedArr[1] = inputArr[1];
                     }
                   } else if (inputArr[2] < storedArr[2]) {
-                    if (inputArr[2] >= storedArr[1]) {
+                    if (inputArr[2] >= storedArr[1] || storedArr[1] === "∞") {
                       // Replace with a smaller upper bound
                       storedArr[2] = inputArr[2];
                     }
@@ -746,7 +762,10 @@ function processInput(inputText) {
 
   if (Math.abs(user["dom-trap-power"] - calculatedPower) > 1) {
     alert(
-      "One or more of the following went wrong when computing total power:\n\n[1] user.trap_power_bonus was not accurately passed in - if you're on the Camp page, try clicking 'Daily', 'Quests', or any of the 5 item togglers underneath your trap image\n[2] Unhandled special location/stage/weapon/base/charm effects - please try again"
+      "One or more of the following went wrong when computing total power:\n\n" +
+      "[1] user.trap_power_bonus was not accurately passed in - if you're on the Camp page, try clicking 'Daily', 'Quests', or any of the 5 item togglers underneath your trap image\n" +
+      "[2] Unhandled special location/stage/weapon/base/charm effects - please try again" +
+      "[3] If using the Prestige Base, set your max umbra floor level in the CRE tool"
     );
     return;
   }

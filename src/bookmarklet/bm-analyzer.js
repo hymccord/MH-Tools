@@ -200,8 +200,7 @@
       persistData();
       if (Object.keys(PARAMS["listings"]).length > 0) {
         const newWindow = window.open("");
-        newWindow.location = "https://tsitu.github.io/MH-Tools/analyzer.html";
-        // newWindow.location = "http://localhost:8000/analyzer.html"; // Debug
+        newWindow.location = "https://mhtools.hankmccord.dev/analyzer.html";
         // 200 IQ method to transfer stringified data across origins
         newWindow.name = JSON.stringify(Object.values(PARAMS["listings"]));
       } else {
