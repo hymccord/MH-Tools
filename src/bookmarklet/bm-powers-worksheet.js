@@ -646,7 +646,7 @@
     }
 
     childWindow = parent.openNewTab({
-      url: "https://tsitu.github.io/MH-Tools/powers-worksheet.html"
+      url: "https://mhtools.hankmccord.dev/powers-worksheet.html"
     });
   }
 
