@@ -690,13 +690,6 @@
       return;
     }
 
-    if (!$(".campPage-trap-trapStat.power > div:nth-child(2)").length) {
-      alert(
-        "Error: Can't find total trap power value\n\nPlease make sure you are on the Camp page of mousehuntgame.com and have FreshCoat enabled"
-      );
-      return;
-    }
-
     parent = new AcrossTabs.default.Parent({
       onHandshakeCallback: function() {
         sendObjectToChild(pendingData);
@@ -848,6 +841,13 @@
     goButton.id = "mht-mouse-powers-tool-go"
     goButton.textContent = "Go";
     goButton.onclick = function() {
+      if (!$(".campPage-trap-trapStat.power > div:nth-child(2)").length) {
+        alert(
+          "Error: Can't find total trap power value\n\nPlease make sure you are on the Camp page of mousehuntgame.com and have FreshCoat enabled"
+        );
+        return;
+      }
+
       var selectedGroup = $("#mouse-group-select :selected").text();
       var selectedSub = $("#mouse-subgroup-select :selected").text();
 
