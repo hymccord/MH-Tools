@@ -16,26 +16,26 @@
   }
 
   let parent;
+  let childId = null;
   function continueLoading() {
     parent = new AcrossTabs.default.Parent({
-      onHandshakeCallback: childConnected,
+      onHandshakeCallback: onHandshakeCallback,
       onChildCommunication: childSays,
+      onChildDisconnect: onChildDisconnect
     });
     parent.openNewTab({
       url: "https://tsitu.github.io/MH-Tools/powers.html"
     });
   }
 
-  function childConnected(data) {
-    // console.log(`child ${data.id} connected`);
-    // parent.broadCastTo(data.id, 'ping');
+  function onHandshakeCallback(data) {
+    childId = data.id;
   }
 
   function childSays(data) {
     console.log(`child ${data.id} says: ${data.msg}`, data.components);
 
-    if (data.msg === "arm") {
-
+    if (data.id == childId && data.msg === "arm") {
       hg.utils.TrapControl.disarmTrinket();
       for (const componentClassification of Object.keys(data.components)) {
         const id = ownedItems[componentClassification][data.components[componentClassification]];
@@ -46,6 +46,10 @@
 
       hg.utils.TrapControl.go();
     }
+  }
+
+  function onChildDisconnect() {
+    childId = null;
   }
 
   ownedItems = {
