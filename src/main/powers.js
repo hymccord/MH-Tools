@@ -484,7 +484,7 @@ function generateResults() {
 
             if (precisePower >= powerMin && precisePower <= powerMax) {
               const roundedPower = Math.ceil(precisePower);
-              resultsHTML += `<tr><td>${precisePower}</td><td>${base}</td><td>${weapon}</td><td>${charm}</td><td>${powerType}</td><td>${roundedPower}</td><td><button class='armButton' style="background-color: ${connectedToMouseHunt ? 'green' : 'red'};>Arm!</button></td></tr>`;
+              resultsHTML += `<tr><td>${precisePower}</td><td>${base}</td><td>${weapon}</td><td>${charm}</td><td>${powerType}</td><td>${roundedPower}</td><td><button class='armButton' style="background-color: ${connectedToMouseHunt ? 'green' : 'red'};">Arm!</button></td></tr>`;
               if (typeof countPer[precisePower] === "undefined") {
                 countPer[precisePower] = 1;
               } else {
