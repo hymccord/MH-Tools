@@ -455,9 +455,11 @@ window.onload = function() {
         $(this).prop("checked", true);
       });
     }
+
+    renderTables();
   });
 
-  $("#reload-button").click(function() {
+  $(".change-rerender").on("change", function () {
     renderTables();
   });
 

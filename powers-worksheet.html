@@ -157,36 +157,35 @@
           <tr>
             <td>Shown Types:</td>
             <td>
-              <input type="checkbox" class="shown-type" checked="checked" value="Arcane" /> Arcane&nbsp;
-              <input type="checkbox" class="shown-type" checked="checked" value="Draconic" /> Draconic&nbsp;
-              <input type="checkbox" class="shown-type" checked="checked" value="Forgotten" /> Forgotten&nbsp;
-              <input type="checkbox" class="shown-type" checked="checked" value="Hydro" /> Hydro&nbsp;
-              <input type="checkbox" class="shown-type" checked="checked" value="Parental" /> Parental&nbsp;
-              <input type="checkbox" class="shown-type" checked="checked" value="Physical" /> Physical&nbsp;
-              <input type="checkbox" class="shown-type" checked="checked" value="Shadow" /> Shadow&nbsp;
-              <input type="checkbox" class="shown-type" checked="checked" value="Tactical" /> Tactical&nbsp;
-              <input type="checkbox" class="shown-type" checked="checked" value="Law" /> Law&nbsp;
-              <input type="checkbox" class="shown-type" checked="checked" value="Rift" /> Rift
+              <input type="checkbox" class="shown-type change-rerender" checked="checked" value="Arcane" /> Arcane&nbsp;
+              <input type="checkbox" class="shown-type change-rerender" checked="checked" value="Draconic" /> Draconic&nbsp;
+              <input type="checkbox" class="shown-type change-rerender" checked="checked" value="Forgotten" /> Forgotten&nbsp;
+              <input type="checkbox" class="shown-type change-rerender" checked="checked" value="Hydro" /> Hydro&nbsp;
+              <input type="checkbox" class="shown-type change-rerender" checked="checked" value="Parental" /> Parental&nbsp;
+              <input type="checkbox" class="shown-type change-rerender" checked="checked" value="Physical" /> Physical&nbsp;
+              <input type="checkbox" class="shown-type change-rerender" checked="checked" value="Shadow" /> Shadow&nbsp;
+              <input type="checkbox" class="shown-type change-rerender" checked="checked" value="Tactical" /> Tactical&nbsp;
+              <input type="checkbox" class="shown-type change-rerender" checked="checked" value="Law" /> Law&nbsp;
+              <input type="checkbox" class="shown-type change-rerender" checked="checked" value="Rift" /> Rift
               <br><br><button id="type-select-all">Select / Deselect All</button>
             </td>
           </tr>
           <tr>
             <td>Filters</td>
             <td>
-              Group: <select id="group-select">
+              Group: <select id="group-select" class="change-rerender">
                 <option value="All" selected="true">All</option>
               </select>&nbsp;
-              Subgroup: <select id="subgroup-select">
+              Subgroup: <select id="subgroup-select" class="change-rerender">
                 <option value="All" selected="true">All</option>
               </select><br><br>
-              Mouse Name: <input type="text" id="mouse-filter">
+              Mouse Name: <input type="text" id="mouse-filter" class="change-rerender">
             </td>
           </tr>
           <tr>
             <td>Buttons</td>
             <td>
               <button id="reset-button">Reset Data</button>
-              <button id="reload-button" style="font-size: 18px"><b>Reload Table</b></button>
               <button id="save-button">Save Preferences</button>
             </td>
           </tr>
