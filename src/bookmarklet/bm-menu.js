@@ -83,8 +83,8 @@
       id: "setup-fields-button"
     });
     setupFieldsButton.textContent = "Best Setup: Fields";
-    setupFieldsButton.onclick = function() {
-      loadBookmarklet("setup-fields");
+    setupFieldsButton.onclick = function(event) {
+      loadBookmarklet("setup-fields", event);
     };
     var setupFieldsSpanTimestamp = document.createElement("span");
     setupFieldsSpanTimestamp.style.fontSize = "10px";
@@ -95,8 +95,8 @@
       id: "analyzer-button"
     });
     analyzerButton.textContent = "Marketplace Analyzer";
-    analyzerButton.onclick = function() {
-      loadBookmarklet("analyzer");
+    analyzerButton.onclick = function(event) {
+      loadBookmarklet("analyzer", event);
     };
     var analyzerSpanTimestamp = document.createElement("span");
     analyzerSpanTimestamp.style.fontSize = "10px";
@@ -105,8 +105,8 @@
 
     var crownButton = document.createElement("button", { id: "crown-button" });
     crownButton.textContent = "Crown Solver";
-    crownButton.onclick = function() {
-      loadBookmarklet("crown");
+    crownButton.onclick = function(event) {
+      loadBookmarklet("crown", event);
     };
     var crownSpanTimestamp = document.createElement("span");
     crownSpanTimestamp.style.fontSize = "10px";
@@ -117,8 +117,8 @@
       id: "crafting-button"
     });
     craftingButton.textContent = "Crafting Wizard";
-    craftingButton.onclick = function() {
-      loadBookmarklet("crafting");
+    craftingButton.onclick = function(event) {
+      loadBookmarklet("crafting", event);
     };
     var craftingSpanTimestamp = document.createElement("span");
     craftingSpanTimestamp.style.fontSize = "10px";
@@ -129,8 +129,8 @@
       id: "powers-button"
     });
     powersButton.textContent = "Powers: Worksheet";
-    powersButton.onclick = function() {
-      loadBookmarklet("powers");
+    powersButton.onclick = function(event) {
+      loadBookmarklet("powers", event);
     };
     var powersSpanTimestamp = document.createElement("span");
     powersSpanTimestamp.style.fontSize = "10px";
@@ -237,16 +237,32 @@
   /**
    * Fetches & executes specified bookmarklet variant
    * @param {string} type
+   * @param {MouseEvent} event
    */
-  function loadBookmarklet(type) {
+  function loadBookmarklet(type, event) {
     var el = document.createElement("script");
-    var cdn =
-      `https://mhtools.hankmccord.dev/src/bookmarklet/bm-${type}.js`;
-    el.src = cdn;
-    document.body.appendChild(el);
-    el.onload = function() {
-      el.remove();
-    };
+    const cdn = `https://mhtools.hankmccord.dev/src/bookmarklet/bm-${type}.js`;
+    if (event.shiftKey) {
+      // bust cache if Shift key is held
+      fetch(cdn, { cache: 'no-store' })
+        .then(response => response.blob())
+        .then(blob => {
+          const objectURL = URL.createObjectURL(blob);
+          el.src = objectURL;
+          el.type = "text/javascript";
+          document.body.appendChild(el);
+          el.onload = function() {
+            URL.revokeObjectURL(objectURL);
+            el.remove();
+          };
+        });
+    } else {
+      el.src = cdn;
+      document.body.appendChild(el);
+      el.onload = function() {
+        el.remove();
+      };
+    }
   }
 
   /**
