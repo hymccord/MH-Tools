@@ -201,7 +201,6 @@
       if (Object.keys(PARAMS["listings"]).length > 0) {
         const newWindow = window.open("");
         newWindow.location = "https://mhtools.hankmccord.dev/analyzer.html";
-        // newWindow.location = "http://localhost:8000/analyzer.html"; // Debug
         // 200 IQ method to transfer stringified data across origins
         newWindow.name = JSON.stringify(Object.values(PARAMS["listings"]));
       } else {
@@ -245,12 +244,13 @@
     mainDiv.appendChild(resetButton);
     mainDiv.appendChild(backgroundSpan);
 
-    mainDiv.style.backgroundColor = "#F5F5F5";
+    mainDiv.style.color = "var(--d-text, rgba(0,0,0,0.87))";
+    mainDiv.style.backgroundColor = "var(--d-bg, #F2F2F2)";
     mainDiv.style.position = "fixed";
     mainDiv.style.zIndex = "9999";
     mainDiv.style.left = "40%";
     mainDiv.style.top = "88px";
-    mainDiv.style.border = "solid 3px #696969";
+    mainDiv.style.border = "solid 3px var(--d-border, #696969)";
     mainDiv.style.borderRadius = "20px";
     mainDiv.style.padding = "10px";
     mainDiv.style.textAlign = "center";

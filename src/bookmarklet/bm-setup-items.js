@@ -31,17 +31,17 @@
         bases.push("Signature Series Denture Base (Toothless)");
       }
 
+      // Auto-add Naughty List Printing Press Base variants
+      if (bases.indexOf("Naughty List Printing Press Base") >= 0) {
+        bases.push("Naughty List Printing Press Base (Paperless)");
+      }
+
+      /** @type {string[]} */
       var weapons = arr
         .filter(function(el) {
           return el.classification === "weapon" && el.quantity > 0;
         })
         .map(function(el) {
-          // Weapon edge cases
-          // if (el.name === "Ambush Trap") {
-          // return "Ambush";
-          // } else if (el.name === "School of Sharks Trap") {
-          // return "School of Sharks";
-          // }
           return el.name;
         });
 
@@ -74,7 +74,7 @@
             );
           })
           .map(function(el) {
-            return el.power_type_name;
+            return el.name.match(/^Golem Guardian (\w+) Skin Module$/)[1]
           });
 
         for (var el of skins) {
@@ -91,9 +91,18 @@
       combinedObj["weapons"] = weapons;
       combinedObj["charms"] = charms;
 
+      // let url = "https://mhtools.hankmccord.dev/setup.html";
+      // // spawn a tab
+      // var newWindow = window.open(url, '_blank');
+      // if (newWindow) {
+      //   newWindow.postMessage("ping", url);
+      //   newWindow.open
+      // }
       var newWindow = window.open("");
       newWindow.name = JSON.stringify(combinedObj);
       newWindow.location = "https://mhtools.hankmccord.dev/setup.html";
     }
+  }).fail((jqXHR, textStatus, errorThrown) => {
+    console.error(textStatus, errorThrown);
   });
 })();

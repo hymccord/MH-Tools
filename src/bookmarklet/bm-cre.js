@@ -702,7 +702,6 @@
 
   function sendData(parameters) {
     var url = "https://mhtools.hankmccord.dev/cre.html?";
-    // var url = "http://localhost:8000/cre.html?";
 
     for (var key in parameters) {
       var value = encodeURIComponent(parameters[key]);

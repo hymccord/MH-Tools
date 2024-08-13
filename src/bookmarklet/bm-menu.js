@@ -1,21 +1,11 @@
-(function() {
-  var jsonTimestamp = new Promise(function(resolve, reject) {
-    var cdn =
-      "https://mhtools.hankmccord.dev/data/json/bookmarklet-timestamps.json";
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", cdn);
-    xhr.onload = function() {
-      resolve(xhr.responseText);
-    };
-    xhr.onerror = function() {
-      reject(xhr.statusText);
-    };
-    xhr.send();
-  });
+(async function() {
+  let timestamps = {};
+  try {
+    const response = await fetch("https://mhtools.hankmccord.dev/data/json/bookmarklet-timestamps.json", { cache: 'no-cache' });
+    timestamps = await response.json();
+  } catch { }
 
-  jsonTimestamp.then(function(response) {
-    buildUI(JSON.parse(response));
-  });
+  buildUI(timestamps);
 
   function buildUI(timestamps) {
     var mainDiv = document.createElement("div");
@@ -39,11 +29,11 @@
     var titleSpan = document.createElement("span");
     titleSpan.style.fontSize = "15px";
     titleSpan.style.fontWeight = "bold";
-    titleSpan.appendChild(document.createTextNode("MH Tools Bookmarklets"));
+    titleSpan.appendChild(document.createTextNode("Xellis' Beta MH Tools"));
 
     var descriptionSpan = document.createElement("span");
     descriptionSpan.innerHTML =
-      "Version 1.7.0 / Using <a href='https://www.jsdelivr.com/?docs=gh' target='blank'>jsDelivr</a>";
+      "Version 2.0.0 / Using <a href='https://www.jsdelivr.com/?docs=gh' target='blank'>jsDelivr</a>";
     var loaderSpanTimestamp = document.createElement("span");
     loaderSpanTimestamp.style.fontSize = "10px";
     loaderSpanTimestamp.style.fontStyle = "italic";
@@ -51,8 +41,8 @@
 
     var creButton = document.createElement("button", { id: "cre-button" });
     creButton.textContent = "Catch Rate Estimator";
-    creButton.onclick = function() {
-      loadBookmarklet("cre");
+    creButton.onclick = function(event) {
+      loadBookmarklet("cre", event);
     };
     var creSpanTimestamp = document.createElement("span");
     creSpanTimestamp.style.fontSize = "10px";
@@ -61,8 +51,8 @@
 
     var mapButton = document.createElement("button", { id: "map-button" });
     mapButton.textContent = "Map Solver";
-    mapButton.onclick = function() {
-      loadBookmarklet("map");
+    mapButton.onclick = function(event) {
+      loadBookmarklet("map", event);
     };
     var mapSpanTimestamp = document.createElement("span");
     mapSpanTimestamp.style.fontSize = "10px";
@@ -71,8 +61,8 @@
 
     var setupButton = document.createElement("button", { id: "setup-button" });
     setupButton.textContent = "Best Setup: Load Items";
-    setupButton.onclick = function() {
-      loadBookmarklet("setup-items");
+    setupButton.onclick = function(event) {
+      loadBookmarklet("setup-items", event);
     };
     var setupSpanTimestamp = document.createElement("span");
     setupSpanTimestamp.style.fontSize = "10px";
@@ -125,10 +115,22 @@
     craftingSpanTimestamp.style.fontStyle = "italic";
     craftingSpanTimestamp.innerHTML = craftingTime;
 
+    var powersWorksheetButton = document.createElement("button", {
+      id: "powers-worksheet-button"
+    });
+    powersWorksheetButton.textContent = "Powers: Worksheet";
+    powersWorksheetButton.onclick = function(event) {
+      loadBookmarklet("powers-worksheet", event);
+    };
+    var powersWorksheetSpanTimestamp = document.createElement("span");
+    powersWorksheetSpanTimestamp.style.fontSize = "10px";
+    powersWorksheetSpanTimestamp.style.fontStyle = "italic";
+    powersWorksheetSpanTimestamp.innerHTML = powersTime;
+
     var powersButton = document.createElement("button", {
       id: "powers-button"
     });
-    powersButton.textContent = "Powers: Worksheet";
+    powersButton.textContent = "Powers: Supplemental";
     powersButton.onclick = function(event) {
       loadBookmarklet("powers", event);
     };
@@ -150,36 +152,41 @@
     mainDiv.appendChild(creButton);
     mainDiv.appendChild(document.createElement("br"));
     mainDiv.appendChild(creSpanTimestamp);
-    mainDiv.appendChild(document.createElement("br"));
-    mainDiv.appendChild(document.createElement("br"));
-    mainDiv.appendChild(mapButton);
-    mainDiv.appendChild(document.createElement("br"));
-    mainDiv.appendChild(mapSpanTimestamp);
+    // mainDiv.appendChild(document.createElement("br"));
+    // mainDiv.appendChild(document.createElement("br"));
+    // mainDiv.appendChild(mapButton);
+    // mainDiv.appendChild(document.createElement("br"));
+    // mainDiv.appendChild(mapSpanTimestamp);
     mainDiv.appendChild(document.createElement("br"));
     mainDiv.appendChild(document.createElement("br"));
     mainDiv.appendChild(setupButton);
     mainDiv.appendChild(document.createElement("br"));
     mainDiv.appendChild(setupSpanTimestamp);
+    // mainDiv.appendChild(document.createElement("br"));
+    // mainDiv.appendChild(document.createElement("br"));
+    // mainDiv.appendChild(setupFieldsButton);
+    // mainDiv.appendChild(document.createElement("br"));
+    // mainDiv.appendChild(setupFieldsSpanTimestamp);
+    // mainDiv.appendChild(document.createElement("br"));
+    // mainDiv.appendChild(document.createElement("br"));
+    // mainDiv.appendChild(analyzerButton);
+    // mainDiv.appendChild(document.createElement("br"));
+    // mainDiv.appendChild(analyzerSpanTimestamp);
+    // mainDiv.appendChild(document.createElement("br"));
+    // mainDiv.appendChild(document.createElement("br"));
+    // mainDiv.appendChild(crownButton);
+    // mainDiv.appendChild(document.createElement("br"));
+    // mainDiv.appendChild(crownSpanTimestamp);
+    // mainDiv.appendChild(document.createElement("br"));
+    // mainDiv.appendChild(document.createElement("br"));
+    // mainDiv.appendChild(craftingButton);
+    // mainDiv.appendChild(document.createElement("br"));
+    // mainDiv.appendChild(craftingSpanTimestamp);
     mainDiv.appendChild(document.createElement("br"));
     mainDiv.appendChild(document.createElement("br"));
-    mainDiv.appendChild(setupFieldsButton);
+    mainDiv.appendChild(powersWorksheetButton);
     mainDiv.appendChild(document.createElement("br"));
-    mainDiv.appendChild(setupFieldsSpanTimestamp);
-    mainDiv.appendChild(document.createElement("br"));
-    mainDiv.appendChild(document.createElement("br"));
-    mainDiv.appendChild(analyzerButton);
-    mainDiv.appendChild(document.createElement("br"));
-    mainDiv.appendChild(analyzerSpanTimestamp);
-    mainDiv.appendChild(document.createElement("br"));
-    mainDiv.appendChild(document.createElement("br"));
-    mainDiv.appendChild(crownButton);
-    mainDiv.appendChild(document.createElement("br"));
-    mainDiv.appendChild(crownSpanTimestamp);
-    mainDiv.appendChild(document.createElement("br"));
-    mainDiv.appendChild(document.createElement("br"));
-    mainDiv.appendChild(craftingButton);
-    mainDiv.appendChild(document.createElement("br"));
-    mainDiv.appendChild(craftingSpanTimestamp);
+    mainDiv.appendChild(powersWorksheetSpanTimestamp);
     mainDiv.appendChild(document.createElement("br"));
     mainDiv.appendChild(document.createElement("br"));
     mainDiv.appendChild(powersButton);
@@ -189,7 +196,8 @@
     mainDiv.appendChild(document.createElement("br"));
     mainDiv.appendChild(document.createTextNode("(Drag me around on a PC)"));
 
-    mainDiv.style.backgroundColor = "#F5F5F5";
+    mainDiv.style.color = "var(--d-text, rgba(0,0,0,0.87))";
+    mainDiv.style.backgroundColor = "var(--d-bg, #F2F2F2)";
     mainDiv.style.position = "fixed";
     mainDiv.style.zIndex = "9999";
     // Allow customizable left position property
@@ -198,7 +206,7 @@
         ? window.tsitu_loader_offset.concat("%")
         : "80%";
     mainDiv.style.top = "25px";
-    mainDiv.style.border = "solid 3px #696969";
+    mainDiv.style.border = "solid 3px var(--d-border, #696969)";
     mainDiv.style.borderRadius = "20px";
     mainDiv.style.padding = "10px";
     mainDiv.style.textAlign = "center";

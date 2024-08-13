@@ -11,236 +11,22 @@ const trapTypes = [
   "Rift"
 ];
 
-var subcategories = {
-  "Indigenous Mice": [
-    "Misc.",
-    "Shiny Seekers",
-    "Great Gnawnian Games",
-    "Rare Rodent"
-  ],
-  "Dock Dwellers": [
-    "Misc."
-  ],
-  "Mountain Mice": [
-    "Misc."
-  ],
-  "Forest Guild": [
-    "Misc."
-  ],
-  "Lab Experiments": [
-    "Misc."
-  ],
-  "Shadow Clan": [
-    "Misc."
-  ],
-  "Digby Dirt Dwellers": [
-    "Misc."
-  ],
-  "Followers of Furoma": [
-    "Misc."
-  ],
-  "The Forgotten Mice": [
-    "Misc."
-  ],
-  "Aquatic Order": [
-    "Misc."
-  ],
-  "The Elub Tribe": [
-    "Misc."
-  ],
-  "The Nerg Tribe": [
-    "Misc."
-  ],
-  "The Derr Tribe": [
-    "Misc."
-  ],
-  "The Dreaded Horde": [
-    "Misc."
-  ],
-  "Draconic Brood": [
-    "Misc."
-  ],
-  "Balack's Banished": [
-    "Misc."
-  ],
-  "Gauntlet Gladiators": [
-    "Tier 1: Puppet",
-    "Tier 2: Thief",
-    "Tier 3: Melee",
-    "Tier 4: Bard",
-    "Tier 5: Magic",
-    "Tier 6: Noble",
-    "Tier 7: Dust",
-    "Tier 8: The Eclipse"
-  ],
-  "Seasonal Soldiers": [
-    "Spring",
-    "Summer",
-    "Fall",
-    "Winter"
-  ],
-  "Wizard's Pieces": [
-    "Misc.",
-    "Mystic",
-    "Technic"
-  ],
-  "Zurreal's Breed": [
-    "Misc."
-  ],
-  "Icewing's Invasion": [
-    "Misc.",
-    "Bergling",
-    "Tunnel Rat",
-    "Brute",
-    "Bomb Squad",
-    "Zealot",
-    "Icewing's Generals"
-  ],
-  "Wild Bunch": [
-    "Misc.",
-    "Crew",
-    "Ringleader"
-  ],
-  "Train Robbers": [
-    "Passenger",
-    "Depot Worker",
-    "Automice",
-    "Raider",
-    "Fueler"
-  ],
-  "Meteorite Miners": [
-    "Misc.",
-    "Weremice",
-    "Cosmic Critter",
-    "Special",
-    "Dawn Destroyer"
-  ],
-  "The Marching Flame": [
-    "Archer",
-    "Artillery",
-    "Cavalry",
-    "Mage",
-    "Scout",
-    "Warrior",
-    "Support",
-    "Command"
-  ],
-  "Muridae Market Mice": [
-    "Misc."
-  ],
-  "Living Garden Mice": [
-    "Misc."
-  ],
-  "Lost City Mice": [
-    "Misc."
-  ],
-  "Sand Dunes Mice": [
-    "Misc."
-  ],
-  "Queso Canyoneers": [
-    "River Riders",
-    "Spice Mice",
-    "Quarry Quarries",
-    "Cork Collector",
-    "Pressure Builder",
-    "Geyser Hunter"
-  ],
-  "Deep Sea Dwellers": [
-    "Sunken City Citizen",
-    "Finned Fiend",
-    "Coral Corral",
-    "Barnacled Bunch",
-    "Scale Society",
-    "Treasure Troop",
-    "Predator Pack"
-  ],
-  "Fungal Fiends": [
-    "Fungal Fodder",
-    "Gruyere Grazer",
-    "Mineral Muncher",
-    "Gemstone Gorger",
-    "Diamond Devourer"
-  ],
-  "Citizens of Zokor": [
-    "Hallway Wanderer",
-    "Fungal Farmer",
-    "Lost Scholar",
-    "Fealty Sworn Soldier",
-    "Tech Engineer",
-    "Treasure Miser",
-    "Hidden Remnant"
-  ],
-  "Moussu Picchu Inhabitants": [
-    "Fungal Feeder",
-    "Potion Brewer",
-    "Wind Wanderer",
-    "Rain Roamer",
-    "Storm Dragon"
-  ],
-  "Floating Islanders": [
-    "Launch Pad",
-    "Cloud Commoner",
-    "Physical Pummeler",
-    "Shadow Overcaster",
-    "Tactical Dog Fighter",
-    "Atmospheric Arcane",
-    "Floating Forgotten",
-    "Hovering Hydro",
-    "Dashing Dragon",
-    "Lofty Lawbreaker",
-    "Sky Pirate",
-    "Sky Warden",
-    "Sky Paragon",
-    "Palace Protectors",
-    "The Richest",
-    "Empyrean Guard"
-  ],
-  "Foreword Farmers": [
-    "Seed Stowers",
-    "Petulant Pests"
-  ],
-  "Prologue Pond Prowlers": [
-    "Grub Gatherers",
-    "Shallow Swimmers",
-    "Deep Divers"
-  ],
-  "Storytellers": [
-    "Folklore Authors",
-    "Folklore Characters",
-    "Folklore Masterminds"
-  ],
-  "Beanstalkers": [
-    "Budding Baddies",
-    "Dungeon Dwellers",
-    "Ballroom Blitzers",
-    "Ruthless Royals"
-  ],
-  "Rift Walkers": [
-    "Gnawnia Rift",
-    "Burroughs Rift",
-    "Whisker Woods Rift"
-  ],
-  "Rift Stalkers": [
-    "Furoma Rift",
-    "Bristle Woods Rift",
-    "Valour Rift"
-  ],
-  "The Polluted": [
-    "Misc."
-  ],
-  "Event Mice": [
-    "Misc.",
-    "Lunar New Year",
-    "Birthday",
-    "Spring Egg Hunt",
-    "Halloween",
-    "Great Winter Hunt",
-    "New Year",
-    "Prize"
-  ]
-};
-
 window.onload = function() {
+  var child = new AcrossTabs.default.Child({
+      onParentCommunication: parentSays,
+      onParentDisconnect: onParentDisconnect,
+  });
+
+  function parentSays(data) {
+    document.getElementById("across-tabs-status").innerText = "✔";
+    loadData(data);
+    renderTables();
+  }
+
+  function onParentDisconnect() {
+    document.getElementById("across-tabs-status").innerText = "❌";
+  }
+
   loadBookmarkletFromJS(
     BOOKMARKLET_URLS["loader"],
     "bookmarkletLoader",
@@ -252,48 +38,7 @@ window.onload = function() {
     "#bookmarklet"
   );
 
-  // Populate group dropdowns
-  for (cat in subcategories) {
-    $("#group-select").append($("<option>", { value: cat, text: cat }));
-  }
-
-  $("#group-select").change(function() {
-    var selectedGroup = $("#group-select :selected").text();
-    var subgroupz = subcategories[selectedGroup];
-    var subgroupSelect = document.getElementById("subgroup-select");
-    if (subgroupSelect) {
-      subgroupSelect.innerHTML = "";
-      subgroupSelect.appendChild(new Option("All", "All"));
-      if (subgroupz) {
-        for (var i = 0; i < subgroupz.length; i++) {
-          var group = subgroupz[i];
-          subgroupSelect.appendChild(new Option(group, group));
-        }
-      }
-    }
-  });
-
-  // Load saved preferences
-  const prefString = localStorage.getItem("powers-worksheet-prefs");
-  if (prefString) {
-    const prefs = JSON.parse(prefString);
-    $(".shown-type:checkbox").each(function() {
-      if (prefs["types"].indexOf($(this).val()) > -1) {
-        $(this).prop("checked", true);
-      } else {
-        $(this).prop("checked", false);
-      }
-    });
-    $("#group-select").val(prefs["group"]);
-    $("#group-select").change();
-    $("#subgroup-select").val(prefs["subgroup"]);
-    $("#mouse-filter").val(prefs["mouse"]);
-  }
-
-  // Process data from window.name
-  if (window.name && window.name !== "mhworksheet") {
-    loadData(window.name);
-  }
+  loadPreferences();
 
   // Initialize tablesorter
   $.tablesorter.defaults.sortInitialOrder = "desc";
@@ -439,9 +184,11 @@ window.onload = function() {
         $(this).prop("checked", true);
       });
     }
+
+    renderTables();
   });
 
-  $("#reload-button").click(function() {
+  $(".change-rerender").on("change", function () {
     renderTables();
   });
 
@@ -464,14 +211,64 @@ window.onload = function() {
   renderTables();
 };
 
+function loadPreferences() {
+  // Load saved preferences
+  const prefString = localStorage.getItem("powers-worksheet-prefs");
+  if (prefString) {
+    const prefs = JSON.parse(prefString);
+    $(".shown-type:checkbox").each(function() {
+      if (prefs["types"].indexOf($(this).val()) > -1) {
+        $(this).prop("checked", true);
+      } else {
+        $(this).prop("checked", false);
+      }
+    });
+    $("#group-select").val(prefs["group"]);
+    $("#group-select").change();
+    $("#subgroup-select").val(prefs["subgroup"]);
+    $("#mouse-filter").val(prefs["mouse"]);
+  }
+}
+
+// handshakeData is the mousehunt side cache object with mouse groups and subgroups
+function loadHandshakeData(handshakeData) {
+  const groups = handshakeData["data"];
+  // Populate group dropdowns
+  for (groupName in groups) {
+    $("#group-select").append($("<option>", { value: groupName, text: groupName }));
+  }
+
+  $("#group-select").change(function() {
+    var selectedGroup = $("#group-select :selected").text();
+    var subgroupData = groups[selectedGroup];
+    var subgroupSelect = document.getElementById("subgroup-select");
+    if (subgroupSelect) {
+      subgroupSelect.innerHTML = "";
+      if (subgroupData) {
+        for (subgroupName in subgroupData) {
+          // The subgroup data contains a type: string field. Exclude that.
+          if (typeof subgroupData[subgroupName] !== "object") {
+            continue;
+          }
+
+          subgroupSelect.appendChild(new Option(subgroupName, subgroupName));
+        }
+      }
+    }
+  });
+
+  loadPreferences();
+}
+
 /**
  * Grab window.name data and validate it as JSON
  * Cache to localStorage and reset window.name
  */
 function loadData(inputText) {
   try {
-    if (validateJsonData(JSON.parse(inputText))) {
-      processInput(inputText);
+    const data = JSON.parse(inputText);
+    if (validateJsonData(data)) {
+      processInput(data);
       window.name = "mhworksheet"; // Reset name after capturing data
     } else {
       throw new TypeError("JSON format invalid or corrupted");
@@ -489,7 +286,7 @@ function loadData(inputText) {
 function validateJsonData(jsonObj) {
   let returnBool = true;
   for (let key in jsonObj) {
-    if (key !== "mouse-data" && key !== "user-data") {
+    if (key !== "mouse-data" && key !== "user-data" && key !== "handshake-data") {
       returnBool = false;
       break;
     }
@@ -648,12 +445,12 @@ function mouseDataDiff(input, stored) {
                     // If eff is different, HG has tweaked it
                     storedArr = inputArr;
                   } else if (inputArr[1] > storedArr[1]) {
-                    if (inputArr[1] <= storedArr[2]) {
+                    if (inputArr[1] <= storedArr[2] || storedArr[2] === "∞") {
                       // Replace with a bigger lower bound
                       storedArr[1] = inputArr[1];
                     }
                   } else if (inputArr[2] < storedArr[2]) {
-                    if (inputArr[2] >= storedArr[1]) {
+                    if (inputArr[2] >= storedArr[1] || storedArr[1] === "∞") {
                       // Replace with a smaller upper bound
                       storedArr[2] = inputArr[2];
                     }
@@ -683,11 +480,16 @@ function mouseDataDiff(input, stored) {
 
 /**
  * Compare localStorage to incoming and insert/update as necessary
- * @param {string} inputText Stringified JSON from window.name
+ * @param {object} inputObj JSON obj sent from parent tab
  */
-function processInput(inputText) {
-  const inputObj = JSON.parse(inputText);
+function processInput(inputObj) {
   const incomingObj = {};
+
+  if (inputObj["handshake-data"]) {
+    console.log("Handshake data detected");
+    loadHandshakeData(inputObj["handshake-data"]);
+  }
+
   incomingObj["mouse-data"] = inputObj["mouse-data"];
 
   const user = inputObj["user-data"];
@@ -746,7 +548,10 @@ function processInput(inputText) {
 
   if (Math.abs(user["dom-trap-power"] - calculatedPower) > 1) {
     alert(
-      "One or more of the following went wrong when computing total power:\n\n[1] user.trap_power_bonus was not accurately passed in - if you're on the Camp page, try clicking 'Daily', 'Quests', or any of the 5 item togglers underneath your trap image\n[2] Unhandled special location/stage/weapon/base/charm effects - please try again"
+      "One or more of the following went wrong when computing total power:\n\n" +
+      "[1] user.trap_power_bonus was not accurately passed in - if you're on the Camp page, try clicking 'Daily', 'Quests', or any of the 5 item togglers underneath your trap image\n" +
+      "[2] Unhandled special location/stage/weapon/base/charm effects - please try again" +
+      "[3] If using the Prestige Base, set your max umbra floor level in the CRE tool"
     );
     return;
   }
