@@ -478,7 +478,7 @@ function processMap(mapText, toolType) {
   var numCatchesArray; // Crown
   if (toolType === "map") {
     mouseArray = mapText.split("\n");
-    var url = "https://tsitu.github.io/MH-Tools/map.html";
+    var url = "https://mhtools.hankmccord.dev/map.html";
     url += "?mice=" + encodeURIComponent(mouseArray.join("/"));
     $("#mapLink").attr("href", url);
   } else if (toolType === "crown") {
