@@ -1,7 +1,7 @@
 (async function() {
   const CACHE_STORAGE_KEY = "tsitu-powers-worksheet-groups";
   let childWindow;
-  let childId;
+  //let childId;
   let parent;
   let pendingData;
 
@@ -463,16 +463,16 @@
   }
 
   function onHandshakeCallback(tabInfo) {
-    childId = tabInfo.id;
+    //childId = tabInfo.id;
     sendObjectToChild(pendingData);
     pendingData = null;
   }
 
   function onChildDisconnect(tabInfo) {
-    if (tabInfo.id === childId) {
-      childId = null;
+    //if (tabInfo.id === childId) {
+      //childId = null;
       childWindow = null;
-    }
+    //}
   }
 
   // Checks for iterability
