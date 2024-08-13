@@ -35,7 +35,7 @@
      */
 
     /** @type {MouseGroup[]} */
-    const groups = await fetch("https://www.mousehuntgame.com/api/get/mousegroup/all").then(res => res.json());
+    const groups = await fetch("https://www.mousehuntgame.com/api/get/mousegroup/all", { cache: 'no-cache' }).then(res => res.json());
     // transform groups into a map
     /** @type {Object<string, MouseGroup>} */
     const groupMap = groups.reduce((acc, group) => {
@@ -43,7 +43,7 @@
       return acc;
     }, {});
     /** @type {Mouse[]} */
-    const mice = await fetch("https://www.mousehuntgame.com/api/get/mouse/all").then(res => res.json());
+    const mice = await fetch("https://www.mousehuntgame.com/api/get/mouse/all", { cache: 'no-cache' }).then(res => res.json());
 
     /*
     Building a cache object that looks like this:
