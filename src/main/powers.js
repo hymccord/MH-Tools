@@ -125,6 +125,7 @@ window.onload = function() {
       const charm = row.find("td:nth-child(4)").text();
 
       child.sendMessageToParent({
+        id: child.tabId,
         msg: "arm",
         components: {
           trinket: charm,
