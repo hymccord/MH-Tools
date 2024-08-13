@@ -16,7 +16,7 @@
   }
 
   let parent;
-  let childId = null;
+  //let childId = null;
   function continueLoading() {
     parent = new AcrossTabs.default.Parent({
       onHandshakeCallback: onHandshakeCallback,
@@ -29,13 +29,13 @@
   }
 
   function onHandshakeCallback(data) {
-    childId = data.id;
+    //childId = data.id;
   }
 
   function childSays(data) {
     console.log(`child ${data.id} says: ${data.msg}`, data.components);
 
-    if (data.id == childId && data.msg === "arm") {
+    if (data.msg === "arm") {
       hg.utils.TrapControl.disarmTrinket();
       for (const componentClassification of Object.keys(data.components)) {
         const id = ownedItems[componentClassification][data.components[componentClassification]];
@@ -49,7 +49,7 @@
   }
 
   function onChildDisconnect() {
-    childId = null;
+    //childId = null;
   }
 
   ownedItems = {
