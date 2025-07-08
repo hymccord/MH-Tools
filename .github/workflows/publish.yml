@@ -34,11 +34,11 @@ jobs:
         ref: main
 
     - name: Setup Pages
-      uses: actions/configure-pages@v5
+      uses: actions/configure-pages@v4
     - name: Use Node.js
       uses: actions/setup-node@v4
       with:
-        node-version: 21
+        node-version: 22
         cache: npm
     - name: Update npm to latest
       run: npm i --prefer-online --no-fund --no-audit -g npm@latest
@@ -77,12 +77,3 @@ jobs:
         # internal-only alpha, not available yet: https://github.com/actions/deploy-pages/pull/61
         # with:
         #   preview: ${{ github.event_name == 'pull_request_target' }}
-
-      - name: Purge Cloudflare Cache
-        run: |
-          curl --request POST \
-            --url https://api.cloudflare.com/client/v4/zones/356f093ebaea85a546ab8a35593e4820/purge_cache \
-            --header 'Content-Type: application/json' \
-            --header 'Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}' \
-            --header 'X-Auth-Email: ${{ secrets.CLOUDFLARE_EMAIL }}' \
-            --data '{"purge_everything": true}'
