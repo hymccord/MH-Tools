@@ -1,3 +1,4 @@
+// @t
 (function() {
   var jsonTimestamp = new Promise(function(resolve, reject) {
     var cdn =
