@@ -77,7 +77,7 @@
   "bugs": {
     "url": "https://github.com/tsitu/MH-Tools/issues"
   },
-  "homepage": "https://mhtools.hankmccord.dev",
+  "homepage": "http://localhost:8000",
   "license": "Apache-2.0",
   "dependencies": {
     "combined-stream": "^1.0.5",

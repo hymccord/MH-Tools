@@ -1,4 +1,4 @@
-# :mouse: [MH Tools](https://mhtools.hankmccord.dev/) &middot; [![GitHub Pages](https://github.com/tsitu/MH-Tools/actions/workflows/publish.yml/badge.svg)](https://github.com/tsitu/MH-Tools/actions/workflows/publish.yml)
+# :mouse: [MH Tools](http://localhost:8000/) &middot; [![GitHub Pages](https://github.com/tsitu/MH-Tools/actions/workflows/publish.yml/badge.svg)](https://github.com/tsitu/MH-Tools/actions/workflows/publish.yml)
 
 Suite of JavaScript tools for the browser game [MouseHunt](https://www.mousehuntgame.com/).
 
@@ -109,7 +109,7 @@ _Apple Safari_
 
 ---
 
-### :straight_ruler: [Catch Rate Estimator](https://mhtools.hankmccord.dev/cre.html)
+### :straight_ruler: [Catch Rate Estimator](http://localhost:8000/cre.html)
 
 > Calculates catch rate estimates along with points, gold, minimum luck and more.
 
@@ -218,7 +218,7 @@ The following special effects _are included in catch rate calculations_ for both
 
 ---
 
-### :earth_americas: [Map Solver and Mouse Finder](https://mhtools.hankmccord.dev/map.html)
+### :earth_americas: [Map Solver and Mouse Finder](http://localhost:8000/map.html)
 
 > Calculates ideal specific locations to hunt for a given list of mice. Based on Chad's and <a href="http://olf.github.io/mhmapsolver/" target="_blank" rel="noopener">Olaf's</a> solvers.
 
@@ -251,7 +251,7 @@ Cheese filters allow you to easily hide certain cheeses from the Best Locations 
 
 ---
 
-### :trophy: [Best Setup](https://mhtools.hankmccord.dev/setup.html)
+### :trophy: [Best Setup](http://localhost:8000/setup.html)
 
 > Calculates the best trap setup to use for a particular location, sublocation, cheese and/or charm.
 
@@ -265,7 +265,7 @@ To check whether all of your items have properly loaded, you may want to open up
 
 ---
 
-### :chart_with_upwards_trend: [Marketplace Analyzer](https://mhtools.hankmccord.dev/analyzer.html)
+### :chart_with_upwards_trend: [Marketplace Analyzer](http://localhost:8000/analyzer.html)
 
 > Displays all of your marketplace transactions along with some useful aggregations.
 
@@ -283,7 +283,7 @@ To check whether all of your items have properly loaded, you may want to open up
 
 ---
 
-### :crown: [Crown Solver](https://mhtools.hankmccord.dev/crown.html)
+### :crown: [Crown Solver](http://localhost:8000/crown.html)
 
 > Calculates the best locations to achieve crowns of given mouse breeds based on number of catches.
 
@@ -301,7 +301,7 @@ This spin-off of the Map Solver inspired by [vsong](https://github.com/vsong) fa
 
 ---
 
-### :hammer: [Crafting Wizard](https://mhtools.hankmccord.dev/crafting.html)
+### :hammer: [Crafting Wizard](http://localhost:8000/crafting.html)
 
 > Calculates craftable quantities and missing materials for recipes based on your inventory data.
 
@@ -311,7 +311,7 @@ This spin-off of the Map Solver inspired by [vsong](https://github.com/vsong) fa
 
 ---
 
-### :mag: [Trap Setup Powers](https://mhtools.hankmccord.dev/powers.html)
+### :mag: [Trap Setup Powers](http://localhost:8000/powers.html)
 
 > Shows the weapons, bases, and charms that match a specified power range and type. Synergizes with the 'Best Setup: Load Items' bookmarklet to use only items you own.
 
@@ -337,7 +337,7 @@ The recommended way to use this tool is to focus on a couple groups of mice and 
 
 ---
 
-### :bookmark_tabs: [CRE Tabs](https://mhtools.hankmccord.dev/tabs.html)
+### :bookmark_tabs: [CRE Tabs](http://localhost:8000/tabs.html)
 
 > Provides a convenient way to spin up multiple independent instances of the CRE tool. Each instance is located in its own `<iframe>` and setups are easily copy-pasted between tabs. Great for quickly comparing setups that are mostly identical.
 

@@ -530,7 +530,7 @@
           // 200 IQ method to transfer stringified data across origins
           newWindow.name = JSON.stringify(outputObj);
           newWindow.location =
-            "https://mhtools.hankmccord.dev/powers-worksheet.html";
+            "http://localhost:8000/powers-worksheet.html";
           // newWindow.location = "http://localhost:8000/powers-worksheet.html";
         }
       });
