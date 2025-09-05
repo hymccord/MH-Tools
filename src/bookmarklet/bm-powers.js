@@ -25,7 +25,7 @@
     }
     parent = new AcrossTabs.default.Parent(parentConfig);
     parent.openNewTab({
-      url: "https://tsitu.github.io/MH-Tools/powers.html"
+      url: "https://mhtools.hankmccord.dev/powers.html"
     });
   }
 

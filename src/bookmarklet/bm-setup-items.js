@@ -87,7 +87,7 @@
 
       var newWindow = window.open("");
       newWindow.name = JSON.stringify(combinedObj);
-      newWindow.location = "https://tsitu.github.io/MH-Tools/setup.html";
+      newWindow.location = "https://mhtools.hankmccord.dev/setup.html";
     }
   }).fail((jqXHR, textStatus, errorThrown) => {
     console.error(textStatus, errorThrown);

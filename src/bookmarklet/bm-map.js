@@ -58,7 +58,7 @@
       }
 
       var mice = getUncaughtMapMice(data.treasure_map);
-      var url = "https://tsitu.github.io/MH-Tools/map.html";
+      var url = "https://mhtools.hankmccord.dev/map.html";
       url += "?mice=" + encodeURIComponent(mice.join("/"));
       var newWindow = window.open("", "mhmapsolver");
       newWindow.location = url;
