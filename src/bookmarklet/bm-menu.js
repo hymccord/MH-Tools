@@ -1,7 +1,7 @@
 (async function() {
   let timestamps = {};
   try {
-    const response = await fetch("https://mhtools.hankmccord.dev/data/json/bookmarklet-timestamps.json");
+    const response = await fetch("http://localhost:8000/data/json/bookmarklet-timestamps.json");
     timestamps = await response.json();
   } catch { }
 
@@ -186,7 +186,7 @@
   function loadBookmarklet(type) {
     var el = document.createElement("script");
     var cdn =
-      `https://mhtools.hankmccord.dev/src/bookmarklet/bm-${type}.js`;
+      `http://localhost:8000/src/bookmarklet/bm-${type}.js`;
     el.src = cdn;
     document.body.appendChild(el);
     el.onload = function() {

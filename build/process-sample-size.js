@@ -19,11 +19,11 @@ const puppeteer = require("puppeteer");
 
 // GitHub-served raw JSON file URLs
 const overallURL =
-  "https://mhtools.hankmccord.dev/data/json/sample-summary-overall.json";
+  "http://localhost:8000/data/json/sample-summary-overall.json";
 const conciseURL =
-  "https://mhtools.hankmccord.dev/data/json/sample-summary-concise.json";
+  "http://localhost:8000/data/json/sample-summary-concise.json";
 const detailedURL =
-  "https://mhtools.hankmccord.dev/data/json/sample-summary-detailed.json";
+  "http://localhost:8000/data/json/sample-summary-detailed.json";
 
 /**
  * Returns ideal sample size for 10% relative uncertainty at 95% level
