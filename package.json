@@ -61,7 +61,7 @@
     "mouse-data": "node build/process-mouse-data.js",
     "population": "node build/process-population.js",
     "trap-data": "node build/process-trap-data.js",
-    "build": "npm-run-all --parallel mouse-data population trap-data",
+    "build": "npm-run-all --parallel mouse-data population trap-data minify",
     "\n-- MISC --": "",
     "mouse-stats": "node data/mouse-stats",
     "serve": "http-server -p 8000 -c-1 --cors",
