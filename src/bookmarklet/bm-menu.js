@@ -33,7 +33,7 @@
 
     var descriptionSpan = document.createElement("span");
     descriptionSpan.innerHTML =
-      "Version 1.7.0 / Using <a href='https://www.jsdelivr.com/?docs=gh' target='blank'>jsDelivr</a>";
+      "Version 1.8.0 / Using <a href='https://www.jsdelivr.com/?docs=gh' target='blank'>jsDelivr</a>";
     var loaderSpanTimestamp = document.createElement("span");
     loaderSpanTimestamp.style.fontSize = "10px";
     loaderSpanTimestamp.style.fontStyle = "italic";
@@ -115,10 +115,22 @@
     craftingSpanTimestamp.style.fontStyle = "italic";
     craftingSpanTimestamp.innerHTML = craftingTime;
 
+    var powersWorksheetButton = document.createElement("button", {
+      id: "powers-worksheet-button"
+    });
+    powersWorksheetButton.textContent = "Powers: Worksheet";
+    powersWorksheetButton.onclick = function() {
+      loadBookmarklet("powers-worksheet");
+    };
+    var powersWorksheetSpanTimestamp = document.createElement("span");
+    powersWorksheetSpanTimestamp.style.fontSize = "10px";
+    powersWorksheetSpanTimestamp.style.fontStyle = "italic";
+    powersWorksheetSpanTimestamp.innerHTML = powersTime;
+
     var powersButton = document.createElement("button", {
       id: "powers-button"
     });
-    powersButton.textContent = "Powers: Worksheet";
+    powersButton.textContent = "Powers: Supplemental";
     powersButton.onclick = function() {
       loadBookmarklet("powers");
     };
@@ -170,6 +182,11 @@
     mainDiv.appendChild(craftingButton);
     mainDiv.appendChild(document.createElement("br"));
     mainDiv.appendChild(craftingSpanTimestamp);
+    mainDiv.appendChild(document.createElement("br"));
+    mainDiv.appendChild(document.createElement("br"));
+    mainDiv.appendChild(powersWorksheetButton);
+    mainDiv.appendChild(document.createElement("br"));
+    mainDiv.appendChild(powersWorksheetSpanTimestamp);
     mainDiv.appendChild(document.createElement("br"));
     mainDiv.appendChild(document.createElement("br"));
     mainDiv.appendChild(powersButton);
