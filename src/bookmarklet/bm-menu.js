@@ -120,11 +120,6 @@
       powersSpanTimestamp, 'br', 'br',
       "(Drag me around on a PC)"
     );
-    mainDiv.appendChild(powersWorksheetButton);
-    mainDiv.appendChild(document.createElement("br"));
-    mainDiv.appendChild(powersWorksheetSpanTimestamp);
-    mainDiv.appendChild(document.createElement("br"));
-    mainDiv.appendChild(document.createElement("br"));
 
     mainDiv.style.color = "var(--d-text, rgba(0,0,0,0.87))";
     mainDiv.style.backgroundColor = "var(--d-bg, #F2F2F2)";
