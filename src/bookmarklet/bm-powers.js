@@ -30,11 +30,11 @@
   }
 
   function onHandshakeCallback(data) {
-    // console.debug("bm-powers: Handshake from child:", data);
+    console.debug("bm-powers: Handshake from child:", data);
   }
 
   function onChildCommunication(data) {
-    // console.debug(`bm-powers: child ${data.id} says: ${data.msg}`, data.components);
+    console.debug(`bm-powers: child ${data.id} says: ${data.msg}`, data.components);
 
     if (data.msg === "arm") {
       hg.utils.TrapControl.disarmTrinket();

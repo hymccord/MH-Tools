@@ -23,13 +23,13 @@ window.onload = function() {
   let child = new AcrossTabs.default.Child(childConfig);
 
   function onParentDisconnect() {
-    // console.debug("power-worksheet: I'm now an orphan 😢");
+    console.debug("power-worksheet: I'm now an orphan 😢");
 
     $('#across-tabs-status').text('❌');
   }
 
   function onParentCommunication(data) {
-    // console.debug("powers-worksheet: Parent says:", data);
+    console.debug("powers-worksheet: Parent says:", data);
     $('#across-tabs-status').text('✅');
     loadData(data);
     renderTables();
@@ -47,7 +47,7 @@ window.onload = function() {
   );
 
   startPopulationLoad("data/json/populations-cre-setup.json", "setup", () => {
-    // console.debug("powers: All data loaded, AcrossTabs initialized");
+    console.debug("powers: All data loaded, AcrossTabs initialized");
     child.init();
   });
 

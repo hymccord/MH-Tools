@@ -34,18 +34,18 @@ window.onload = function() {
   let child = new AcrossTabs.default.Child(childConfig);
 
   function onInitialize() {
-    // console.debug('powers: Parent sent handshake. Ready to arm components');
+    console.debug('powers: Parent sent handshake. Ready to arm components');
     connectedToMouseHunt = true;
     $('#across-tabs-status').text('✅');
     $('.armButton').css({"background-color": "green"});
   }
 
   function onParentCommunication(data) {
-    // console.debug(`powers: Parent says: ${data}`);
+    console.debug(`powers: Parent says: ${data}`);
   }
 
   function onParentDisconnect() {
-    // console.debug("powers: I'm now an orphan 😢");
+    console.debug("powers: I'm now an orphan 😢");
 
     connectedToMouseHunt = false;
     $('#across-tabs-status').text('❌');
@@ -59,7 +59,7 @@ window.onload = function() {
   );
 
   startPopulationLoad("data/json/populations-cre-setup.json", "setup", () => {
-    // console.debug("powers: All data loaded, AcrossTabs initialized");
+    console.debug("powers: All data loaded, AcrossTabs initialized");
     child.init();
   });
 
@@ -203,7 +203,7 @@ window.onload = function() {
 };
 
 function allDataLoaded() {
-  // console.debug("powers: All data loaded, AcrossTabs initialized");
+  console.debug("powers: All data loaded, AcrossTabs initialized");
   child.init();
 }
 

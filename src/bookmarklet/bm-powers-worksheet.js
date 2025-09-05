@@ -460,7 +460,7 @@
   }
 
   function onHandshakeCallback(tabInfo) {
-    // console.debug("bm-powers: Handshake from child:", tabInfo);
+    console.debug("bm-powers: Handshake from child:", tabInfo);
 
     sendObjectToChild(pendingData);
 
@@ -468,11 +468,11 @@
   }
 
   function onChildDisconnect(tabInfo) {
-    // console.debug("bm-powers: Child disconnected");
+    console.debug("bm-powers: Child disconnected");
   }
 
   function onChildCommunication(data) {
-    // console.debug("bm-powers: Child communication received:", data);
+    console.debug("bm-powers: Child communication received:", data);
   }
 
   function getOpenChildren() {
