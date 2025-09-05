@@ -25,12 +25,12 @@ window.onload = function() {
   function onParentDisconnect() {
     // console.debug("power-worksheet: I'm now an orphan 😢");
 
-    document.getElementById("across-tabs-status").innerText = "❌";
+    $('#across-tabs-status').text('❌');
   }
 
   function onParentCommunication(data) {
     // console.debug("powers-worksheet: Parent says:", data);
-    document.getElementById("across-tabs-status").innerText = "✔";
+    $('#across-tabs-status').text('✅');
     loadData(data);
     renderTables();
   }

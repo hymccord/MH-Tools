@@ -36,6 +36,7 @@ window.onload = function() {
   function onInitialize() {
     // console.debug('powers: Parent sent handshake. Ready to arm components');
     connectedToMouseHunt = true;
+    $('#across-tabs-status').text('✅');
     $('.armButton').css({"background-color": "green"});
   }
 
@@ -47,6 +48,7 @@ window.onload = function() {
     // console.debug("powers: I'm now an orphan 😢");
 
     connectedToMouseHunt = false;
+    $('#across-tabs-status').text('❌');
     $('.armButton').css({"background-color": "red"});
   }
 

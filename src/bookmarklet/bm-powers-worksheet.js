@@ -593,7 +593,7 @@
     temMode.setAttribute("value", 1);
     var temModeLabel = document.createElement("label")
     temModeLabel.setAttribute("for", "temMode");
-    temModeLabel.innerHTML = "TEM Mode";
+    temModeLabel.innerHTML = "Use TEM (not Mice page)";
 
     var acrossTabsStatusSpan = document.createElement("span");
     acrossTabsStatusSpan.innerHTML = "Worksheet Tab Connection:";
