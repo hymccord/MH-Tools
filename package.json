@@ -65,8 +65,7 @@
     "trap-data": "node build/process-trap-data.js",
     "build": "npm-run-all --parallel mouse-data population trap-data minify",
     "\n-- MISC --": "",
-    "serve": "http-server -p 8000 -c-1 --cors",
-    "postinstall": "patch-package"
+    "serve": "http-server -p 8000 -c-1 --cors"
   },
   "repository": {
     "type": "git",
@@ -90,6 +89,7 @@
     "uglify-js": "^3.19.3"
   },
   "devDependencies": {
+    "@mhct/db-client": "^0.1.4",
     "@octokit/auth-action": "^2.0.4",
     "@octokit/rest": "^19.0.11",
     "bluebird": "^3.5.1",
@@ -100,13 +100,10 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-prettier": "^2.6.0",
     "http-server": "^0.11.1",
-    "jacksmhtools-client": "^0.1.2",
     "js-combinatorics": "^0.5.2",
     "json2csv": "^3.11.5",
     "lodash": "^4.17.15",
-    "mysql2": "^3.0.1",
     "npm-run-all": "^4.1.5",
-    "patch-package": "^6.5.1",
     "prettier": "^1.18.2",
     "uglifyjs-folder": "^3.3.0"
   }
