@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const jt = require("jacksmhtools-client");
+const mhct = require("@mhct/db-client");
 const utils = require("./_utils");
 
 if (process.argv.length < 3) {
@@ -23,8 +23,8 @@ Promise
     if (!setup.process) {
       setup.process = function (item) {
         console.error("requesting", JSON.stringify(item.vars));
-        return jt
-          .getSAEncounterRateData(item.vars, item.opts)
+        return mhct
+          .getSAEncounterRateData(item.vars, item.opts ?? setup.opts)
           .filter(function (item) {
             return item.sample > 100;
           })
