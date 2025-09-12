@@ -119,7 +119,7 @@ async function startPopulationLoad(populationJsonUrl, type, onComplete) {
   }
 
   function tryCheckLoadState(type) {
-    if (typeof checkLoadState === 'function') {
+    if (typeof checkLoadState !== 'undefined' && typeof checkLoadState === 'function') {
       checkLoadState(type);
     }
   }

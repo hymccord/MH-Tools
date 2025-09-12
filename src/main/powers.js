@@ -26,7 +26,7 @@ window.onload = function() {
   const childConfig = {
     shouldInitImmediately: false,
     origin: "https://www.mousehuntgame.com",
-    // onReady: () => console.debug("powers: Child ready"),
+    onReady: () => console.debug("powers: Child ready"),
     onInitialize: onInitialize,
     onParentDisconnect: onParentDisconnect,
     onParentCommunication: onParentCommunication,
@@ -134,14 +134,15 @@ window.onload = function() {
     $(".armButton").css(`background-color: ${connectedToMouseHunt ? 'green' : 'red'}`);
     $(".armButton").click(function() {
       const row = $(this).closest("tr");
-      const base = row.find("td:nth-child(2)").text();
-      const trap = row.find("td:nth-child(3)").text();
-      const charm = row.find("td:nth-child(4)").text();
+      const base = row.data("base");
+      const trap = row.data("weapon");
+      const charm = row.data("charm");
 
       child.sendMessageToParent({
-        //id: child.tabId,
+        component: "supplemental",
+        action: "arm",
         msg: "arm",
-        components: {
+        payload: {
           trinket: charm,
           weapon: trap,
           base: base,
@@ -504,7 +505,7 @@ function generateResults() {
 
           if (precisePower >= powerMin && precisePower <= powerMax) {
             const roundedPower = Math.ceil(precisePower);
-            resultsHTML += `<tr><td><button class='armButton' style="background-color: ${connectedToMouseHunt ? 'green' : 'red'};">Arm!</button></td><td>${precisePower}</td><td>${base}</td><td>${weapon}</td><td>${charm}</td><td>${powerType}</td><td>${roundedPower}</td></tr>`;
+            resultsHTML += `<tr data-base="${base}" data-weapon="${weapon}" data-charm="${charm}"><td><button class='armButton' style="background-color: ${connectedToMouseHunt ? 'green' : 'red'};">Arm!</button></td><td>${precisePower}</td><td>${base}</td><td>${weapon}</td><td>${charm}</td><td>${powerType}</td><td>${roundedPower}</td></tr>`;
             if (typeof countPer[precisePower] === "undefined") {
               countPer[precisePower] = 1;
             } else {
@@ -575,7 +576,7 @@ function generateResults() {
               if (powerType === "Nanny") {
                 powerType = "Parental";
               }
-              resultsHTML += `<tr><td>${precisePower}</td><td>${base}</td><td>${weapon}</td><td>${charm}</td><td>${powerType}</td><td>${roundedPower}</td><td><button class='armButton' style="background-color: ${connectedToMouseHunt ? 'green' : 'red'};">Arm!</button></td></tr>`;
+              resultsHTML += `<tr data-base="${base}" data-weapon="${weapon}" data-charm="${charm}"><td><button class='armButton' style="background-color: ${connectedToMouseHunt ? 'green' : 'red'};">Arm!</button></td><td>${precisePower}</td><td>${base}</td><td>${weapon}</td><td>${charm}</td><td>${powerType}</td><td>${roundedPower}</td></tr>`;
               if (typeof countPer[precisePower] === "undefined") {
                 countPer[precisePower] = 1;
               } else {

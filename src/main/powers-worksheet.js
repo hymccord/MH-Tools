@@ -15,23 +15,33 @@ window.onload = function() {
   const childConfig = {
     shouldInitImmediately: false,
     origin: "https://www.mousehuntgame.com",
-    // onReady: () => console.debug("powers-worksheet: Child ready"),
-    // onInitialized: () => console.debug("powers-worksheet: Child initialized"),
+    onReady: () => console.debug("powers-worksheet: Child ready"),
+    onInitialize: onInitialize,
     onParentDisconnect: onParentDisconnect,
     onParentCommunication: onParentCommunication,
   }
   let child = new AcrossTabs.default.Child(childConfig);
 
+  function onInitialize() {
+    child.sendMessageToParent({ component: "worksheet", action: "ready" });
+    $('#across-tabs-status').text('✅');
+  }
+
   function onParentDisconnect() {
     // console.debug("power-worksheet: I'm now an orphan 😢");
-
     $('#across-tabs-status').text('❌');
   }
 
   function onParentCommunication(data) {
+    const component = data.component;
+    const action = data.action;
+
+    if (component !== "worksheet") {
+      return;
+    }
+
+    loadData(data.payload);
     // console.debug("powers-worksheet: Parent says:", data);
-    $('#across-tabs-status').text('✅');
-    loadData(data);
     renderTables();
   }
 
@@ -276,11 +286,10 @@ function loadHandshakeData(handshakeData) {
 /**
  * Load data passed from parent tab via AcrossTabs
  */
-function loadData(inputText) {
+function loadData(messagePayload) {
   try {
-    const data = JSON.parse(inputText);
-    if (validateJsonData(data)) {
-      processInput(data);
+    if (validateJsonData(messagePayload)) {
+      processInput(messagePayload);
     } else {
       throw new TypeError("JSON format invalid or corrupted");
     }

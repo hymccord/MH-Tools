@@ -79,22 +79,10 @@
     powersWorksheetSpanTimestamp.style.fontStyle = "italic";
     powersWorksheetSpanTimestamp.innerHTML = powersTime;
 
-    var powersWorksheetButton = document.createElement("button", {
-      id: "powers-worksheet-button"
-    });
-    powersWorksheetButton.textContent = "Powers: Worksheet";
-    powersWorksheetButton.onclick = function() {
-      loadBookmarklet("powers-worksheet");
-    };
-    var powersWorksheetSpanTimestamp = document.createElement("span");
-    powersWorksheetSpanTimestamp.style.fontSize = "10px";
-    powersWorksheetSpanTimestamp.style.fontStyle = "italic";
-    powersWorksheetSpanTimestamp.innerHTML = powersTime;
-
     var powersButton = document.createElement("button", {
       id: "powers-button"
     });
-    powersButton.textContent = "Powers: Supplemental";
+    powersButton.textContent = "Powers: Worksheet";
     powersButton.onclick = function() {
       loadBookmarklet("powers");
     };
@@ -126,8 +114,6 @@
       setupSpanTimestamp, 'br', 'br',
       setupFieldsButton, 'br',
       setupFieldsSpanTimestamp, 'br', 'br',
-      powersWorksheetButton, 'br',
-      powersWorksheetSpanTimestamp, 'br', 'br',
       powersButton, 'br',
       powersSpanTimestamp, 'br', 'br',
       "(Drag me around on a PC)"
