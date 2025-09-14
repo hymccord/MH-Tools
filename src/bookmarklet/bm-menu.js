@@ -1,22 +1,11 @@
-// @t
-(function() {
-  var jsonTimestamp = new Promise(function(resolve, reject) {
-    var cdn =
-      "https://mhtools.hankmccord.dev/data/json/bookmarklet-timestamps.json";
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", cdn);
-    xhr.onload = function() {
-      resolve(xhr.responseText);
-    };
-    xhr.onerror = function() {
-      reject(xhr.statusText);
-    };
-    xhr.send();
-  });
+(async function() {
+  let timestamps = {};
+  try {
+    const response = await fetch("https://mhtools.hankmccord.dev/data/json/bookmarklet-timestamps.json");
+    timestamps = await response.json();
+  } catch { }
 
-  jsonTimestamp.then(function(response) {
-    buildUI(JSON.parse(response));
-  });
+  buildUI(timestamps);
 
   function buildUI(timestamps) {
     var mainDiv = document.createElement("div");
@@ -40,55 +29,36 @@
 
     var descriptionSpan = document.createElement("span");
     descriptionSpan.innerHTML =
-      "Version 1.7.0 / Using <a href='https://www.jsdelivr.com/?docs=gh' target='blank'>jsDelivr</a>";
-    var loaderSpanTimestamp = document.createElement("span");
-    loaderSpanTimestamp.style.fontSize = "10px";
-    loaderSpanTimestamp.style.fontStyle = "italic";
-    loaderSpanTimestamp.innerHTML = loaderTime;
+      "Version 1.8.0 / Using <a href='https://www.jsdelivr.com/?docs=gh' target='blank'>jsDelivr</a>";
 
-    var creButton = document.createElement("button", { id: "cre-button" });
-    creButton.textContent = "Catch Rate Estimator";
-    creButton.onclick = function() {
-      loadBookmarklet("cre");
-    };
-    var creSpanTimestamp = document.createElement("span");
-    creSpanTimestamp.style.fontSize = "10px";
-    creSpanTimestamp.style.fontStyle = "italic";
-    creSpanTimestamp.innerHTML = creTime;
+    // Helper function to create styled timestamp span
+    function createTimestampSpan(timeText) {
+      const span = document.createElement("span");
+      span.style.fontSize = "10px";
+      span.style.fontStyle = "italic";
+      span.innerHTML = timeText;
+      return span;
+    }
 
-    var setupButton = document.createElement("button", { id: "setup-button" });
-    setupButton.textContent = "Best Setup: Load Items";
-    setupButton.onclick = function() {
-      loadBookmarklet("setup-items");
-    };
-    var setupSpanTimestamp = document.createElement("span");
-    setupSpanTimestamp.style.fontSize = "10px";
-    setupSpanTimestamp.style.fontStyle = "italic";
-    setupSpanTimestamp.innerHTML = setupItTime;
+    // Helper function to create button with its timestamp span
+    function createBookmarkletButton(text, type, timestamp) {
+      const button = document.createElement("button");
+      button.textContent = text;
+      button.onclick = function() {
+        loadBookmarklet(type);
+      };
+      return {
+        button,
+        timestampSpan: createTimestampSpan(timestamp)
+      };
+    }
 
-    var setupFieldsButton = document.createElement("button", {
-      id: "setup-fields-button"
-    });
-    setupFieldsButton.textContent = "Best Setup: Fields";
-    setupFieldsButton.onclick = function() {
-      loadBookmarklet("setup-fields");
-    };
-    var setupFieldsSpanTimestamp = document.createElement("span");
-    setupFieldsSpanTimestamp.style.fontSize = "10px";
-    setupFieldsSpanTimestamp.style.fontStyle = "italic";
-    setupFieldsSpanTimestamp.innerHTML = setupFiTime;
+    const loaderSpanTimestamp = createTimestampSpan(loaderTime);
 
-    var powersButton = document.createElement("button", {
-      id: "powers-button"
-    });
-    powersButton.textContent = "Powers: Worksheet";
-    powersButton.onclick = function() {
-      loadBookmarklet("powers");
-    };
-    var powersSpanTimestamp = document.createElement("span");
-    powersSpanTimestamp.style.fontSize = "10px";
-    powersSpanTimestamp.style.fontStyle = "italic";
-    powersSpanTimestamp.innerHTML = powersTime;
+    const cre = createBookmarkletButton("Catch Rate Estimator", "cre", creTime);
+    const setupItems = createBookmarkletButton("Best Setup: Load Items", "setup-items", setupItTime);
+    const setupFields = createBookmarkletButton("Best Setup: Fields", "setup-fields", setupFiTime);
+    const powers = createBookmarkletButton("Powers: Worksheet", "powers", powersTime);
 
     function addElements(...elements) {
       elements.forEach(el => {
@@ -107,18 +77,19 @@
       titleSpan, 'br',
       descriptionSpan, 'br',
       loaderSpanTimestamp, 'br', 'br',
-      creButton, 'br',
-      creSpanTimestamp, 'br', 'br',
-      setupButton, 'br',
-      setupSpanTimestamp, 'br', 'br',
-      setupFieldsButton, 'br',
-      setupFieldsSpanTimestamp, 'br', 'br',
-      powersButton, 'br',
-      powersSpanTimestamp, 'br', 'br',
+      cre.button, 'br',
+      cre.timestampSpan, 'br', 'br',
+      setupItems.button, 'br',
+      setupItems.timestampSpan, 'br', 'br',
+      setupFields.button, 'br',
+      setupFields.timestampSpan, 'br', 'br',
+      powers.button, 'br',
+      powers.timestampSpan, 'br', 'br',
       "(Drag me around on a PC)"
     );
 
-    mainDiv.style.backgroundColor = "#F5F5F5";
+    mainDiv.style.color = "var(--d-text, rgba(0,0,0,0.87))";
+    mainDiv.style.backgroundColor = "var(--d-bg, #F2F2F2)";
     mainDiv.style.position = "fixed";
     mainDiv.style.zIndex = "9999";
     // Allow customizable left position property
@@ -127,7 +98,7 @@
         ? window.tsitu_loader_offset.concat("%")
         : "80%";
     mainDiv.style.top = "25px";
-    mainDiv.style.border = "solid 3px #696969";
+    mainDiv.style.border = "solid 3px var(--d-border, #696969)";
     mainDiv.style.borderRadius = "20px";
     mainDiv.style.padding = "10px";
     mainDiv.style.textAlign = "center";
