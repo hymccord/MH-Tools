@@ -519,7 +519,7 @@
       }
 
       return efQuest.rapids.zone_data.name.replace(" Zone", "");
-    } else if (userLocation == "Ice Fortress") {
+    } else if (userLocation === "Ice Fortress") {
       const ifQuest = userQuests["QuestIceFortress"];
       if (ifQuest.shield.is_broken === true) {
         return "Boss";
