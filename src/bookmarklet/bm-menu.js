@@ -56,12 +56,8 @@
     const loaderSpanTimestamp = createTimestampSpan(loaderTime);
 
     const cre = createBookmarkletButton("Catch Rate Estimator", "cre", creTime);
-    const map = createBookmarkletButton("Map: Load Areas", "map", mapTime);
     const setupItems = createBookmarkletButton("Best Setup: Load Items", "setup-items", setupItTime);
     const setupFields = createBookmarkletButton("Best Setup: Fields", "setup-fields", setupFiTime);
-    const analyzer = createBookmarkletButton("Marketplace Analyzer", "analyzer", analyzerTime);
-    const crown = createBookmarkletButton("Crown Calculator", "crown", crownTime);
-    const crafting = createBookmarkletButton("Crafting: Calculator", "crafting", craftingTime);
     const powers = createBookmarkletButton("Powers: Worksheet", "powers", powersTime);
 
     function addElements(...elements) {
