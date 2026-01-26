@@ -74,15 +74,6 @@ const fantasy = [
   "Rinsebreeze",
 ];
 
-const weavers = [
-  "Adventure Weaver",
-  "Comedy Weaver",
-  "Romance Weaver",
-  "Suspense Weaver",
-  "Tragedy Weaver",
-  "Ultimate Mythweaver",
-];
-
 const romance = [
   "Dilemma Woodmouse",
   "Lady Blatherly",
@@ -247,7 +238,8 @@ module.exports = {
       { location: "Conclusion Cliffs", cheese: "Deus Ex Maconnais", stage: "Writing Romance", mouse: "Dilemma Woodmouse", attraction: "100%", sample: 1 },
       { location: "Conclusion Cliffs", cheese: "Deus Ex Maconnais", stage: "Writing Suspense", mouse: "Becca de Frost", attraction: "100%", sample: 1 },
       { location: "Conclusion Cliffs", cheese: "Deus Ex Maconnais", stage: "Writing Tragedy", mouse: "Aching Heels", attraction: "100%", sample: 1 },
-    ])
+    ]);
+
     // Postscript AR pool varies
     data.push(...[
       { location: "Conclusion Cliffs", cheese: "Plotting Paneer/Storied Saga/Deus Ex Maconnais", stage: "Postscript", mouse: "Adventure Weaver", attraction: "20%", sample: 1 },
@@ -279,6 +271,7 @@ module.exports = {
       }
       return parseFloat(b.attraction) - parseFloat(a.attraction);
     });
+
     return data;
   },
 };
