@@ -678,7 +678,9 @@ function findEff(mouseName) {
  * @return {float}
  */
 function findBaselineAttraction(cheese) {
-  return baselineAttArray[cheese];
+  // Most cheeses have a baseline attraction of 1.0
+  // Exceptions are listed here
+  return baselineAttArray[cheese] ?? 1.0;
 }
 
 /**
