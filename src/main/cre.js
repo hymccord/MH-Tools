@@ -887,7 +887,7 @@ function baseChanged() {
 
   // Handle Prestige Base input
   $("#prestige-umbra-floor").hide();
-  if (baseName === "Prestige Base") {
+  if (baseName === "Prestige Base" || baseName === "Rift Hailstone Singularity Base") {
     $("#prestige-umbra-floor").show(500);
   }
 }

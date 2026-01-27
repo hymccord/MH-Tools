@@ -258,7 +258,7 @@ function calculateTrapSetup(skipDisp) {
       calcGolemStats(golemCharge);
     }
 
-    if (baseName === "Prestige Base") calcPrestigeStats();
+    if (baseName === "Prestige Base" || baseName === "Rift Hailstone Singularity Base") calcPrestigeStats();
 
     // Handle special bonuses that are based on location
     locationSpecificEffects();
