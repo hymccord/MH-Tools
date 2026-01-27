@@ -246,7 +246,7 @@ function calcPower(weapon, base, charm, bonusObj) {
   rawPowerBonus +=
     weaponsArray[weapon][2] + basesArray[base][1] + bonusObj["event"];
 
-  if (base == "Prestige Base") {
+  if (base == "Prestige Base" || base == "Rift Hailstone Singularity Base") {
     var umbraFloor = parseInt(localStorage.getItem("tsitu-umbra-floor")) || 0;
     rawPower += umbraFloor * 20;
   }

@@ -701,7 +701,7 @@
   }
 
   // Prestige Base highest floor check
-  if (urlParams["base"] === "Prestige Base") {
+  if (urlParams["base"] === "Prestige Base" || urlParams["base"] === "Rift Hailstone Singularity Base") {
     document
       .querySelectorAll(".campPage-trap-trapStat-mathRow-name")
       .forEach(el => {
