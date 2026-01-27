@@ -7,7 +7,7 @@ const path = require("path");
 const requestAsync = util.promisify(request);
 
 const goldPointsURL =
-  "https://mhtools.hankmccord.dev/MH-Tools/data/json/mouse-gold-points.json";
+  "https://mhtools.hankmccord.dev/data/json/mouse-gold-points.json";
 /**
  * Fetches mouse data from API and generates JSON files
  */
