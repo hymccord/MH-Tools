@@ -9,6 +9,8 @@ on:
 jobs:
   update-population-data:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
     - name: Checkout MHCT db docker repo
       uses: actions/checkout@v4
@@ -25,7 +27,23 @@ jobs:
     - name: Run MHCT db docker container
       run: |
         docker run -d --name mhct-db -p 3306:3306 mhct-db-docker
-        sleep 10  # wait for the database to be ready
+
+        # Wait for database to be ready with retry loop
+        echo "Waiting for database to be ready..."
+        for i in {1..30}; do
+          if docker exec mhct-db mysqladmin ping -h localhost -psecret --silent; then
+            echo "Database is ready!"
+            break
+          fi
+          echo "Attempt $i: Database not ready yet, waiting..."
+          sleep 2
+        done
+
+        # Final check to ensure database is ready
+        if ! docker exec mhct-db mysqladmin ping -h localhost -psecret --silent; then
+          echo "Database failed to become ready after 60 seconds"
+          exit 1
+        fi
 
     - name: Checkout repo
       uses: actions/checkout@v4
@@ -37,7 +55,7 @@ jobs:
         cache: npm
 
     - name: Install dependencies
-      run: npm i --ignore-scripts --no-audit --no-fund --package-lock-only
+      run: npm ci --ignore-scripts --no-audit --no-fund
 
     - name: Update population data
       run: npm run pop
@@ -56,5 +74,9 @@ jobs:
 
         git commit -m "Automated population data update" || exit 0
         git push
-      env:
-        GH_TOKEN: ${{ github.token }}
+
+    - name: Cleanup Docker container
+      if: always()
+      run: |
+        docker stop mhct-db || true
+        docker rm mhct-db || true

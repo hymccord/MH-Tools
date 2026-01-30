@@ -51,13 +51,15 @@ exports.toCsv = function toCsv(fields, rows) {
 exports.process = function(config) {
   return Promise.mapSeries(config.series, function(setup) {
     const defaults = config.default || {};
-    defaults.attraction = [
-      {
-        opts: {
-          attraction: 0.0001, // 0.01% - just utter minimum for leaks
-        },
-      }
-    ]
+    if (!defaults.attraction) {
+      defaults.attraction = [
+        {
+          opts: {
+            attraction: 0.0001, // 0.01% - just utter minimum for leaks
+          },
+        }
+      ];
+    }
     var vectors = _.values(
       _.defaultsDeep(setup, _.cloneDeep(defaults))
     );
