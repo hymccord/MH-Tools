@@ -1,0 +1,60 @@
+name: Update Population Data
+
+on:
+  workflow_dispatch:
+  schedule:
+    # every month at 00:00 UTC
+    - cron: '0 0 1 * *'
+
+jobs:
+  update-population-data:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout MHCT db docker repo
+      uses: actions/checkout@v4
+      with:
+        repository: m-h-c-t/mhct-db-docker
+        path: mhct-db-docker
+        ref: main
+
+    - name: Build MHCT db docker image
+      run: |
+        cd mhct-db-docker
+        docker build -t mhct-db-docker .
+
+    - name: Run MHCT db docker container
+      run: |
+        docker run -d --name mhct-db -p 3306:3306 mhct-db-docker
+        sleep 10  # wait for the database to be ready
+
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 24
+        cache: npm
+
+    - name: Install dependencies
+      run: npm i --ignore-scripts --no-audit --no-fund --package-lock-only
+
+    - name: Update population data
+      run: npm run pop
+
+    - name: Commit and push if there are changes
+      run: |
+        if [ -z "$(git status --porcelain data/pop-csv)" ]; then
+          echo "No changes in population data."
+          exit 0
+        fi
+
+        git config user.name "github-actions[bot]"
+        git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+        git add data/pop-csv/*
+
+        git commit -m "Automated population data update" || exit 0
+        git push
+      env:
+        GH_TOKEN: ${{ github.token }}

@@ -50,8 +50,16 @@ exports.toCsv = function toCsv(fields, rows) {
 
 exports.process = function(config) {
   return Promise.mapSeries(config.series, function(setup) {
+    const defaults = config.default || {};
+    defaults.attraction = [
+      {
+        opts: {
+          attraction: 0.0001, // 0.01% - just utter minimum for leaks
+        },
+      }
+    ]
     var vectors = _.values(
-      _.defaultsDeep(setup, _.cloneDeep(config.default || {}))
+      _.defaultsDeep(setup, _.cloneDeep(defaults))
     );
     if (!vectors || !vectors.length) vectors = [[{}]];
     var p = Combinatorics.cartesianProduct.apply(Combinatorics, vectors);
