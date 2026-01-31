@@ -1,7 +1,7 @@
 (async function() {
   let timestamps = {};
   try {
-    const response = await fetch("https://tsitu.github.io/MH-Tools/data/json/bookmarklet-timestamps.json");
+    const response = await fetch("https://mhtools.hankmccord.dev/data/json/bookmarklet-timestamps.json");
     timestamps = await response.json();
   } catch { }
 
@@ -12,12 +12,8 @@
     mainDiv.id = "mht-bookmarklet-loader";
     var loaderTime = "Last updated: " + (timestamps["menu"] || "N/A");
     var creTime = "Last updated: " + (timestamps["cre"] || "N/A");
-    var mapTime = "Last updated: " + (timestamps["map"] || "N/A");
     var setupItTime = "Last updated: " + (timestamps["setup_items"] || "N/A");
     var setupFiTime = "Last updated: " + (timestamps["setup_fields"] || "N/A");
-    var analyzerTime = "Last updated: " + (timestamps["analyzer"] || "N/A");
-    var crownTime = "Last updated: " + (timestamps["crown"] || "N/A");
-    var craftingTime = "Last updated: " + (timestamps["crafting"] || "N/A");
     var powersTime = "Last updated: " + (timestamps["powers"] || "N/A");
 
     var closeButton = document.createElement("button", { id: "close-button" });
@@ -60,12 +56,8 @@
     const loaderSpanTimestamp = createTimestampSpan(loaderTime);
 
     const cre = createBookmarkletButton("Catch Rate Estimator", "cre", creTime);
-    const map = createBookmarkletButton("Map: Load Areas", "map", mapTime);
     const setupItems = createBookmarkletButton("Best Setup: Load Items", "setup-items", setupItTime);
     const setupFields = createBookmarkletButton("Best Setup: Fields", "setup-fields", setupFiTime);
-    const analyzer = createBookmarkletButton("Marketplace Analyzer", "analyzer", analyzerTime);
-    const crown = createBookmarkletButton("Crown Calculator", "crown", crownTime);
-    const crafting = createBookmarkletButton("Crafting: Calculator", "crafting", craftingTime);
     const powers = createBookmarkletButton("Powers: Worksheet", "powers", powersTime);
 
     function addElements(...elements) {
@@ -87,18 +79,10 @@
       loaderSpanTimestamp, 'br', 'br',
       cre.button, 'br',
       cre.timestampSpan, 'br', 'br',
-      map.button, 'br',
-      map.timestampSpan, 'br', 'br',
       setupItems.button, 'br',
       setupItems.timestampSpan, 'br', 'br',
       setupFields.button, 'br',
       setupFields.timestampSpan, 'br', 'br',
-      analyzer.button, 'br',
-      analyzer.timestampSpan, 'br', 'br',
-      crown.button, 'br',
-      crown.timestampSpan, 'br', 'br',
-      crafting.button, 'br',
-      crafting.timestampSpan, 'br', 'br',
       powers.button, 'br',
       powers.timestampSpan, 'br', 'br',
       "(Drag me around on a PC)"
@@ -157,9 +141,7 @@
   function loadBookmarklet(type) {
     var el = document.createElement("script");
     var cdn =
-      "https://cdn.jsdelivr.net/gh/tsitu/MH-Tools@master/src/bookmarklet/bm-" +
-      type +
-      ".min.js";
+      `https://mhtools.hankmccord.dev/src/bookmarklet/bm-${type}.js`;
     el.src = cdn;
     document.body.appendChild(el);
     el.onload = function() {

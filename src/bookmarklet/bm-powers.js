@@ -455,13 +455,13 @@
 
   function openWorksheetTab() {
     parent.openNewTab({
-      url: "https://tsitu.github.io/MH-Tools/powers-worksheet.html"
+      url: "https://mhtools.hankmccord.dev/MH-Tools/powers-worksheet.html"
     });
   }
 
   function openSupplementalTab() {
     parent.openNewTab({
-      url: "https://tsitu.github.io/MH-Tools/powers.html"
+      url: "https://mhtools.hankmccord.dev/MH-Tools/powers.html"
     });
   }
 

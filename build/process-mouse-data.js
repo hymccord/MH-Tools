@@ -7,7 +7,7 @@ const path = require("path");
 const requestAsync = util.promisify(request);
 
 const goldPointsURL =
-  "https://tsitu.github.io/MH-Tools/data/json/mouse-gold-points.json";
+  "https://mhtools.hankmccord.dev/data/json/mouse-gold-points.json";
 /**
  * Fetches mouse data from API and generates JSON files
  */
@@ -100,10 +100,10 @@ function modifyFortRoxMice(record) {
  */
 function renameMice(mouse) {
   mouse.name = mouse.name.replace(/ mouse$/i, "");
-  
+
   if (mouse.name === "⚡Thunderlord⚡") {
     mouse.name = "Thunderlord";
   }
-  
+
   return mouse;
 }
