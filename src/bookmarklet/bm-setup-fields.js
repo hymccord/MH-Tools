@@ -524,6 +524,22 @@
       if (ifQuest.shield.is_broken === true) {
         return "Boss";
       }
+    } else if (userLocation === "Conclusion Cliffs") {
+      const ccQuest = userQuests["QuestConclusionCliffs"];
+      const story = ccQuest["story"];
+      if (!story["is_writing"]) {
+        return "Not Writing";
+      } else {
+        if (story["is_postscript"]) {
+          if (story["story_content"].some(c => c["genre_type"] === "fantasy")) {
+            return "Fantasy Postscript";
+          } else {
+            return "Postscript";
+          }
+        } else {
+          return "Writing " + story["current_chapter"]["genre_type"].charAt(0).toUpperCase() + story["current_chapter"]["genre_type"].slice(1);
+        }
+      }
     }
 
     return "N/A";
@@ -675,7 +691,7 @@
   }
 
   // Prestige Base highest floor check
-  if (urlParams["base"] === "Prestige Base") {
+  if (urlParams["base"] === "Prestige Base" || urlParams["base"] === "Rift Hailstone Singularity Base") {
     document
       .querySelectorAll(".campPage-trap-trapStat-mathRow-name")
       .forEach(el => {

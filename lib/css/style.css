@@ -1,6 +1,10 @@
+html {
+    color-scheme: light dark;
+}
+
 /* tables */
 table.tablesorter {
-    background-color: white;
+    background-color: Canvas;
     margin: 10px 0pt 15px;
     width: 100%;
     text-align: left;
@@ -8,8 +12,8 @@ table.tablesorter {
 }
 
 table.tablesorter thead tr th, table.tablesorter tfoot tr th {
-    background-color: #e6EEEE;
-    border: 2px solid #e7e7e7;
+    background-color: color-mix(in srgb, Canvas 80%, CanvasText 20%);
+    border: 2px solid color-mix(in srgb, Canvas 85%, CanvasText 15%);
     padding: 4px;
 }
 
@@ -22,15 +26,15 @@ table.tablesorter thead tr .tablesorter-header {
 }
 
 table.tablesorter tbody td {
-    color: #3D3D3D;
+    color: CanvasText;
     padding: 4px;
-    background-color: #FFF;
+    background-color: Canvas;
     vertical-align: top;
-    border: 2px solid #e7e7e7;
+    border: 2px solid color-mix(in srgb, Canvas 85%, CanvasText 15%);
 }
 
 table.tablesorter tbody tr.odd td {
-    background-color: #F0F0F6;
+    background-color: color-mix(in srgb, Canvas 95%, CanvasText 5%);
 }
 
 table.tablesorter thead tr .tablesorter-headerDesc {
@@ -42,7 +46,7 @@ table.tablesorter thead tr .tablesorter-headerAsc {
 }
 
 table.tablesorter thead tr .tablesorter-headerAsc, table.tablesorter thead tr .tablesorter-headerDesc {
-    background-color: #8dbdd8;
+    background-color: color-mix(in srgb, LinkText 40%, Canvas 60%);
 }
 
 /* rows hidden by filtering (needed for child rows) */
@@ -54,7 +58,7 @@ table.tablesorter thead tr .tablesorter-headerAsc, table.tablesorter thead tr .t
 .tablesorter .tablesorter-errorRow td {
     text-align: center;
     cursor: pointer;
-    background-color: #e6bf99;
+    background-color: color-mix(in srgb, Canvas 50%, rgb(230, 191, 153) 50%);
 }
 
 /* pager wrapper, div */
@@ -64,7 +68,7 @@ table.tablesorter thead tr .tablesorter-headerAsc, table.tablesorter thead tr .t
 
 /* pager wrapper, in thead/tfoot */
 td.tablesorter-pager {
-    background-color: #e6eeee;
+    background-color: color-mix(in srgb, Canvas 80%, CanvasText 20%);
     margin: 0; /* needed for bootstrap .pager gets a 18px bottom margin */
 }
 
@@ -110,22 +114,22 @@ td.tablesorter-pager {
 }
 
 .tablesorter .tablesorter-filter-row.tablesorter-ignoreRow {
-    background-color: white;
+    background-color: Canvas;
 }
 
 .tablesorter .tablesorter-filter-row.tablesorter-ignoreRow.hideme {
-    background-color: white;
+    background-color: Canvas;
 }
 
 .tablesorter .tablesorter-filter-row.tablesorter-ignoreRow td {
-    background-color: white;
-    border-left: 2px solid #e7e7e7;
+    background-color: Canvas;
+    border-left: 2px solid color-mix(in srgb, Canvas 85%, CanvasText 15%);
 }
 
 .tablesorter .tablesorter-filter-row.tablesorter-ignoreRow td:last-child {
-    background-color: white;
-    border-left: 2px solid #e7e7e7;
-    border-right: 2px solid #e7e7e7;
+    background-color: Canvas;
+    border-left: 2px solid color-mix(in srgb, Canvas 85%, CanvasText 15%);
+    border-right: 2px solid color-mix(in srgb, Canvas 85%, CanvasText 15%);
 }
 
 /* filter row */
@@ -143,9 +147,9 @@ td.tablesorter-pager {
 }
 
 /* tabs */
-body {
+/* body {
     background: #FFF;
-}
+} */
 
 /*a,*/
 a:hover {
@@ -181,19 +185,19 @@ ul {
     padding: 10px 20px;
     text-decoration: none;
     border-radius: 5px 5px 0 0;
-    background: #F9F9F9;
-    color: #777;
+    background: color-mix(in srgb, Canvas 95%, CanvasText 5%);
+    color: color-mix(in srgb, CanvasText 70%, Canvas 30%);
 }
 
 .tab.active, .tab:hover {
-    background: #DDD;
-    color: #222;
+    background: color-mix(in srgb, Canvas 85%, CanvasText 15%);
+    color: CanvasText;
 }
 
 .content {
     display: none;
     clear: both;
-    background: #FFF;
+    background: Canvas;
     padding: 20px;
 }
 

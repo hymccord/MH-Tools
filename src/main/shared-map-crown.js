@@ -956,7 +956,7 @@ function getMinLuckArray(mouse) {
 }
 
 function findBaseline(cheese) {
-  return baselineAttArray[cheese];
+  return baselineAttArray[cheese] ?? 1.0;
 }
 
 function getStringListFromURL(parameters) {

@@ -48,8 +48,8 @@ var standardCheeseCost = {
 var riftWeapons = [
   "Biomolecular Re-atomizer Trap",
   "Celestial Dissonance Trap",
-  "Chrome Celestial Dissonance Trap",
   "Christmas Crystalabra Trap",
+  "Chrome Celestial Dissonance Trap",
   "Crystal Tower",
   "Darkest Chocolate Bunny Trap",
   "Derelict Airship Trap",
@@ -71,7 +71,8 @@ var riftBases = [
   "Mist Meter Regulator Base",
   "Prestige Base",
   "Rift Base",
-  "Rift Mist Diffuser Base"
+  "Rift Hailstone Singularity Base",
+  "Rift Mist Diffuser Base",
 ];
 
 // Rift charms with names that do not contain the word "Rift"

@@ -258,7 +258,7 @@ function calculateTrapSetup(skipDisp) {
       calcGolemStats(golemCharge);
     }
 
-    if (baseName === "Prestige Base") calcPrestigeStats();
+    if (baseName === "Prestige Base" || baseName === "Rift Hailstone Singularity Base") calcPrestigeStats();
 
     // Handle special bonuses that are based on location
     locationSpecificEffects();
@@ -678,7 +678,9 @@ function findEff(mouseName) {
  * @return {float}
  */
 function findBaselineAttraction(cheese) {
-  return baselineAttArray[cheese];
+  // Most cheeses have a baseline attraction of 1.0
+  // Exceptions are listed here
+  return baselineAttArray[cheese] ?? 1.0;
 }
 
 /**
