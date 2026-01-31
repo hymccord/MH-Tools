@@ -28,27 +28,28 @@ const zones = [
 module.exports = {
   default: {
     location: utils.genVarField("location", "Epilogue Falls"),
-    cheese: [
-      {
-        vars: {
-          cheese: {
-            "Brie": true,
-            "Gouda": true,
-          },
-        },
-        fields: {
-          cheese: "Gouda/Brie",
-        }
-      },
-      utils.genVarItem("cheese", "SB+"),
-      utils.genVarItem("cheese", "Metaphor Manchego"),
-      utils.genVarItem("cheese", "Allegory Anari"),
-      utils.genVarItem("cheese", "Symbolic Sirene"),
-    ],
+
   },
   series: [
     {
-      config: zones.map(zone => {
+      cheese: [
+        {
+          vars: {
+            cheese: {
+              "Brie": true,
+              "Gouda": true,
+            },
+          },
+          fields: {
+            cheese: "Gouda/Brie",
+          }
+        },
+        utils.genVarItem("cheese", "SB+"),
+        utils.genVarItem("cheese", "Metaphor Manchego"),
+        utils.genVarItem("cheese", "Allegory Anari"),
+        utils.genVarItem("cheese", "Symbolic Sirene"),
+      ],
+      stage: zones.map(zone => {
         return {
           vars: {
             detail: {
