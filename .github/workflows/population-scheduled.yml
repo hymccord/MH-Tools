@@ -60,7 +60,7 @@ jobs:
     - name: Update population data
       run: npm run pop
 
-    - name: Commit and push if there are changes
+    - name: Create a PR if population data changed
       run: |
         if [ -z "$(git status --porcelain data/pop-csv)" ]; then
           echo "No changes in population data."
@@ -72,9 +72,13 @@ jobs:
 
         git add data/pop-csv/*
 
+        git checkout -b scheduled/population-$(date +%Y%m%d)
         git commit -m "Automated population data update" || exit 0
-        git push
+        git push origin HEAD
 
+        gh pr create --fill || echo "PR already exists"
+      env:
+        GH_TOKEN: ${{ github.token }}
     - name: Cleanup Docker container
       if: always()
       run: |
