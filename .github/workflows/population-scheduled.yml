@@ -11,7 +11,48 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write
     steps:
+    - name: Aggressive cleanup
+      run: |
+        df -h
+        # Remove Java (JDKs)
+        sudo rm -rf /usr/lib/jvm
+
+        # Remove .NET SDKs
+        sudo rm -rf /usr/share/dotnet
+
+        # Remove Swift toolchain
+        sudo rm -rf /usr/share/swift
+
+        # Remove Haskell (GHC)
+        sudo rm -rf /usr/local/.ghcup
+
+        # Remove Julia
+        sudo rm -rf /usr/local/julia*
+
+        # Remove Android SDKs
+        sudo rm -rf /usr/local/lib/android
+
+        # Remove Chromium (optional if not using for browser tests)
+        sudo rm -rf /usr/local/share/chromium
+
+        # Remove Microsoft/Edge and Google Chrome builds
+        sudo rm -rf /opt/microsoft /opt/google
+
+        # Remove Azure CLI
+        sudo rm -rf /opt/az
+
+        # Remove PowerShell
+        sudo rm -rf /usr/local/share/powershell
+
+        # Remove CodeQL and other toolcaches
+        sudo rm -rf /opt/hostedtoolcache
+
+        sudo docker system prune -af || true
+        sudo docker builder prune -af || true
+        df -h
+
     - name: Checkout MHCT db docker repo
       uses: actions/checkout@v4
       with:
@@ -60,7 +101,7 @@ jobs:
     - name: Update population data
       run: npm run pop
 
-    - name: Commit and push if there are changes
+    - name: Create a PR if population data changed
       run: |
         if [ -z "$(git status --porcelain data/pop-csv)" ]; then
           echo "No changes in population data."
@@ -72,9 +113,13 @@ jobs:
 
         git add data/pop-csv/*
 
+        git checkout -b scheduled/population-$(date +%Y%m%d)
         git commit -m "Automated population data update" || exit 0
-        git push
+        git push origin HEAD
 
+        gh pr create --fill || echo "PR already exists"
+      env:
+        GH_TOKEN: ${{ github.token }}
     - name: Cleanup Docker container
       if: always()
       run: |
