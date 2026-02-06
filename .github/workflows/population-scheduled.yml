@@ -12,6 +12,10 @@ jobs:
     permissions:
       contents: write
     steps:
+
+    - name: List free disk space
+      run: df -h
+
     - name: Checkout MHCT db docker repo
       uses: actions/checkout@v4
       with:
