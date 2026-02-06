@@ -1,47 +1,47 @@
 "Location","Phase","Cheese","Charm","Attraction Rate","Mouse","Sample Size"
-"Bountiful Beanstalk","Beanstalk","Gouda","-","50.55%","Budrich Thornborn",201795
-"Bountiful Beanstalk","Beanstalk","Gouda","-","49.45%","Leafton Beanwell",201795
-"Bountiful Beanstalk","Beanstalk","SB+","-","48.23%","Budrich Thornborn",44542
-"Bountiful Beanstalk","Beanstalk","SB+","-","46.91%","Leafton Beanwell",44542
-"Bountiful Beanstalk","Beanstalk","SB+","-","4.87%","Herbaceous Bravestalk",44542
-"Bountiful Beanstalk","Beanstalk Boss","Gouda","-","100.00%","Vinneus Stalkhome",14765
+"Bountiful Beanstalk","Beanstalk","Gouda","-","50.55%","Budrich Thornborn",202109
+"Bountiful Beanstalk","Beanstalk","Gouda","-","49.45%","Leafton Beanwell",202109
+"Bountiful Beanstalk","Beanstalk","SB+","-","48.24%","Budrich Thornborn",44582
+"Bountiful Beanstalk","Beanstalk","SB+","-","46.90%","Leafton Beanwell",44582
+"Bountiful Beanstalk","Beanstalk","SB+","-","4.86%","Herbaceous Bravestalk",44582
+"Bountiful Beanstalk","Beanstalk Boss","Gouda","-","100.00%","Vinneus Stalkhome",14786
 "Bountiful Beanstalk","Beanstalk Boss","SB+","-","100.00%","Vinneus Stalkhome",3211
-"Bountiful Beanstalk","Dungeon","Gouda","-","39.48%","Smug Smuggler",89022
-"Bountiful Beanstalk","Dungeon","Gouda","-","34.74%","Diminutive Detainee",89022
-"Bountiful Beanstalk","Dungeon","Gouda","-","25.78%","Peaceful Prisoner",89022
-"Bountiful Beanstalk","Dungeon","SB+","-","39.81%","Smug Smuggler",11868
-"Bountiful Beanstalk","Dungeon","SB+","-","35.04%","Diminutive Detainee",11868
-"Bountiful Beanstalk","Dungeon","SB+","-","25.15%","Peaceful Prisoner",11868
-"Bountiful Beanstalk","Dungeon","Beanster","-","44.39%","Jovial Jailor",100658
-"Bountiful Beanstalk","Dungeon","Beanster","-","30.82%","Cell Sweeper",100658
-"Bountiful Beanstalk","Dungeon","Beanster","-","24.79%","Lethargic Guard",100658
-"Bountiful Beanstalk","Dungeon","Lavish Beanster","-","50.69%","Gate Keeper",44568
-"Bountiful Beanstalk","Dungeon","Lavish Beanster","-","49.31%","Key Master",44568
-"Bountiful Beanstalk","Dungeon","Royal Beanster","-","100.00%","Wrathful Warden",18218
-"Bountiful Beanstalk","Ballroom","Gouda","-","39.49%","Baroque Dancer",183854
-"Bountiful Beanstalk","Ballroom","Gouda","-","34.64%","Sassy Salsa Dancer",183854
-"Bountiful Beanstalk","Ballroom","Gouda","-","25.87%","Whimsical Waltzer",183854
-"Bountiful Beanstalk","Ballroom","SB+","-","39.28%","Baroque Dancer",19723
-"Bountiful Beanstalk","Ballroom","SB+","-","34.05%","Sassy Salsa Dancer",19723
-"Bountiful Beanstalk","Ballroom","SB+","-","26.67%","Whimsical Waltzer",19723
-"Bountiful Beanstalk","Ballroom","Beanster","-","39.59%","Peevish Piccoloist",126304
-"Bountiful Beanstalk","Ballroom","Beanster","-","30.76%","Obstinate Oboist",126304
-"Bountiful Beanstalk","Ballroom","Beanster","-","29.65%","Sultry Saxophonist",126304
-"Bountiful Beanstalk","Ballroom","Lavish Beanster","-","50.61%","Violent Violinist",106339
-"Bountiful Beanstalk","Ballroom","Lavish Beanster","-","49.39%","Chafed Cellist",106339
-"Bountiful Beanstalk","Ballroom","Royal Beanster","-","100.00%","Treacherous Tubaist",61272
-"Bountiful Beanstalk","Great Hall","Gouda","-","39.62%","Scheming Squire",33088
-"Bountiful Beanstalk","Great Hall","Gouda","-","34.64%","Plotting Page",33088
-"Bountiful Beanstalk","Great Hall","Gouda","-","25.74%","Clumsy Cupbearer",33088
+"Bountiful Beanstalk","Dungeon","Gouda","-","39.48%","Smug Smuggler",89235
+"Bountiful Beanstalk","Dungeon","Gouda","-","34.73%","Diminutive Detainee",89235
+"Bountiful Beanstalk","Dungeon","Gouda","-","25.79%","Peaceful Prisoner",89235
+"Bountiful Beanstalk","Dungeon","SB+","-","39.80%","Smug Smuggler",11873
+"Bountiful Beanstalk","Dungeon","SB+","-","35.04%","Diminutive Detainee",11873
+"Bountiful Beanstalk","Dungeon","SB+","-","25.16%","Peaceful Prisoner",11873
+"Bountiful Beanstalk","Dungeon","Beanster","-","44.40%","Jovial Jailor",100853
+"Bountiful Beanstalk","Dungeon","Beanster","-","30.82%","Cell Sweeper",100853
+"Bountiful Beanstalk","Dungeon","Beanster","-","24.77%","Lethargic Guard",100853
+"Bountiful Beanstalk","Dungeon","Lavish Beanster","-","50.70%","Gate Keeper",44593
+"Bountiful Beanstalk","Dungeon","Lavish Beanster","-","49.30%","Key Master",44593
+"Bountiful Beanstalk","Dungeon","Royal Beanster","-","100.00%","Wrathful Warden",18220
+"Bountiful Beanstalk","Ballroom","Gouda","-","39.50%","Baroque Dancer",184141
+"Bountiful Beanstalk","Ballroom","Gouda","-","34.63%","Sassy Salsa Dancer",184141
+"Bountiful Beanstalk","Ballroom","Gouda","-","25.87%","Whimsical Waltzer",184141
+"Bountiful Beanstalk","Ballroom","SB+","-","39.27%","Baroque Dancer",19733
+"Bountiful Beanstalk","Ballroom","SB+","-","34.04%","Sassy Salsa Dancer",19733
+"Bountiful Beanstalk","Ballroom","SB+","-","26.68%","Whimsical Waltzer",19733
+"Bountiful Beanstalk","Ballroom","Beanster","-","39.59%","Peevish Piccoloist",126395
+"Bountiful Beanstalk","Ballroom","Beanster","-","30.76%","Obstinate Oboist",126395
+"Bountiful Beanstalk","Ballroom","Beanster","-","29.65%","Sultry Saxophonist",126395
+"Bountiful Beanstalk","Ballroom","Lavish Beanster","-","50.60%","Violent Violinist",106430
+"Bountiful Beanstalk","Ballroom","Lavish Beanster","-","49.40%","Chafed Cellist",106430
+"Bountiful Beanstalk","Ballroom","Royal Beanster","-","100.00%","Treacherous Tubaist",61307
+"Bountiful Beanstalk","Great Hall","Gouda","-","39.62%","Scheming Squire",33169
+"Bountiful Beanstalk","Great Hall","Gouda","-","34.65%","Plotting Page",33169
+"Bountiful Beanstalk","Great Hall","Gouda","-","25.73%","Clumsy Cupbearer",33169
 "Bountiful Beanstalk","Great Hall","SB+","-","39.65%","Scheming Squire",6746
 "Bountiful Beanstalk","Great Hall","SB+","-","34.64%","Plotting Page",6746
 "Bountiful Beanstalk","Great Hall","SB+","-","25.70%","Clumsy Cupbearer",6746
-"Bountiful Beanstalk","Great Hall","Beanster","-","39.59%","Baroness Von Bean",24286
-"Bountiful Beanstalk","Great Hall","Beanster","-","34.88%","Cagey Countess",24286
-"Bountiful Beanstalk","Great Hall","Beanster","-","25.53%","Vindictive Viscount",24286
-"Bountiful Beanstalk","Great Hall","Lavish Beanster","-","51.00%","Dastardly Duchess",15108
-"Bountiful Beanstalk","Great Hall","Lavish Beanster","-","49.00%","Malicious Marquis",15108
-"Bountiful Beanstalk","Great Hall","Royal Beanster","-","100.00%","Pernicious Prince",127416
+"Bountiful Beanstalk","Great Hall","Beanster","-","39.57%","Baroness Von Bean",24319
+"Bountiful Beanstalk","Great Hall","Beanster","-","34.89%","Cagey Countess",24319
+"Bountiful Beanstalk","Great Hall","Beanster","-","25.54%","Vindictive Viscount",24319
+"Bountiful Beanstalk","Great Hall","Lavish Beanster","-","51.00%","Dastardly Duchess",15112
+"Bountiful Beanstalk","Great Hall","Lavish Beanster","-","49.00%","Malicious Marquis",15112
+"Bountiful Beanstalk","Great Hall","Royal Beanster","-","100.00%","Pernicious Prince",127590
 "Bountiful Beanstalk","Castle Giants","SB+","-","33.33%","Dungeon Master",3
 "Bountiful Beanstalk","Castle Giants","SB+","-","33.33%","Malevolent Maestro",3
 "Bountiful Beanstalk","Castle Giants","SB+","-","33.33%","Mythical Giant King",3
