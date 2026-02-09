@@ -54,7 +54,7 @@ jobs:
         df -h
 
     - name: Checkout MHCT db docker repo
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
       with:
         repository: m-h-c-t/mhct-db-docker
         path: mhct-db-docker
@@ -63,34 +63,34 @@ jobs:
     - name: Build MHCT db docker image
       run: |
         cd mhct-db-docker
-        docker build -t mhct-db-docker .
+        docker build -t mhct-db -f Dockerfile.slim .
 
     - name: Run MHCT db docker container
       run: |
-        docker run -d --name mhct-db -p 3306:3306 mhct-db-docker
+        docker run -d --name mhct-db -v mhct-db-data:/var/lib/mysql -p 3306:3306 mhct-db
 
-        # Wait for database to be ready with retry loop
+        # Wait for database initialization (up to 2 hours)
         echo "Waiting for database to be ready..."
-        for i in {1..30}; do
+        for i in {1..120}; do
           if docker exec mhct-db mysqladmin ping -h localhost -psecret --silent; then
             echo "Database is ready!"
             break
           fi
           echo "Attempt $i: Database not ready yet, waiting..."
-          sleep 2
+          sleep 60
         done
 
         # Final check to ensure database is ready
         if ! docker exec mhct-db mysqladmin ping -h localhost -psecret --silent; then
-          echo "Database failed to become ready after 60 seconds"
+          echo "Database failed to become ready after 120 minutes."
           exit 1
         fi
 
     - name: Checkout repo
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Set up Node.js
-      uses: actions/setup-node@v4
+      uses: actions/setup-node@v5
       with:
         node-version: 24
         cache: npm
