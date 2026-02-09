@@ -1,10 +1,4 @@
-"Location","Phase","Cheese","Charm","Attraction Rate","Mouse","Sample Size"
-"Prickly Plains","-","Bland Queso","-","60.40%","Spice Seer",669402
-"Prickly Plains","-","Bland Queso","-","39.60%","Old Spice Collector",669402
-"Prickly Plains","-","Mild Queso","-","50.45%","Spice Farmer",492452
-"Prickly Plains","-","Mild Queso","-","49.55%","Granny Spice",492452
-"Prickly Plains","-","Medium Queso","-","56.31%","Spice Finder",325975
-"Prickly Plains","-","Medium Queso","-","43.69%","Spice Sovereign",325975
-"Prickly Plains","-","Hot Queso","-","59.39%","Spice Reaper",225644
-"Prickly Plains","-","Hot Queso","-","40.61%","Spice Raider",225644
-"Prickly Plains","-","Flamin' Queso","-","100.00%","Inferna the Engulfed",168772
+Error: Connection lost: The server closed the connection.
+    at Socket.<anonymous> (/home/runner/work/MH-Tools/MH-Tools/node_modules/mysql2/lib/base/connection.js:113:31)
+    at Socket.emit (node:events:508:28)
+    at TCP.<anonymous> (node:net:346:12)

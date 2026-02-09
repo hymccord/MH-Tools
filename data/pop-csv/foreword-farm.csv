@@ -1,40 +1,4 @@
-"Location","Phase","Cheese","Charm","Attraction Rate","Mouse","Sample Size"
-"Foreword Farm","No Plants","Gouda","-","39.39%","Root Rummager",27549
-"Foreword Farm","No Plants","Gouda","-","35.25%","Land Loafer",27549
-"Foreword Farm","No Plants","Gouda","-","25.36%","Grit Grifter",27549
-"Foreword Farm","No Plants","SB+","-","29.63%","Root Rummager",6953
-"Foreword Farm","No Plants","SB+","-","26.51%","Land Loafer",6953
-"Foreword Farm","No Plants","SB+","-","23.95%","Grit Grifter",6953
-"Foreword Farm","No Plants","SB+","-","19.92%","Crazed Cultivator",6953
-"Foreword Farm","One Plant","Gouda","-","39.77%","Root Rummager",5222
-"Foreword Farm","One Plant","Gouda","-","34.72%","Grit Grifter",5222
-"Foreword Farm","One Plant","Gouda","-","25.51%","Angry Aphid",5222
-"Foreword Farm","One Plant","SB+","-","37.32%","Root Rummager",1814
-"Foreword Farm","One Plant","SB+","-","24.75%","Grit Grifter",1814
-"Foreword Farm","One Plant","SB+","-","19.07%","Crazed Cultivator",1814
-"Foreword Farm","One Plant","SB+","-","18.85%","Angry Aphid",1814
-"Foreword Farm","Two Plants","Gouda","-","35.32%","Grit Grifter",17983
-"Foreword Farm","Two Plants","Gouda","-","34.72%","Angry Aphid",17983
-"Foreword Farm","Two Plants","Gouda","-","29.96%","Wily Weevil",17983
-"Foreword Farm","Two Plants","SB+","-","30.63%","Grit Grifter",7290
-"Foreword Farm","Two Plants","SB+","-","30.34%","Angry Aphid",7290
-"Foreword Farm","Two Plants","SB+","-","19.59%","Wily Weevil",7290
-"Foreword Farm","Two Plants","SB+","-","19.44%","Crazed Cultivator",7290
-"Foreword Farm","Three Plants","Gouda","-","35.80%","Angry Aphid",98821
-"Foreword Farm","Three Plants","Gouda","-","34.40%","Wily Weevil",98821
-"Foreword Farm","Three Plants","Gouda","-","29.80%","Mighty Mite",98821
-"Foreword Farm","Three Plants","SB+","-","29.75%","Wily Weevil",26255
-"Foreword Farm","Three Plants","SB+","-","25.66%","Angry Aphid",26255
-"Foreword Farm","Three Plants","SB+","-","24.76%","Mighty Mite",26255
-"Foreword Farm","Three Plants","SB+","-","19.83%","Crazed Cultivator",26255
-"Foreword Farm","Three Papyrus","Gouda","-","39.74%","Loathsome Locust",145309
-"Foreword Farm","Three Papyrus","Gouda","-","20.70%","Angry Aphid",145309
-"Foreword Farm","Three Papyrus","Gouda","-","19.81%","Mighty Mite",145309
-"Foreword Farm","Three Papyrus","Gouda","-","19.75%","Wily Weevil",145309
-"Foreword Farm","Three Papyrus","SB+","-","39.68%","Loathsome Locust",46703
-"Foreword Farm","Three Papyrus","SB+","-","19.78%","Crazed Cultivator",46703
-"Foreword Farm","Three Papyrus","SB+","-","14.91%","Mighty Mite",46703
-"Foreword Farm","Three Papyrus","SB+","-","14.84%","Wily Weevil",46703
-"Foreword Farm","Three Papyrus","SB+","-","10.79%","Angry Aphid",46703
-"Foreword Farm","Boss","Gouda","-","100.00%","Monstrous Midge",29340
-"Foreword Farm","Boss","SB+","-","100.00%","Monstrous Midge",11773
+Error: Connection lost: The server closed the connection.
+    at Socket.<anonymous> (/home/runner/work/MH-Tools/MH-Tools/node_modules/mysql2/lib/base/connection.js:113:31)
+    at Socket.emit (node:events:508:28)
+    at TCP.<anonymous> (node:net:346:12)
