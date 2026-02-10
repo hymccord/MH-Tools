@@ -1,47 +1,47 @@
 "Location","Phase","Cheese","Charm","Attraction Rate","Mouse","Sample Size"
-"Moussu Picchu","-","Glowing Gruyere","-","29.44%","Rainwater Purifier",75823
-"Moussu Picchu","-","Glowing Gruyere","-","28.08%","Breeze Borrower",75823
-"Moussu Picchu","-","Glowing Gruyere","-","16.46%","Cloud Collector",75823
-"Moussu Picchu","-","Glowing Gruyere","-","16.37%","Windy Farmer",75823
-"Moussu Picchu","-","Glowing Gruyere","-","9.64%","Homeopathic Apothecary",75823
-"Moussu Picchu","-","SB+","-","24.60%","Windy Farmer",17201
-"Moussu Picchu","-","SB+","-","24.31%","Cloud Collector",17201
-"Moussu Picchu","-","SB+","-","17.12%","Breeze Borrower",17201
-"Moussu Picchu","-","SB+","-","16.95%","Rainwater Purifier",17201
-"Moussu Picchu","-","SB+","-","7.80%","Nightshade Maiden",17201
-"Moussu Picchu","-","SB+","-","6.53%","Nightshade Flower Girl",17201
-"Moussu Picchu","-","SB+","-","2.69%","Spore Salesman",17201
-"Moussu Picchu","-","Gouda","-","22.06%","Cloud Collector",124738
-"Moussu Picchu","-","Gouda","-","22.06%","Windy Farmer",124738
-"Moussu Picchu","-","Gouda","-","15.83%","Spore Salesman",124738
-"Moussu Picchu","-","Gouda","-","14.73%","Nightshade Flower Girl",124738
-"Moussu Picchu","-","Gouda","-","12.71%","Breeze Borrower",124738
-"Moussu Picchu","-","Gouda","-","12.62%","Rainwater Purifier",124738
+"Moussu Picchu","-","Glowing Gruyere","-","29.44%","Rainwater Purifier",75890
+"Moussu Picchu","-","Glowing Gruyere","-","28.08%","Breeze Borrower",75890
+"Moussu Picchu","-","Glowing Gruyere","-","16.47%","Cloud Collector",75890
+"Moussu Picchu","-","Glowing Gruyere","-","16.37%","Windy Farmer",75890
+"Moussu Picchu","-","Glowing Gruyere","-","9.63%","Homeopathic Apothecary",75890
+"Moussu Picchu","-","SB+","-","24.61%","Windy Farmer",17230
+"Moussu Picchu","-","SB+","-","24.34%","Cloud Collector",17230
+"Moussu Picchu","-","SB+","-","17.10%","Breeze Borrower",17230
+"Moussu Picchu","-","SB+","-","16.95%","Rainwater Purifier",17230
+"Moussu Picchu","-","SB+","-","7.79%","Nightshade Maiden",17230
+"Moussu Picchu","-","SB+","-","6.53%","Nightshade Flower Girl",17230
+"Moussu Picchu","-","SB+","-","2.69%","Spore Salesman",17230
+"Moussu Picchu","-","Gouda","-","22.06%","Cloud Collector",125234
+"Moussu Picchu","-","Gouda","-","22.05%","Windy Farmer",125234
+"Moussu Picchu","-","Gouda","-","15.82%","Spore Salesman",125234
+"Moussu Picchu","-","Gouda","-","14.73%","Nightshade Flower Girl",125234
+"Moussu Picchu","-","Gouda","-","12.71%","Breeze Borrower",125234
+"Moussu Picchu","-","Gouda","-","12.63%","Rainwater Purifier",125234
 "Moussu Picchu","-","Brie","-","22.62%","Cloud Collector",3183
 "Moussu Picchu","-","Brie","-","21.36%","Windy Farmer",3183
 "Moussu Picchu","-","Brie","-","15.33%","Spore Salesman",3183
 "Moussu Picchu","-","Brie","-","14.26%","Rainwater Purifier",3183
 "Moussu Picchu","-","Brie","-","14.01%","Nightshade Flower Girl",3183
 "Moussu Picchu","-","Brie","-","12.41%","Breeze Borrower",3183
-"Moussu Picchu","Rain low","Rainy","-","59.44%","Rain Wallower",14311
-"Moussu Picchu","Rain low","Rainy","-","40.56%","Rain Collector",14311
-"Moussu Picchu","Rain medium","Rainy","-","58.15%","Rain Summoner",32189
-"Moussu Picchu","Rain medium","Rainy","-","41.85%","Monsoon Maker",32189
-"Moussu Picchu","Rain high","Rainy","-","59.06%","Monsoon Maker",84490
-"Moussu Picchu","Rain high","Rainy","-","40.94%","Rainmancer",84490
-"Moussu Picchu","Rain max","Rainy","-","100.00%","Rainmancer",64105
-"Moussu Picchu","Wind low","Windy","-","60.20%","Wind Watcher",14744
-"Moussu Picchu","Wind low","Windy","-","39.80%","Charming Chimer",14744
-"Moussu Picchu","Wind medium","Windy","-","57.53%","Fluttering Flutist",33308
-"Moussu Picchu","Wind medium","Windy","-","42.47%","Cycloness",33308
-"Moussu Picchu","Wind high","Windy","-","59.12%","Cycloness",92478
-"Moussu Picchu","Wind high","Windy","-","40.88%","Wind Warrior",92478
-"Moussu Picchu","Wind max","Windy","-","100.00%","Wind Warrior",63072
-"Moussu Picchu","Storm low","Dragonvine","-","61.11%","Thunder Strike",3163
-"Moussu Picchu","Storm low","Dragonvine","-","38.89%","Violet Stormchild",3163
-"Moussu Picchu","Storm medium","Dragonvine","-","57.60%","Thunderlord",22187
-"Moussu Picchu","Storm medium","Dragonvine","-","42.40%","Thundering Watcher",22187
-"Moussu Picchu","Storm high","Dragonvine","-","59.76%","Thundering Watcher",61740
-"Moussu Picchu","Storm high","Dragonvine","-","35.39%","Ful'Mina the Mountain Queen",61740
-"Moussu Picchu","Storm high","Dragonvine","-","4.85%","Dragoon",61740
-"Moussu Picchu","Storm max","Dragonvine","-","100.00%","Ful'Mina the Mountain Queen",445579
+"Moussu Picchu","Rain low","Rainy","-","59.44%","Rain Wallower",14331
+"Moussu Picchu","Rain low","Rainy","-","40.56%","Rain Collector",14331
+"Moussu Picchu","Rain medium","Rainy","-","58.13%","Rain Summoner",32239
+"Moussu Picchu","Rain medium","Rainy","-","41.87%","Monsoon Maker",32239
+"Moussu Picchu","Rain high","Rainy","-","59.07%","Monsoon Maker",84548
+"Moussu Picchu","Rain high","Rainy","-","40.93%","Rainmancer",84548
+"Moussu Picchu","Rain max","Rainy","-","100.00%","Rainmancer",64310
+"Moussu Picchu","Wind low","Windy","-","60.22%","Wind Watcher",14769
+"Moussu Picchu","Wind low","Windy","-","39.78%","Charming Chimer",14769
+"Moussu Picchu","Wind medium","Windy","-","57.54%","Fluttering Flutist",33356
+"Moussu Picchu","Wind medium","Windy","-","42.46%","Cycloness",33356
+"Moussu Picchu","Wind high","Windy","-","59.12%","Cycloness",92502
+"Moussu Picchu","Wind high","Windy","-","40.88%","Wind Warrior",92502
+"Moussu Picchu","Wind max","Windy","-","100.00%","Wind Warrior",63113
+"Moussu Picchu","Storm low","Dragonvine","-","61.13%","Thunder Strike",3167
+"Moussu Picchu","Storm low","Dragonvine","-","38.87%","Violet Stormchild",3167
+"Moussu Picchu","Storm medium","Dragonvine","-","57.59%","Thunderlord",22220
+"Moussu Picchu","Storm medium","Dragonvine","-","42.41%","Thundering Watcher",22220
+"Moussu Picchu","Storm high","Dragonvine","-","59.76%","Thundering Watcher",61849
+"Moussu Picchu","Storm high","Dragonvine","-","35.39%","Ful'Mina the Mountain Queen",61849
+"Moussu Picchu","Storm high","Dragonvine","-","4.85%","Dragoon",61849
+"Moussu Picchu","Storm max","Dragonvine","-","100.00%","Ful'Mina the Mountain Queen",445985
