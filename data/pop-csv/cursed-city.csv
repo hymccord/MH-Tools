@@ -1,24 +1,4 @@
-"Location","Phase","Cheese","Charm","Attraction Rate","Mouse","Sample Size"
-"Cursed City","Curse Lifted","Graveblossom Camembert","-","21.66%","Cursed Librarian",37906
-"Cursed City","Curse Lifted","Graveblossom Camembert","-","21.42%","Essence Guardian",37906
-"Cursed City","Curse Lifted","Graveblossom Camembert","-","18.21%","Cursed Enchanter",37906
-"Cursed City","Curse Lifted","Graveblossom Camembert","-","17.68%","Cursed Engineer",37906
-"Cursed City","Curse Lifted","Graveblossom Camembert","-","17.42%","Cursed Thief",37906
-"Cursed City","Curse Lifted","Graveblossom Camembert","-","3.61%","Corrupt",37906
-"Cursed City","Cursed","Graveblossom Camembert","-","25.53%","Cursed Librarian",44900
-"Cursed City","Cursed","Graveblossom Camembert","-","22.18%","Cursed Enchanter",44900
-"Cursed City","Cursed","Graveblossom Camembert","-","21.12%","Cursed Thief",44900
-"Cursed City","Cursed","Graveblossom Camembert","-","21.09%","Cursed Engineer",44900
-"Cursed City","Cursed","Graveblossom Camembert","-","10.08%","Corrupt",44900
-"Cursed City","Curse Lifted","Graveblossom Camembert","Safeguard","22.63%","Essence Guardian",25696
-"Cursed City","Curse Lifted","Graveblossom Camembert","Safeguard","22.17%","Cursed Librarian",25696
-"Cursed City","Curse Lifted","Graveblossom Camembert","Safeguard","19.24%","Cursed Enchanter",25696
-"Cursed City","Curse Lifted","Graveblossom Camembert","Safeguard","18.21%","Cursed Engineer",25696
-"Cursed City","Curse Lifted","Graveblossom Camembert","Safeguard","17.75%","Cursed Thief",25696
-"Cursed City","Cursed","Graveblossom Camembert","Safeguard","28.60%","Cursed Librarian",437
-"Cursed City","Cursed","Graveblossom Camembert","Safeguard","26.77%","Cursed Thief",437
-"Cursed City","Cursed","Graveblossom Camembert","Safeguard","24.26%","Cursed Enchanter",437
-"Cursed City","Cursed","Graveblossom Camembert","Safeguard","20.37%","Cursed Engineer",437
-"Cursed City","Curse Lifted","Graveblossom Camembert","Shattering","90.98%","Dark Magi",3325
-"Cursed City","Curse Lifted","Graveblossom Camembert","Shattering","9.02%","Corrupt",3325
-"Cursed City","Cursed","Graveblossom Camembert","Shattering","100.00%","Corrupt",146
+Error: Connection lost: The server closed the connection.
+    at Socket.<anonymous> (/home/runner/work/MH-Tools/MH-Tools/node_modules/mysql2/lib/base/connection.js:113:31)
+    at Socket.emit (node:events:508:28)
+    at TCP.<anonymous> (node:net:346:12)

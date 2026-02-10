@@ -1,23 +1,4 @@
-"Location","Phase","Cheese","Charm","Attraction Rate","Mouse","Sample Size"
-"Table of Contents","Not Writing","Gouda","-","39.43%","Brothers Grimmaus",47588
-"Table of Contents","Not Writing","Gouda","-","35.65%","Hans Cheesetian Squeakersen",47588
-"Table of Contents","Not Writing","Gouda","-","24.91%","Madame d'Ormouse",47588
-"Table of Contents","Not Writing","SB+","-","33.40%","Matriarch Gander",17728
-"Table of Contents","Not Writing","SB+","-","28.13%","Brothers Grimmaus",17728
-"Table of Contents","Not Writing","SB+","-","19.90%","Hans Cheesetian Squeakersen",17728
-"Table of Contents","Not Writing","SB+","-","18.56%","Madame d'Ormouse",17728
-"Table of Contents","Pre-Encyclopedia","First Draft Derby","-","39.30%","Pinkielina",27314
-"Table of Contents","Pre-Encyclopedia","First Draft Derby","-","35.82%","Princess and the Olive",27314
-"Table of Contents","Pre-Encyclopedia","First Draft Derby","-","24.88%","Fibbocchio",27314
-"Table of Contents","Pre-Encyclopedia","Second Draft Derby","-","39.53%","Flamboyant Flautist",270224
-"Table of Contents","Pre-Encyclopedia","Second Draft Derby","-","35.49%","Greenbeard",270224
-"Table of Contents","Pre-Encyclopedia","Second Draft Derby","-","24.98%","Ice Regent",270224
-"Table of Contents","Pre-Encyclopedia","Final Draft Derby","-","100.00%","Bitter Grammarian",131379
-"Table of Contents","Pre-Encyclopedia","SB+","-","33.53%","Humphrey Dumphrey",5527
-"Table of Contents","Pre-Encyclopedia","SB+","-","23.65%","Little Miss Fluffet",5527
-"Table of Contents","Pre-Encyclopedia","SB+","-","22.42%","Little Bo Squeak",5527
-"Table of Contents","Pre-Encyclopedia","SB+","-","20.41%","Matriarch Gander",5527
-"Table of Contents","Encyclopedia","Final Draft Derby","-","59.89%","Bitter Grammarian",300001
-"Table of Contents","Encyclopedia","Final Draft Derby","-","40.11%","Mythweaver",300001
-"Table of Contents","Pre-Encyclopedia","Thousandth Draft Derby","-","100%","M1000",1
-"Table of Contents","Encyclopedia","Thousandth Draft Derby","-","100%","M1000",1
+Error: Connection lost: The server closed the connection.
+    at Socket.<anonymous> (/home/runner/work/MH-Tools/MH-Tools/node_modules/mysql2/lib/base/connection.js:113:31)
+    at Socket.emit (node:events:508:28)
+    at TCP.<anonymous> (node:net:346:12)

@@ -1,32 +1,4 @@
-"Location","Phase","Cheese","Charm","Attraction Rate","Mouse","Sample Size"
-"Balack's Cove","Low Tide","Vanilla Stilton","-","16.56%","Davy Jones",10219
-"Balack's Cove","Low Tide","Vanilla Stilton","-","15.02%","Brimstone",10219
-"Balack's Cove","Low Tide","Vanilla Stilton","-","14.87%","Enslaved Spirit",10219
-"Balack's Cove","Low Tide","Vanilla Stilton","-","14.72%","Twisted Fiend",10219
-"Balack's Cove","Low Tide","Vanilla Stilton","-","9.88%","Derr Lich",10219
-"Balack's Cove","Low Tide","Vanilla Stilton","-","9.84%","Tidal Fisher",10219
-"Balack's Cove","Low Tide","Vanilla Stilton","-","9.58%","Nerg Lich",10219
-"Balack's Cove","Low Tide","Vanilla Stilton","-","9.52%","Elub Lich",10219
-"Balack's Cove","Low Tide","Vengeful Vanilla Stilton","-","23.10%","Derr Lich",17816
-"Balack's Cove","Low Tide","Vengeful Vanilla Stilton","-","22.91%","Nerg Lich",17816
-"Balack's Cove","Low Tide","Vengeful Vanilla Stilton","-","22.53%","Elub Lich",17816
-"Balack's Cove","Low Tide","Vengeful Vanilla Stilton","-","14.73%","Balack the Banished",17816
-"Balack's Cove","Low Tide","Vengeful Vanilla Stilton","-","6.90%","Enslaved Spirit",17816
-"Balack's Cove","Low Tide","Vengeful Vanilla Stilton","-","3.88%","Davy Jones",17816
-"Balack's Cove","Low Tide","Vengeful Vanilla Stilton","-","3.09%","Brimstone",17816
-"Balack's Cove","Low Tide","Vengeful Vanilla Stilton","-","2.86%","Twisted Fiend",17816
-"Balack's Cove","Medium Tide","Vanilla Stilton","-","18.74%","Nerg Lich",854
-"Balack's Cove","Medium Tide","Vanilla Stilton","-","17.68%","Derr Lich",854
-"Balack's Cove","Medium Tide","Vanilla Stilton","-","17.10%","Elub Lich",854
-"Balack's Cove","Medium Tide","Vanilla Stilton","-","12.76%","Twisted Fiend",854
-"Balack's Cove","Medium Tide","Vanilla Stilton","-","12.06%","Davy Jones",854
-"Balack's Cove","Medium Tide","Vanilla Stilton","-","11.59%","Enslaved Spirit",854
-"Balack's Cove","Medium Tide","Vanilla Stilton","-","10.07%","Brimstone",854
-"Balack's Cove","Medium Tide","Vengeful Vanilla Stilton","-","38.96%","Balack the Banished",4274
-"Balack's Cove","Medium Tide","Vengeful Vanilla Stilton","-","21.31%","Derr Lich",4274
-"Balack's Cove","Medium Tide","Vengeful Vanilla Stilton","-","20.26%","Nerg Lich",4274
-"Balack's Cove","Medium Tide","Vengeful Vanilla Stilton","-","19.47%","Elub Lich",4274
-"Balack's Cove","High Tide","Vanilla Stilton","-","100.00%","Riptide",166
-"Balack's Cove","High Tide","Vengeful Vanilla Stilton","-","100.00%","Riptide",441
-"Balack's Cove","High Tide","Vanilla Stilton","-","100.00%","Riptide",1
-"Balack's Cove","High Tide","Vengeful Vanilla Stilton","-","100.00%","Riptide",1
+Error: Connection lost: The server closed the connection.
+    at Socket.<anonymous> (/home/runner/work/MH-Tools/MH-Tools/node_modules/mysql2/lib/base/connection.js:113:31)
+    at Socket.emit (node:events:508:28)
+    at TCP.<anonymous> (node:net:346:12)

@@ -1,5 +1,4 @@
-"Location","Phase","Cheese","Charm","Attraction Rate","Mouse","Sample Size"
-"Fiery Warpath","Portal","Gouda","-","70.54%","Theurgy Warden",2651
-"Fiery Warpath","Portal","Gouda","-","29.46%","Artillery Commander",2651
-"Fiery Warpath","Portal","SB+","-","70.22%","Theurgy Warden",9214
-"Fiery Warpath","Portal","SB+","-","29.78%","Artillery Commander",9214
+Error: Connection lost: The server closed the connection.
+    at Socket.<anonymous> (/home/runner/work/MH-Tools/MH-Tools/node_modules/mysql2/lib/base/connection.js:113:31)
+    at Socket.emit (node:events:508:28)
+    at TCP.<anonymous> (node:net:346:12)

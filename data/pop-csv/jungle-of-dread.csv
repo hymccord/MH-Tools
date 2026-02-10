@@ -1,15 +1,4 @@
-"Location","Phase","Cheese","Charm","Attraction Rate","Mouse","Sample Size"
-"Jungle of Dread","-","Gouda","-","85.07%","Swarm of Pygmy Mice",1828
-"Jungle of Dread","-","Gouda","-","14.93%","Pygmy Wrangler",1828
-"Jungle of Dread","-","SB+","-","65.04%","Pygmy Wrangler",1356
-"Jungle of Dread","-","SB+","-","34.96%","Swarm of Pygmy Mice",1356
-"Jungle of Dread","-","Vanilla Stilton","-","59.50%","Swarm of Pygmy Mice",521
-"Jungle of Dread","-","Vanilla Stilton","-","40.50%","Pygmy Wrangler",521
-"Jungle of Dread","-","Vengeful Vanilla Stilton","-","62.34%","Swarm of Pygmy Mice",531
-"Jungle of Dread","-","Vengeful Vanilla Stilton","-","37.66%","Pygmy Wrangler",531
-"Jungle of Dread","-","Pungent Havarti","-","100.00%","Chitinous",1
-"Jungle of Dread","-","Crunchy Havarti","-","100.00%","Fetid Swamp",1
-"Jungle of Dread","-","Creamy Havarti","-","100.00%","Jurassic",1
-"Jungle of Dread","-","Spicy Havarti","-","100.00%","Magma Carrier",1
-"Jungle of Dread","-","Sweet Havarti","-","100.00%","Primal",1
-"Jungle of Dread","-","Magical Havarti","-","100.00%","Stonework Warrior",1
+Error: Connection lost: The server closed the connection.
+    at Socket.<anonymous> (/home/runner/work/MH-Tools/MH-Tools/node_modules/mysql2/lib/base/connection.js:113:31)
+    at Socket.emit (node:events:508:28)
+    at TCP.<anonymous> (node:net:346:12)

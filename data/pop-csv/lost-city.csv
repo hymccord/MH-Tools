@@ -1,17 +1,4 @@
-"Location","Phase","Cheese","Charm","Attraction Rate","Mouse","Sample Size"
-"Lost City","Curse Lifted","Dewthief Camembert","-","21.31%","Ethereal Librarian",19524
-"Lost City","Curse Lifted","Dewthief Camembert","-","20.63%","Essence Collector",19524
-"Lost City","Curse Lifted","Dewthief Camembert","-","18.53%","Ethereal Enchanter",19524
-"Lost City","Curse Lifted","Dewthief Camembert","-","17.88%","Ethereal Thief",19524
-"Lost City","Curse Lifted","Dewthief Camembert","-","17.83%","Ethereal Engineer",19524
-"Lost City","Curse Lifted","Dewthief Camembert","-","3.82%","Cursed",19524
-"Lost City","Cursed","Dewthief Camembert","-","24.05%","Ethereal Enchanter",11825
-"Lost City","Cursed","Dewthief Camembert","-","20.65%","Ethereal Librarian",11825
-"Lost City","Cursed","Dewthief Camembert","-","20.37%","Ethereal Engineer",11825
-"Lost City","Cursed","Dewthief Camembert","-","19.61%","Ethereal Thief",11825
-"Lost City","Cursed","Dewthief Camembert","-","15.32%","Cursed",11825
-"Lost City","Curse Lifted","Dewthief Camembert","Safeguard","23.11%","Ethereal Librarian",3449
-"Lost City","Curse Lifted","Dewthief Camembert","Safeguard","21.31%","Essence Collector",3449
-"Lost City","Curse Lifted","Dewthief Camembert","Safeguard","19.57%","Ethereal Enchanter",3449
-"Lost City","Curse Lifted","Dewthief Camembert","Safeguard","18.06%","Ethereal Engineer",3449
-"Lost City","Curse Lifted","Dewthief Camembert","Safeguard","17.95%","Ethereal Thief",3449
+Error: Connection lost: The server closed the connection.
+    at Socket.<anonymous> (/home/runner/work/MH-Tools/MH-Tools/node_modules/mysql2/lib/base/connection.js:113:31)
+    at Socket.emit (node:events:508:28)
+    at TCP.<anonymous> (node:net:346:12)
