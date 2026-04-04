@@ -1,31 +1,31 @@
 "Location","Phase","Cheese","Charm","Attraction Rate","Mouse","Sample Size"
-"Catacombs","-","Radioactive Blue","-","15.98%","Skeleton",27760
-"Catacombs","-","Radioactive Blue","-","13.89%","Ghost",27760
-"Catacombs","-","Radioactive Blue","-","9.05%","Spider",27760
-"Catacombs","-","Radioactive Blue","-","8.83%","Ooze",27760
-"Catacombs","-","Radioactive Blue","-","8.14%","Scavenger",27760
-"Catacombs","-","Radioactive Blue","-","8.08%","Keeper's Assistant",27760
-"Catacombs","-","Radioactive Blue","-","6.72%","Giant Snail",27760
-"Catacombs","-","Radioactive Blue","-","6.44%","Mummy",27760
-"Catacombs","-","Radioactive Blue","-","4.55%","Terror Knight",27760
-"Catacombs","-","Radioactive Blue","-","4.45%","Vampire",27760
-"Catacombs","-","Radioactive Blue","-","3.86%","Zombie",27760
-"Catacombs","-","Radioactive Blue","-","3.77%","Bat",27760
-"Catacombs","-","Radioactive Blue","-","2.60%","Golem",27760
-"Catacombs","-","Radioactive Blue","-","1.82%","Keeper",27760
-"Catacombs","-","Radioactive Blue","-","0.85%","Lycan",27760
-"Catacombs","-","Radioactive Blue","-","0.52%","Monster",27760
-"Catacombs","-","Radioactive Blue","-","0.31%","Gluttonous Zombie",27760
-"Catacombs","-","Radioactive Blue","-","0.15%","Black Widow",27760
-"Catacombs","-","Ancient","-","17.40%","Skeleton",19691
-"Catacombs","-","Ancient","-","14.71%","Spider",19691
-"Catacombs","-","Ancient","-","14.22%","Ooze",19691
-"Catacombs","-","Ancient","-","12.90%","Scavenger",19691
-"Catacombs","-","Ancient","-","12.52%","Keeper's Assistant",19691
-"Catacombs","-","Ancient","-","12.25%","Keeper",19691
-"Catacombs","-","Ancient","-","7.30%","Terror Knight",19691
-"Catacombs","-","Ancient","-","4.40%","Golem",19691
-"Catacombs","-","Ancient","-","4.29%","Vampire",19691
+"Catacombs","-","Radioactive Blue","-","15.95%","Skeleton",28612
+"Catacombs","-","Radioactive Blue","-","13.92%","Ghost",28612
+"Catacombs","-","Radioactive Blue","-","9.05%","Spider",28612
+"Catacombs","-","Radioactive Blue","-","8.85%","Ooze",28612
+"Catacombs","-","Radioactive Blue","-","8.19%","Scavenger",28612
+"Catacombs","-","Radioactive Blue","-","8.08%","Keeper's Assistant",28612
+"Catacombs","-","Radioactive Blue","-","6.75%","Giant Snail",28612
+"Catacombs","-","Radioactive Blue","-","6.37%","Mummy",28612
+"Catacombs","-","Radioactive Blue","-","4.55%","Terror Knight",28612
+"Catacombs","-","Radioactive Blue","-","4.45%","Vampire",28612
+"Catacombs","-","Radioactive Blue","-","3.87%","Zombie",28612
+"Catacombs","-","Radioactive Blue","-","3.73%","Bat",28612
+"Catacombs","-","Radioactive Blue","-","2.60%","Golem",28612
+"Catacombs","-","Radioactive Blue","-","1.83%","Keeper",28612
+"Catacombs","-","Radioactive Blue","-","0.85%","Lycan",28612
+"Catacombs","-","Radioactive Blue","-","0.52%","Monster",28612
+"Catacombs","-","Radioactive Blue","-","0.30%","Gluttonous Zombie",28612
+"Catacombs","-","Radioactive Blue","-","0.15%","Black Widow",28612
+"Catacombs","-","Ancient","-","17.40%","Skeleton",19708
+"Catacombs","-","Ancient","-","14.72%","Spider",19708
+"Catacombs","-","Ancient","-","14.21%","Ooze",19708
+"Catacombs","-","Ancient","-","12.91%","Scavenger",19708
+"Catacombs","-","Ancient","-","12.53%","Keeper's Assistant",19708
+"Catacombs","-","Ancient","-","12.24%","Keeper",19708
+"Catacombs","-","Ancient","-","7.30%","Terror Knight",19708
+"Catacombs","-","Ancient","-","4.39%","Golem",19708
+"Catacombs","-","Ancient","-","4.29%","Vampire",19708
 "Catacombs","-","Moon","-","45.33%","Lycan",3159
 "Catacombs","-","Moon","-","17.51%","Scavenger",3159
 "Catacombs","-","Moon","-","11.68%","Ghost",3159
@@ -34,24 +34,24 @@
 "Catacombs","-","Moon","-","6.62%","Bat",3159
 "Catacombs","-","Moon","-","4.18%","Vampire",3159
 "Catacombs","-","Moon","-","0.66%","Gluttonous Zombie",3159
-"Catacombs","-","Crescent","-","44.98%","Lycan",1772
-"Catacombs","-","Crescent","-","18.62%","Scavenger",1772
-"Catacombs","-","Crescent","-","11.17%","Ghost",1772
-"Catacombs","-","Crescent","-","6.94%","Bat",1772
-"Catacombs","-","Crescent","-","6.26%","Mummy",1772
-"Catacombs","-","Crescent","-","6.09%","Zombie",1772
-"Catacombs","-","Crescent","-","5.14%","Vampire",1772
-"Catacombs","-","Crescent","-","0.79%","Gluttonous Zombie",1772
-"Catacombs","-","Undead Emmental","-","17.19%","Mummy",6951
-"Catacombs","-","Undead Emmental","-","15.88%","Ghost",6951
-"Catacombs","-","Undead Emmental","-","14.00%","Grave Robber",6951
-"Catacombs","-","Undead Emmental","-","11.21%","Zombot Unipire",6951
-"Catacombs","-","Undead Emmental","-","9.88%","Vampire",6951
-"Catacombs","-","Undead Emmental","-","9.65%","Skeleton",6951
-"Catacombs","-","Undead Emmental","-","9.42%","Terror Knight",6951
-"Catacombs","-","Undead Emmental","-","6.53%","Ravenous Zombie",6951
-"Catacombs","-","Undead Emmental","-","3.93%","Zombie",6951
-"Catacombs","-","Undead Emmental","-","2.30%","Gluttonous Zombie",6951
+"Catacombs","-","Crescent","-","45.01%","Lycan",1773
+"Catacombs","-","Crescent","-","18.61%","Scavenger",1773
+"Catacombs","-","Crescent","-","11.17%","Ghost",1773
+"Catacombs","-","Crescent","-","6.94%","Bat",1773
+"Catacombs","-","Crescent","-","6.26%","Mummy",1773
+"Catacombs","-","Crescent","-","6.09%","Zombie",1773
+"Catacombs","-","Crescent","-","5.13%","Vampire",1773
+"Catacombs","-","Crescent","-","0.79%","Gluttonous Zombie",1773
+"Catacombs","-","Undead Emmental","-","17.20%","Mummy",6955
+"Catacombs","-","Undead Emmental","-","15.89%","Ghost",6955
+"Catacombs","-","Undead Emmental","-","14.00%","Grave Robber",6955
+"Catacombs","-","Undead Emmental","-","11.21%","Zombot Unipire",6955
+"Catacombs","-","Undead Emmental","-","9.88%","Vampire",6955
+"Catacombs","-","Undead Emmental","-","9.65%","Skeleton",6955
+"Catacombs","-","Undead Emmental","-","9.42%","Terror Knight",6955
+"Catacombs","-","Undead Emmental","-","6.53%","Ravenous Zombie",6955
+"Catacombs","-","Undead Emmental","-","3.93%","Zombie",6955
+"Catacombs","-","Undead Emmental","-","2.30%","Gluttonous Zombie",6955
 "Catacombs","-","Radioactive Blue","Antiskele","16.82%","Ghost",8824
 "Catacombs","-","Radioactive Blue","Antiskele","11.12%","Spider",8824
 "Catacombs","-","Radioactive Blue","Antiskele","10.81%","Ooze",8824
@@ -93,12 +93,12 @@
 "Catacombs","-","Crescent","Antiskele","4.64%","Bat",151
 "Catacombs","-","Crescent","Antiskele","1.99%","Vampire",151
 "Catacombs","-","Crescent","Antiskele","1.32%","Gluttonous Zombie",151
-"Catacombs","-","Undead Emmental","Antiskele","20.01%","Mummy",6608
-"Catacombs","-","Undead Emmental","Antiskele","17.12%","Ghost",6608
-"Catacombs","-","Undead Emmental","Antiskele","14.91%","Grave Robber",6608
-"Catacombs","-","Undead Emmental","Antiskele","12.79%","Zombot Unipire",6608
-"Catacombs","-","Undead Emmental","Antiskele","11.11%","Vampire",6608
-"Catacombs","-","Undead Emmental","Antiskele","10.58%","Terror Knight",6608
-"Catacombs","-","Undead Emmental","Antiskele","6.58%","Ravenous Zombie",6608
-"Catacombs","-","Undead Emmental","Antiskele","4.71%","Zombie",6608
-"Catacombs","-","Undead Emmental","Antiskele","2.21%","Gluttonous Zombie",6608
+"Catacombs","-","Undead Emmental","Antiskele","20.00%","Mummy",6609
+"Catacombs","-","Undead Emmental","Antiskele","17.11%","Ghost",6609
+"Catacombs","-","Undead Emmental","Antiskele","14.90%","Grave Robber",6609
+"Catacombs","-","Undead Emmental","Antiskele","12.79%","Zombot Unipire",6609
+"Catacombs","-","Undead Emmental","Antiskele","11.11%","Vampire",6609
+"Catacombs","-","Undead Emmental","Antiskele","10.59%","Terror Knight",6609
+"Catacombs","-","Undead Emmental","Antiskele","6.58%","Ravenous Zombie",6609
+"Catacombs","-","Undead Emmental","Antiskele","4.71%","Zombie",6609
+"Catacombs","-","Undead Emmental","Antiskele","2.21%","Gluttonous Zombie",6609
