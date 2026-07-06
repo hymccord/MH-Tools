@@ -530,10 +530,7 @@ function processMap(mapText, toolType) {
     if (mouseName.length === 0) continue;
     mouseName = mouseName.trim();
     mouseName = mouseName.replace(/’/g, "'"); // iOS right apostrophe
-    var indexOfMouse = mouseName.indexOf(" Mouse"); // Make this more robust?
-    if (indexOfMouse >= 0) {
-      mouseName = mouseName.slice(0, indexOfMouse);
-    }
+    mouseName = mouseName.replace(/ Mouse$/, ""); // Remove trailing " Mouse" from names
 
     var origName = mouseName;
     mouseName = NAME_MAP[mouseName.toLowerCase()];
