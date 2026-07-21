@@ -565,6 +565,29 @@
         return sbfStage;
       }
       return "Any Room";
+    } else if (userLocation === "Cerulean Skyport") {
+      const quest = userQuests["QuestCeruleanSkyport"];
+      const isShipping = quest["is_shipping"];
+      const isIntercepting = quest["is_intercepting"];
+
+      if (isIntercepting) {
+        const area = quest["current_raid"]["name"];
+        return `Intercepting - ${area}`;
+      } else if (isShipping) {
+        const type = (() => {
+          switch (quest["current_shipment"]["type"]) {
+            case 'gas_shipment':
+              return 'Atmo';
+            case 'cloudstone_shipment':
+              return 'Mining';
+            case 'spice_shipment':
+              return 'Spice';
+          }
+        })();
+        return `Shipping - ${type}`;
+      }
+
+      return "Docked";
     }
 
     return "N/A";
